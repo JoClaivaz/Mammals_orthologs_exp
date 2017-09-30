@@ -61,7 +61,7 @@ def extract_ortholog_fasta_sequence (list_considered_specie = ['BOVIN', 'GORGO',
     for species in dict_species.keys():
         unique_ortholog = open('%s%s%s' % (pair_ortho_path, regexp_output, species), 'w')
         for sequence in dict_species[species].keys():
-            unique_ortholog.write('> %s\n%s\n' % (sequence, dict_species[species][sequence]))
+            unique_ortholog.write('>%s\n%s\n' % (sequence, dict_species[species][sequence]))
         unique_ortholog.close()
     #
     
