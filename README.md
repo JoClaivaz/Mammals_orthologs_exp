@@ -27,20 +27,35 @@ Considered orthologs:
 
 ###Script folder
 ##Domain_modification_inference subfolder
-*'extract_ortholog_fasta_sequence.py'
+#AIM
+Filter out repeted domain, which are less informative and less susceptible to present domain architecture rearrengement
+#'extract_ortholog_fasta_sequence.py'
 extraction of the amino acid fasta sequence in function of the considered ortholog pairs, write files with considered protein sequence.
-Input: 'pairwise_ortholog_HUMAN_SPECIE2' and 'oma-seqs.fa'
+Input: 'pairwise_ortholog_HUMAN_SPECIE2.txt' and 'oma-seqs.fa'
 Output: 'protein_sequence_HUMAN' and 'protein_sequence_SPECIE2'
 
-*'domainDIFF_output_organization_and_execution.py'
+#'domainDIFF_output_organization_and_execution.py'
 create each pairwise file with domain inferred from pfmascan necessary for running domainDiff program (from Carsten, university Münster)
 Input: 'Specie2_domain' and 'HUMAN_domain' (output from pfamscan)
 Output: 'ortholog_HUMAN_Specie2_domain' and 'ortholog_HUMAN_Specie2_domain_modifications' (from script and domainDiff)
 
+#'extract_ortholog_modification_group.py'
+extraction of pair without domain modification (control group in analysis, same domain architecture sequence), complex domain modification (with the same number of domain in both gene of a pair but not the same sequence or more than 1 domain difference), domain modification with 1 domain difference (group of interest, one domain of difference (not consider the kind of domain in this step)). All considered pair have at least one domain inferred by pfamscan.
+Input: 'ortholog_HUMAN_Specie2_domain' and 'pairwise_ortholog_HUMAN_Specie2.txt'
+Output: 'ortholog_HUMAN_Specie2_domain_nomodif', 'ortholog_HUMAN_Specie2_domain_complex_modif' and 'ortholog_HUMAN_Specie2_1_domain_modif'.
+
+#'extract_parameter_ortholog_from_pfamscan.py'
+parsing the output of pfamscan in function of the considered ortholog pairs, each considered ortholog pair has a unique pair number identifier. parameter '1:1' is used, because of unique orthologs study.
+Input: 'pairwise_ortholog_HUMAN_Specie2.txt' (from OMA) and 'ortholog_HUMAN_Specie2_domain' (output pfamscan)
+Output: 'unique_ortholog_HUMAN_Specie2_domain_parsed'
+
+
 ###Pipeline
 ##Domain_modification_inference
-1. recover fasta sequence from http://omabrowser.org/oma/current/
-2. recover homology relationship from http://omabrowser.org/oma/genomePW/ 
-3. run python script 'extract_ortolog_fasta_sequence.py'
-4. run pfamscan perl tool on 'protein_sequence_HUMAN' and 'protein_sequence_SPECIE2' > 'Specie2_domain' and 'HUMAN_domain'
-4. run python script 'domainDIFF_output_organization_and_execution.py'
+	1. recover fasta sequence from http://omabrowser.org/oma/current/
+	2. recover homology relationship from http://omabrowser.org/oma/genomePW/ 
+	3. run python script 'extract_ortolog_fasta_sequence.py'
+	4. run pfamscan perl tool on 'protein_sequence_HUMAN' and 'protein_sequence_SPECIE2' > 'Specie2_domain' and 'HUMAN_domain'
+	5. run python script 'domainDIFF_output_organization_and_execution.py'
+	6. run 'extract_ortholog_modification_group.py'
+	7. run 'extract_parameter_ortholog_from_pfamscan.py'
