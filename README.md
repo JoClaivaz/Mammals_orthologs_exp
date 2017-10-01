@@ -54,6 +54,11 @@ extraction of pair which have at least one domain inferred by pfamscan (both/par
 Input: 'ortholog_HUMAN_Specie2_domain' and 'pairwise_ortholog_HUMAN_Specie2.txt'
 Output: 'ortholog_HUMAN_Specie2_both', 'ortholog_HUMAN_Specie2_partial' and 'ortholog_HUMAN_Specie2_none'.
 
+#'extract_ortholog_domain_loss_domainDiff.py'
+intersect of ortholog pair with one domain modification in N- or C- termini of the protein inferred by domainDIFF and the loss domain is not part of a repetition inferred by 'extract_ortholog_repeated_domain.py'
+Input: 'ortholog_HUMAN_Species2_1_domain_notrepeated' and 'ortholog_HUMAN_Specie2_domain_modifications'
+Output: 'final_pair_HUMAN_Specie2_domain_loss'
+
 ###Pipeline
 ##Domain_modification_inference
 	1. recover fasta sequence from http://omabrowser.org/oma/current/
@@ -64,3 +69,4 @@ Output: 'ortholog_HUMAN_Specie2_both', 'ortholog_HUMAN_Specie2_partial' and 'ort
 	6. run 'extract_ortholog_modification_group.py'
 	7. run 'extract_ortholog_repeated_domain.py'
 	8. run 'extract_ortholog_pfamscan_status.py'
+	9. run 'extract_ortholog_domain_loss_domainDiff.py'
