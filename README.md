@@ -51,7 +51,8 @@ Output: 'ortholog_HUMAN_Species2_1_domain_notrepeated', 'ortholog_HUMAN_Species2
 
 #'extract_ortholog_pfamscan_status.py'
 extraction of pair which have at least one domain inferred by pfamscan (both/partial/none), usefull for analysis of this step
-
+Input: 'ortholog_HUMAN_Specie2_domain' and 'pairwise_ortholog_HUMAN_Specie2.txt'
+Output: 'ortholog_HUMAN_Specie2_both', 'ortholog_HUMAN_Specie2_partial' and 'ortholog_HUMAN_Specie2_none'.
 
 ###Pipeline
 ##Domain_modification_inference

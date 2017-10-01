@@ -45,7 +45,7 @@ def extract_ortholog_modification(PairOrtho_in,
     Domain_file_modif_1 = open(Domain_file_out + '_1_domain_modif', 'w')
     #
     
-    #check if the considered pair have at least one domain inferred by pfamscan and 
+    #check if the considered pair have at least one domain inferred by pfamscan and store the pair in the appropriate final group
     PairOrtho = open(PairOrtho_in, 'r')
     for pair_ortho in PairOrtho:    
         if parameter in pair_ortho:
