@@ -44,10 +44,10 @@ extraction of pair without domain modification (control group in analysis, same 
 Input: 'ortholog_HUMAN_Specie2_domain' and 'pairwise_ortholog_HUMAN_Specie2.txt'
 Output: 'ortholog_HUMAN_Specie2_domain_nomodif', 'ortholog_HUMAN_Specie2_domain_complex_modif' and 'ortholog_HUMAN_Specie2_1_domain_modif'.
 
-#'extract_parameter_ortholog_from_pfamscan.py'
-parsing the output of pfamscan in function of the considered ortholog pairs, each considered ortholog pair has a unique pair number identifier. parameter '1:1' is used, because of unique orthologs study.
-Input: 'pairwise_ortholog_HUMAN_Specie2.txt' (from OMA) and 'ortholog_HUMAN_Specie2_domain' (output pfamscan)
-Output: 'unique_ortholog_HUMAN_Specie2_domain_parsed'
+#'extract_ortholog_repeated_domain.py'
+extration of pair with 1 domain modification and not involved in domain repetition
+Input: 'ortholog_HUMAN_Specie2_1_domain_modif' and 'ortholog_HUMAN_Specie2_domain' (output pfamscan)
+Output: 'ortholog_HUMAN_Species2_1_domain_notrepeated', 'ortholog_HUMAN_Species2_1_domain_repeated', 'ortholog_HUMAN_Species2_1_domain_complex_modif'
 
 
 ###Pipeline
@@ -58,4 +58,4 @@ Output: 'unique_ortholog_HUMAN_Specie2_domain_parsed'
 	4. run pfamscan perl tool on 'protein_sequence_HUMAN' and 'protein_sequence_SPECIE2' > 'Specie2_domain' and 'HUMAN_domain'
 	5. run python script 'domainDIFF_output_organization_and_execution.py'
 	6. run 'extract_ortholog_modification_group.py'
-	7. run 'extract_parameter_ortholog_from_pfamscan.py'
+	7. run 'extract_ortholog_repeated_domain.py'
