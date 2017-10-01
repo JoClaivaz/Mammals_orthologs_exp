@@ -16,19 +16,19 @@ Considered orthologs:
 
 
 7 pairwise species comparisons are considered HUMAN against (Specie2):
-  -BOVIN
-  -GORGO
-  -MACMU
-  -MONDO
-  -MOUSE
-  -PANTR
-  -PIGXX
-  
+	-BOVIN
+	-GORGO
+	-MACMU
+	-MONDO
+	-MOUSE
+	-PANTR
+	-PIGXX
+
 
 ###Script folder
 ##Domain_modification_inference subfolder
 #AIM
-Filter out repeted domain, which are less informative and less susceptible to present domain architecture rearrengement
+Filter out domain loss which are repeated in domain architecture, which are less informative and less susceptible to present expresssion pattern shift
 #'extract_ortholog_fasta_sequence.py'
 extraction of the amino acid fasta sequence in function of the considered ortholog pairs, write files with considered protein sequence.
 Input: 'pairwise_ortholog_HUMAN_SPECIE2.txt' and 'oma-seqs.fa'
@@ -59,6 +59,11 @@ intersect of ortholog pair with one domain modification in N- or C- termini of t
 Input: 'ortholog_HUMAN_Species2_1_domain_notrepeated' and 'ortholog_HUMAN_Specie2_domain_modifications'
 Output: 'final_pair_HUMAN_Specie2_domain_loss'
 
+#'domain_modification_analysis.py' and 'barplot_result_domain_modification.R'
+analysis number of gene available in the different files produced through this step, and use R script to obtained plot
+Input: all the files produced for 'Domain_modification_inference'
+Ouput: barplot visualization
+
 ###Pipeline
 ##Domain_modification_inference
 	1. recover fasta sequence from http://omabrowser.org/oma/current/
@@ -70,3 +75,4 @@ Output: 'final_pair_HUMAN_Specie2_domain_loss'
 	7. run 'extract_ortholog_repeated_domain.py'
 	8. run 'extract_ortholog_pfamscan_status.py'
 	9. run 'extract_ortholog_domain_loss_domainDiff.py'
+	10. Use 'domain_modification_analysis.py' and 'barplot_result_domain_modification.R'
