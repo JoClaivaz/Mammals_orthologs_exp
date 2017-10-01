@@ -34,12 +34,12 @@ def domainDIFF_output_organization_and_execution(list_species = ['BOVIN', 'GORGO
 		#
 
 		#exececute domainDIFF
-		import subprocess
 		
 		bash_command = '%s -a %s > %sortholog_%s_%s_domain_modifications' % (path_domainDIFF, output_file_considered, path_input, central_species, considered_species)
 		print(bash_command)
 	
 		#DOESN'T WORK REWORK ON IT
+		#import subprocess	
 		#subprocess.run(bash_command.split(' '), shell = True)
 		#
 

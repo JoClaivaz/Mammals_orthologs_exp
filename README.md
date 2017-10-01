@@ -49,6 +49,9 @@ extration of pair with 1 domain modification and not involved in domain repetiti
 Input: 'ortholog_HUMAN_Specie2_1_domain_modif' and 'ortholog_HUMAN_Specie2_domain' (output pfamscan)
 Output: 'ortholog_HUMAN_Species2_1_domain_notrepeated', 'ortholog_HUMAN_Species2_1_domain_repeated', 'ortholog_HUMAN_Species2_1_domain_complex_modif'
 
+#'extract_ortholog_pfamscan_status.py'
+extraction of pair which have at least one domain inferred by pfamscan (both/partial/none), usefull for analysis of this step
+
 
 ###Pipeline
 ##Domain_modification_inference
@@ -59,3 +62,4 @@ Output: 'ortholog_HUMAN_Species2_1_domain_notrepeated', 'ortholog_HUMAN_Species2
 	5. run python script 'domainDIFF_output_organization_and_execution.py'
 	6. run 'extract_ortholog_modification_group.py'
 	7. run 'extract_ortholog_repeated_domain.py'
+	8. run 'extract_ortholog_pfamscan_status.py'
