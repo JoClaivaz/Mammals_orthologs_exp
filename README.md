@@ -71,10 +71,16 @@ Ouput: barplot visualization
 extract unique Anatomical entity name and Stage name for each expression dataset from Bgee, allowing the choice of the species (with at least 6 common tissue with the central species, here HUMAN)
 Input: * all expression data from Bgee
 Output: 'tissue_available_bgee'
+This script extract the expression data specific to the considered ortholog pair (control and 1 domain modification) and tissue selectionned, and write a smaller new file
+N.B.: species chosen with at least 6 equivalent tissue data expression in human
+
+#'extraction_state_expression_file.py'
+Input: all dataset of 'ortholog_HUMAN_Specie2_domain_nomodif' and 'final_pair_HUMAN_Specie2_domain_loss' and expression files from Bgee, 'oma-ensembl' from OMA, list of considered species and tissues
+Output: 'Species2_expression_parsed' and 'HUMAN_expression_parsed'
 
 ###Pipeline
 ##Domain_modification_inference
-	1. recover fasta sequence from http://omabrowser.org/oma/current/
+	1. recover fasta sequence ('oma-seqs.fa') from http://omabrowser.org/oma/current/
 	2. recover homology relationship from http://omabrowser.org/oma/genomePW/ 
 	3. run python script 'extract_ortolog_fasta_sequence.py'
 	4. run pfamscan perl tool on 'protein_sequence_HUMAN' and 'protein_sequence_SPECIE2' > 'Specie2_domain' and 'HUMAN_domain'
@@ -86,4 +92,7 @@ Output: 'tissue_available_bgee'
 	10. Use 'domain_modification_analysis.py' and 'barplot_result_domain_modification.R'
 
 ##Analysis
-	1. run 'tissue_availability_mammals_bgee.py' (not mendatory if the species are selected and the states are known)
+	1. recover expression data from http://bgee.org/
+	2. recover a table of conversion between OMA and Bgee identifier ('oma-ensembl') from http://omabrowser.org/oma/current/
+	3. run 'tissue_availability_mammals_bgee.py' (not mendatory if the species are selected and the states are known)
+	4. run 'extraction_state_expression_file.py'
