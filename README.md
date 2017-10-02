@@ -65,6 +65,13 @@ analysis number of gene available in the different files produced through this s
 Input: all the files produced for 'Domain_modification_inference'
 Ouput: barplot visualization
 
+
+##Analysis
+#'tissue_availability_mammals_bgee.py'
+extract unique Anatomical entity name and Stage name for each expression dataset from Bgee, allowing the choice of the species (with at least 6 common tissue with the central species, here HUMAN)
+Input: * all expression data from Bgee
+Output: 'tissue_available_bgee'
+
 ###Pipeline
 ##Domain_modification_inference
 	1. recover fasta sequence from http://omabrowser.org/oma/current/
@@ -77,3 +84,6 @@ Ouput: barplot visualization
 	8. run 'extract_ortholog_pfamscan_status.py'
 	9. run 'extract_ortholog_domain_loss_domainDiff.py'
 	10. Use 'domain_modification_analysis.py' and 'barplot_result_domain_modification.R'
+
+##Analysis
+	1. run 'tissue_availability_mammals_bgee.py' (not mendatory if the species are selected and the states are known)
