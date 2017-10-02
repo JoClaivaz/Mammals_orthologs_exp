@@ -15,7 +15,7 @@ Considered orthologs:
   -Results cross with domainDIFF (Carsten program, University Mûnster)
 
 
-7 pairwise species comparisons are considered HUMAN against (Specie2):
+8 pairwise species comparisons are considered HUMAN against (Specie2):
 	-BOVIN
 	-GORGO
 	-MACMU
@@ -23,6 +23,7 @@ Considered orthologs:
 	-MOUSE
 	-PANTR
 	-PIGXX
+	-RATNO
 
 
 ###Script folder

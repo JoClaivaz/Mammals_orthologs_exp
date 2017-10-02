@@ -73,7 +73,7 @@ def extract_ortholog_modification(PairOrtho_in,
     
 #Run the function / WINDOWS
 #In different mammals
-def run_function_in_mammals_dataset(list_mammals = ['BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX'], 
+def run_function_in_mammals_dataset(list_mammals = ['BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO'], 
                                     central_mammals = 'HUMAN'):
     for considered_mammals in list_mammals:
         extract_ortholog_modification(PairOrtho_in = 'D:/UNIL/Master/Master_Project/Data/OMA/pairwise_ortholog_%s_%s.txt' % (central_mammals, considered_mammals),

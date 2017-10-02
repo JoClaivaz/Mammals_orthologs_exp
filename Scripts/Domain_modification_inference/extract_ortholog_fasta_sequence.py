@@ -10,7 +10,7 @@ subset of one parameter (e.g. '1:1', unique ortholog, ':' all pair).
 ###Function
 import os
 
-def extract_ortholog_fasta_sequence (list_considered_specie = ['BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX'], 
+def extract_ortholog_fasta_sequence (list_considered_specie = ['BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO'], 
                                      pair_ortho_path = 'D:/UNIL/Master/Master_Project/Data/OMA/', 
                                      sequence_file_input = 'D:/UNIL/Master/Master_Project/Data/OMA/fasta_seq/oma-seqs.fa',
                                      regexp_pair_ortho = 'pairwise_ortholog',

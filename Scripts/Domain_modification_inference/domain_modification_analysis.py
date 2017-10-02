@@ -32,7 +32,7 @@ def number_pair_in_file(file_in, reg_exp = False):
 
 #Run the function / WINDOWS
 #In different mammals
-def run_function_in_mammals_dataset(list_mammals = ['BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX'], 
+def run_function_in_mammals_dataset(list_mammals = ['BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO'], 
                                     central_mammals = 'HUMAN'):
     dict_results = {}
     path_file = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/'

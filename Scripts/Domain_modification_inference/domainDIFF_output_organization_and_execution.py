@@ -7,7 +7,7 @@ Created on Sat Sep 30 20:28:30 2017
 this script create the pair domain file mendatory for domainDIFF, and execute the domainDIFF program with the output
 """
 
-def domainDIFF_output_organization_and_execution(list_species = ['BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX'], central_species = 'HUMAN', path_input= '/media/jclaivaz/Data/UNIL/Master/Master_Project/Data/domain_architecture_inference/', regexp_output = 'ortholog', path_domainDIFF = '/home/jclaivaz/Bureau/PfamScan/domainDiff'):
+def domainDIFF_output_organization_and_execution(list_species = ['BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO'], central_species = 'HUMAN', path_input= '/media/jclaivaz/Data/UNIL/Master/Master_Project/Data/domain_architecture_inference/', regexp_output = 'ortholog', path_domainDIFF = '/home/jclaivaz/Bureau/PfamScan/domainDiff'):
 	
 	#organization
 	central_species_file = open('%s%s_domain' % (path_input, central_species), 'r')
