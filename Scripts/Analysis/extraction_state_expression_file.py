@@ -7,7 +7,7 @@ parsed the expression files:
     -keeping only comparable state
     -Gene present in 1 domain not repeated or no modification
         -stor all the pairwise for human
-    -use ENSEMBL identifier and replace the OMA one
+    -use ENSEMBL identifier and replace it with the OMA one
     -create one expression file for each mammals species
 
 N.B.: expression directories is organized as one folder per species containing the specific expression files 
