@@ -81,6 +81,9 @@ N.B.: central speceies homology and status column are not available for central 
 Input: all dataset of 'ortholog_HUMAN_Specie2_domain_nomodif' and 'final_pair_HUMAN_Specie2_domain_loss' and expression files from Bgee, 'oma-ensembl' from OMA, list of considered species and tissues
 Output: 'Species2_expression_parsed' and 'HUMAN_expression_parsed'
 
+#'barplot_result_expression_analysis.R'
+barplot visualization of the available pair in expression data
+
 ###Pipeline
 ##Domain_modification_inference
 	1. recover fasta sequence ('oma-seqs.fa') from http://omabrowser.org/oma/current/
