@@ -6,7 +6,8 @@ Created on Mon Oct  2 14:26:48 2017
 parsed the expression files: 
     -keeping only comparable state
     -Gene present in 1 domain not repeated or no modification
-        -stor all the pairwise for human
+        -store all the pairwise expression data for human
+        -store all the pairwise expression data and domain analysis data for other species 
     -use ENSEMBL identifier and replace it with the OMA one
     -create one expression file for each mammals species
 
@@ -35,14 +36,28 @@ def extraction_state_expression_file(considered_tissues = ['adult mammalian kidn
                                    'final_pair_%s_%s_domain_loss' % (central_species, considered_species_tmp)]
         
         for control_or_modif in control_modif_pair_name:
-        
-            open_file_modif = open(control_modification_pairs_folder_path + control_or_modif, 'r')
+            open_file_conmodif = open(control_modification_pairs_folder_path + control_or_modif, 'r')
             
-            for line_modif in open_file_modif:
-                dict_gene[line_modif.split('\t')[0].rstrip('0123456789')][line_modif.split('\t')[0]] = ''
-                dict_gene[line_modif.split('\t')[2].rstrip('0123456789')][line_modif.split('\t')[2]] = ''
-            
-            open_file_modif.close()
+            for line_conmodif in open_file_conmodif:
+                if 'domain_loss' in control_or_modif:
+                    if central_species in line_conmodif.split('\t')[0]:
+                        dict_gene[line_conmodif.split('\t')[0].rstrip('0123456789')][line_conmodif.split('\t')[0]] = ''
+                        dict_gene[line_conmodif.split('\t')[2].rstrip('0123456789')][line_conmodif.split('\t')[2]] = 'modif\t%s' % (line_conmodif.split('\t')[0])
+                    
+                    else:
+                        dict_gene[line_conmodif.split('\t')[0].rstrip('0123456789')][line_conmodif.split('\t')[0]] = 'modif\t%s' % (line_conmodif.split('\t')[2])
+                        dict_gene[line_conmodif.split('\t')[2].rstrip('0123456789')][line_conmodif.split('\t')[2]] = ''
+                    
+                else:
+                    if central_species in line_conmodif.split('\t')[0]:
+                        dict_gene[line_conmodif.split('\t')[0].rstrip('0123456789')][line_conmodif.split('\t')[0]] = ''
+                        dict_gene[line_conmodif.split('\t')[2].rstrip('0123456789')][line_conmodif.split('\t')[2]] = 'control\t%s' % (line_conmodif.split('\t')[0])
+                    
+                    else:
+                        dict_gene[line_conmodif.split('\t')[0].rstrip('0123456789')][line_conmodif.split('\t')[0]] = 'control\t%s' % (line_conmodif.split('\t')[2])
+                        dict_gene[line_conmodif.split('\t')[2].rstrip('0123456789')][line_conmodif.split('\t')[2]] = ''
+                
+            open_file_conmodif.close()
     
     #store ensembl and oma identifier considered into dictionary
     omaensembl_file = open(oma_ensembl_converter, 'r')
@@ -50,42 +65,75 @@ def extraction_state_expression_file(considered_tissues = ['adult mammalian kidn
     
     for omaensembl_line in omaensembl_file:
         oma_identifier = omaensembl_line.split('\t')[0] 
+        
         try:
             dict_gene[oma_identifier.rstrip('0123456789')][oma_identifier]
-            
             dict_converter[omaensembl_line.split('\t')[1].split('.')[0].split('\n')[0]] = oma_identifier
+            
         except KeyError:
             pass
+        
     omaensembl_file.close()
     
     #parsing expression file in function of the considered pair gene and tissues
     import os
     for all_species in considered_species + [central_species]:
-        different_dataset = os.listdir(path_expression_dir + all_species)
         
-        expression_output = open('%s%s_expression_parsed' % (output_file_path, all_species), 'w')
-        expression_output.write('ExperimentID\tLibraryID\tGeneID\tAnatomicalEntityName\tStageName\tSex\tFPKM\n')
-        
-        for considered_file in different_dataset:
-            if '.zip' not in considered_file:
-                open_file = open('%s%s/%s' % (path_expression_dir, all_species, considered_file), 'r')
-     
-                for line_exp in open_file:
-                    try:
-                        dict_converter[line_exp.split('\t')[3].split('.')[0]]
-                        
-                        if line_exp.split('\t')[5].replace('"', '') in considered_tissues:
-                            expression_output.write('%s\t%s\t%s\t%s\t%s\t%s\t%s\n' 
-                                                    % (line_exp.split('\t')[0], line_exp.split('\t')[1], 
-                                                       dict_converter[line_exp.split('\t')[3].split('.')[0]],
-                                                       line_exp.split('\t')[5].replace('"', ''), line_exp.split('\t')[7], 
-                                                       line_exp.split('\t')[8], line_exp.split('\t')[12]))
-                        
-                    except KeyError:
-                        pass
-        
-                open_file.close()
-        expression_output.close()
-        
+        #The next 'if' statement can be later avoiding the redundance of the script but because the size of some files is quicker to put here unfortunately longer code and unestethic but more efficient
+        if all_species == central_species:
+            different_dataset = os.listdir(path_expression_dir + all_species)
+            expression_output = open('%s%s_expression_parsed' % (output_file_path, all_species), 'w')
+            expression_output.write('ExperimentID\tLibraryID\tGeneID\tAnatomicalEntityName\tStageName\tSex\tFPKM\n')
+            
+            for considered_file in different_dataset:
+                if '.zip' not in considered_file:
+                    open_file = open('%s%s/%s' % (path_expression_dir, all_species, considered_file), 'r')
+         
+                    for line_exp in open_file:
+                        try:
+                            dict_converter[line_exp.split('\t')[3].split('.')[0]]
+                            
+                            if line_exp.split('\t')[5].replace('"', '') in considered_tissues:
+                                expression_output.write('%s\t%s\t%s\t%s\t%s\t%s\t%s\n' 
+                                                        % (line_exp.split('\t')[0], line_exp.split('\t')[1], 
+                                                           dict_converter[line_exp.split('\t')[3].split('.')[0]],
+                                                           line_exp.split('\t')[5].replace('"', ''), line_exp.split('\t')[7], 
+                                                           line_exp.split('\t')[8], line_exp.split('\t')[12]))
+                            
+                        except KeyError:
+                            pass
+            
+                    open_file.close()
+            expression_output.close()
+            
+        else:
+            different_dataset = os.listdir(path_expression_dir + all_species)
+            expression_output = open('%s%s_expression_parsed' % (output_file_path, all_species), 'w')
+            expression_output.write('ExperimentID\tLibraryID\tGeneID\tAnatomicalEntityName\tStageName\tSex\tDomainStatus\t%s_homolog\tFPKM\n' % (central_species)) 
+            
+            for considered_file in different_dataset:
+                if '.zip' not in considered_file:
+                    open_file = open('%s%s/%s' % (path_expression_dir, all_species, considered_file), 'r')
+         
+                    for line_exp in open_file:
+                        try:
+                            dict_converter[line_exp.split('\t')[3].split('.')[0]]
+                            
+                            if line_exp.split('\t')[5].replace('"', '') in considered_tissues:
+                                expression_output.write('%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' 
+                                                        % (line_exp.split('\t')[0], line_exp.split('\t')[1], 
+                                                           dict_converter[line_exp.split('\t')[3].split('.')[0]],
+                                                           line_exp.split('\t')[5].replace('"', ''), line_exp.split('\t')[7], 
+                                                           line_exp.split('\t')[8],
+                                                           dict_gene[dict_converter[line_exp.split('\t')[3].split('.')[0]].rstrip('0123456789')][dict_converter[line_exp.split('\t')[3].split('.')[0]]], 
+                                                           line_exp.split('\t')[12]))
+                            
+                        except KeyError:
+                            pass
+            
+                    open_file.close()
+            expression_output.close()
+            
+            
 #Run FUN
 extraction_state_expression_file()
