@@ -451,7 +451,7 @@ ratno_data = data_organization_one_sex(considered_species_name = 'RATNO',
 ####
 
 ####Tspec analysis####
-##Dataset available / consider only male analysis
+##Dataset available / considered only male analysis
 specie2_data = bovin_data
 specie2_data = gorgo_data
 specie2_data = macmu_data
@@ -460,6 +460,7 @@ specie2_data = mouse_data
 specie2_data = pantr_data
 specie2_data = pigxx_data
 specie2_data = ratno_data
+
 #Distribution effect of domain modification (DomainStatus) on Tspec values 
 hist(specie2_data$tspec[specie2_data$DomainStatus == 'modif'], breaks = 100, freq = F, col = rgb(1, 0 , 0, 0.5), 
      main = paste0('Distribution of tissue specificity values in ', gsub('[[:digit:]]','' ,specie2_data$GeneID[1])), xlab = 'Tspec value', cex.main = 0.9)
@@ -507,7 +508,6 @@ cor.diff.test(specie2_data$tspec[specie2_data$DomainStatus == 'modif'], specie2_
 barplot(c(table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'modif']) / sum(table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'modif'])),
           table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'control']) / table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'control'])),
         cex.names = 0.6, col = c('red', 'blue'), las = 2,
-        names.arg = rep(names(table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'control'])), each = 2),
         main = paste0('Pair proportion in each group of specificity factor\n', gsub('[[:digit:]]', '', specie2_data$GeneID[1])), ylab = 'pair proportion')
 legend('top', c( "domain modification", "control"), fill = c('red','blue'), 
        cex = 0.6, horiz = F)
@@ -515,7 +515,6 @@ legend('top', c( "domain modification", "control"), fill = c('red','blue'),
 barplot(c(table(specie2_data$spec_tissue_human[specie2_data$DomainStatus == 'modif']) / sum(table(specie2_data$spec_tissue_human[specie2_data$DomainStatus == 'modif'])),
           table(specie2_data$spec_tissue_human[specie2_data$DomainStatus == 'control']) / sum(table(specie2_data$spec_tissue_human[specie2_data$DomainStatus == 'control']))),
         cex.names = 0.6, col = c('red', 'blue'), las = 2,
-        names.arg = rep(names(table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'control'])), each = 2),
         main = paste0('Pair proporton in each group of specificity factor\n', gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])), ylab = 'pair proportion')
 legend('top', c( "domain modification", "control"), fill = c('red','blue'), 
        cex = 0.6, horiz = F)
@@ -529,7 +528,6 @@ chisq.test(specie2_data$spec_tissue_human, specie2_data$DomainStatus, correct = 
 barplot(c(table(specie2_data$shift[specie2_data$DomainStatus == 'modif']) / sum(table(specie2_data$shift[specie2_data$DomainStatus == 'modif'])),
           table(specie2_data$shift[specie2_data$DomainStatus == 'control']) / table(specie2_data$shift[specie2_data$DomainStatus == 'control'])),
         cex.names = 0.6, col = c('red', 'blue'), las = 2,
-        names.arg = rep(names(table(specie2_data$shift[specie2_data$DomainStatus == 'control'])), each = 2),
         main = paste0('Proportion pair in each group of shift specificity factor\n', gsub('[[:digit:]]', '', specie2_data$GeneID[1]), ' vs ', gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])), ylab = 'pair proportion')
 legend('top', c( "domain modification", "control"), fill = c('red','blue'), 
        cex = 0.6, horiz = F)
