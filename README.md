@@ -84,6 +84,15 @@ Output: 'Species2_expression_parsed' and 'HUMAN_expression_parsed'
 #'barplot_result_expression_analysis.R'
 barplot visualization of the available pair in expression data
 
+#'Tspec_analysis.R'
+Study the effect of domain modification on Tspec. Script allowed the inference of the different estimator
+HYP assessed:
+	*effect of domain modification on Tspec values for a given species
+	*effect of domain modification on correlation between pairwise species comparisons
+	*effect of domain modification on Tspec factors for a given species
+	*effect of domain modification on Tspec factors shift for a given pairwise species comparison
+Input: 'Species2_expression_parsed' and 'HUMAN_expression_parsed'
+
 ###Pipeline
 ##Domain_modification_inference
 	1. recover fasta sequence ('oma-seqs.fa') from http://omabrowser.org/oma/current/
@@ -102,3 +111,4 @@ barplot visualization of the available pair in expression data
 	2. recover a table of conversion between OMA and Bgee identifier ('oma-ensembl') from http://omabrowser.org/oma/current/
 	3. run 'tissue_availability_mammals_bgee.py' (not mendatory if the species are selected and the states are known)
 	4. run 'extraction_state_expression_file.py'
+	5. use 'Tspec_analysis.R'
