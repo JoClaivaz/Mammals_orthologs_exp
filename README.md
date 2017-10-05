@@ -90,7 +90,9 @@ HYP assessed:
 	*effect of domain modification on Tspec values for a given species
 	*effect of domain modification on correlation between pairwise species comparisons
 	*effect of domain modification on Tspec factors for a given species
+	*effect of domain modfiication on specfic/buiquitous status
 	*effect of domain modification on Tspec factors shift for a given pairwise species comparison
+	*effect of domain architecture length on Tspec
 Input: 'Species2_expression_parsed' and 'HUMAN_expression_parsed'
 
 ###Pipeline

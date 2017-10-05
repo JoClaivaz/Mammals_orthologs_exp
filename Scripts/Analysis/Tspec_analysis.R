@@ -5,6 +5,7 @@ Joaquim Claivaz
 Tspec analysis in mammals
 '''
 ####FUN####
+##Tspec analysis##
 log_transformation_rpkm = function(data_frame, first_column_num){
   for (i in first_column_num:dim(data_frame)[2]){
     data_frame[,i] = log2(data_frame[,i] + 0.000001)
@@ -101,7 +102,9 @@ cor.diff.test = function(x1, x2, y1, y2, method="pearson") {
 
 data_organization_one_sex = function(considered_species_name, 
                                      central_species_name = 'HUMAN',
-                                     considered_sex_list = F){
+                                     considered_sex_list = F,
+                                     considered_anat_list = F,
+                                     considered_devtime_list = F){
   
   specie2_data = read.table(paste0('D:/UNIL/Master/Master_Project/Data/Bgee/',
                                    considered_species_name,
@@ -127,6 +130,20 @@ data_organization_one_sex = function(considered_species_name,
   keep_AnatomicalEntityName = unique(specie2_data$AnatomicalEntityName)[unique(specie2_data$AnatomicalEntityName) %in% unique(central_sp_data$AnatomicalEntityName)]
   central_sp_data = central_sp_data[central_sp_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
   specie2_data = specie2_data[specie2_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
+  #
+  
+  if (considered_anat_list != F){
+    central_sp_data = central_sp_data[central_sp_data$AnatomicalEntityName %in% considered_anat_list,]
+    specie2_data = specie2_data[specie2_data$AnatomicalEntityName %in% considered_anat_list,]
+    
+  }
+  
+  #developmental time filtering
+  if (considered_devtime_list != F){
+    central_sp_data = central_sp_data[central_sp_data$StageName %in% considered_devtime_list,]
+    specie2_data = specie2_data[specie2_data$StageName %in% considered_devtime_list,]
+    
+  }
   #
   
   #MEAN fpkm in function of geneID and AnatomicalEntityName
@@ -226,133 +243,43 @@ data_organization_one_sex = function(considered_species_name,
   
   return(specie2_data)
 }
+##
 
-data_organization_sex_consideration = function(considered_species_name, central_species_name = 'HUMAN'){
+##Effect of longer domain
+##
+add_specie_longer_domain_factor = function(specie2_data, 
+                                           path_output_pfamscan = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/'){
+  central_sp_name = gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])
+  specie2_name = gsub('[[:digit:]]', '', specie2_data$GeneID[1])
   
-  #DOESN'T WORK WELL, NEED CONSIDERATION OF SOME NA IN SEX FOR SOME SPECIES (such as replace NA by 'undefined')
+  specie2_domain = read.table(paste0(path_output_pfamscan, specie2_name, '_domain'))
+  central_sp_domain = read.table(paste0(path_output_pfamscan, central_sp_name, '_domain'))
   
-  specie2_data = read.table(paste0('D:/UNIL/Master/Master_Project/Data/Bgee/',
-                                   considered_species_name,
-                                   '_expression_parsed'), header = T, sep = '\t')
-  central_sp_data = read.table(paste0('D:/UNIL/Master/Master_Project/Data/Bgee/',
-                                      central_species_name,
-                                      '_expression_parsed'), header = T, sep = '\t')
+  specie2_domain = aggregate(V7 ~ V1 , data = specie2_domain, FUN = length)
+  central_sp_domain = aggregate(V7 ~ V1 , data = central_sp_domain, FUN = length)
   
-  #Sex
-  notkeep_Sex = unique(central_sp_data$Sex)[!(unique(central_sp_data$Sex) %in% unique(specie2_data$Sex))]
-  central_sp_data = central_sp_data[!(central_sp_data$Sex %in% notkeep_Sex),]
-  specie2_data = specie2_data[!(specie2_data$Sex %in% notkeep_Sex),]
-  #
-  
-  ##intersect of dataset
-  #AnatomicalEntityName
-  keep_AnatomicalEntityName = unique(specie2_data$AnatomicalEntityName)[unique(specie2_data$AnatomicalEntityName) %in% unique(central_sp_data$AnatomicalEntityName)]
-  central_sp_data = central_sp_data[central_sp_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
-  specie2_data = specie2_data[specie2_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
-  #
-  
-  #MEAN fpkm in function of geneID and AnatomicalEntityName
-  specie2_data = aggregate(specie2_data$FPKM ~ specie2_data$GeneID + specie2_data$AnatomicalEntityName + specie2_data$HUMAN_homolog + specie2_data$DomainStatus + specie2_data$Sex, FUN = mean)
-  names(specie2_data) = c('GeneID', 'Tissue', 'SpecieHomolog', 'DomainStatus', 'Sex', 'FPKM')
-  central_sp_data = aggregate(central_sp_data$FPKM ~ central_sp_data$GeneID + central_sp_data$AnatomicalEntityName + central_sp_data$Sex, FUN = mean)
-  names(central_sp_data) = c('GeneID', 'Tissue', 'Sex', 'FPKM')
-  ##
-  
-  #Group data
-  all(unique(as.character(specie2_data$Tissue)) == unique(as.character(central_sp_data$Tissue)))
-  names_tissue = unique(as.character(specie2_data$Tissue))
-  central_sp_data = aggregate(FPKM ~ GeneID + Sex, data = central_sp_data, paste, collapse = '_')
-  central_sp_data = separate(central_sp_data, col = 'FPKM', sep= '_', into = names_tissue)
-  specie2_data = aggregate(FPKM ~ GeneID + SpecieHomolog + DomainStatus + Sex, data = specie2_data, paste, collapse = '_')
-  specie2_data = separate(specie2_data, col = 'FPKM', sep= '_', into = names_tissue)
-  #
-  
-  #convert fpkm into numerics
-  for (col_tmp in 3:dim(central_sp_data)[2]){
-    central_sp_data[,col_tmp] = as.numeric(central_sp_data[,col_tmp])
-  }
-  
-  for (col_tmp in 5:dim(specie2_data)[2]){
-    specie2_data[,col_tmp] = as.numeric(specie2_data[,col_tmp])
-  }
-  #
-  
-  #Tspec inference with log_transformation
-  central_sp_data = Tspec_inference(central_sp_data, first_column_num = 3)
-  specie2_data = Tspec_inference(specie2_data, first_column_num = 5)
-  #
-  
-  #specificity factor inference
-  central_sp_data = specificity_inference(central_sp_data, first_column_num = 3)
-  specie2_data = specificity_inference(specie2_data, first_column_num = 5)
-  #
-  
-  #dataframe containing Specie2 and central species data
-  col_keep = c('GeneID', 'SpecieHomolog', 'DomainStatus', 'Sex', 'tspec', 'TspecF', 'spec_tissue')
-  specie2_data = specie2_data[,names(specie2_data) %in% col_keep]
-  central_sp_data = central_sp_data[,names(central_sp_data) %in% col_keep]
-  names(central_sp_data) = c('GeneID_human', 'Sex', 'tspec_human', 'TspecF_human', 'spec_tissue_human') 
-  
-  specie2_data$tspec_human = NA
-  specie2_data$TspecF_human = NA
-  specie2_data$spec_tissue_human = NA
+  specie2_data$length_specie2 = NA
+  specie2_data$length_central_sp = NA
+  specie2_data$longer_domain_specie = NA
   
   for (gene_row in 1:dim(specie2_data)[1]){
-    row_central_sp = which(as.character(central_sp_data$GeneID_human) == as.character(specie2_data$SpecieHomolog[gene_row])
-                           )[which(as.character(central_sp_data$GeneID_human) == as.character(specie2_data$SpecieHomolog[gene_row])
-                           ) %in% which(as.character(central_sp_data$Sex) == as.character(specie2_data$Sex[gene_row]))]
-    
-    if(length(central_sp_data$tspec_human[row_central_sp]) > 0){
-      specie2_data$tspec_human[gene_row] = central_sp_data$tspec_human[row_central_sp]
-      specie2_data$TspecF_human[gene_row] = as.character(central_sp_data$TspecF_human[row_central_sp])
-      specie2_data$spec_tissue_human[gene_row] = as.character(central_sp_data$spec_tissue_human[row_central_sp])
-    }
-  }
-  #
-  
-  #keep only complete case
-  specie2_data = specie2_data[complete.cases(specie2_data),]
-  #
-  
-  #specificity shift inference
-  specie2_data$shift = NA
-  for (pair_row in 1:dim(specie2_data)[1]){
-    if (as.character(specie2_data$spec_tissue[pair_row]) == as.character(specie2_data$spec_tissue_human[pair_row])){
-      if(as.character(specie2_data$spec_tissue[pair_row]) != 'ubiquitous'){
-        specie2_data$shift[pair_row] = 'specific_no_shift'
-      }else{
-        specie2_data$shift[pair_row] = 'ubiquitous_no_shift'
+    if (specie2_data$DomainStatus[gene_row] == 'modif'){
+      specie2_data$length_specie2[gene_row] = specie2_domain$V7[specie2_domain$V1 == as.character(specie2_data$GeneID[gene_row])]
+      specie2_data$length_central_sp[gene_row] = central_sp_domain$V7[central_sp_domain$V1 == as.character(specie2_data$SpecieHomolog[gene_row])]
+      
+      if (specie2_data$length_specie2[gene_row] > specie2_data$length_central_sp[gene_row]){
+        specie2_data$longer_domain_specie[gene_row] = specie2_name
+      }
+      else{
+        specie2_data$longer_domain_specie[gene_row] = central_sp_name 
       }
     }
-    else if (all(as.character(specie2_data$spec_tissue[pair_row]) != 'ubiquitous',
-                 as.character(specie2_data$spec_tissue_human[pair_row]) != 'ubiquitous')){
-      specie2_data$shift[pair_row] = 'specificity_shift'
-    }
-    else if (as.character(specie2_data$spec_tissue[pair_row]) != 'ubiquitous'){
-      specie2_data$shift[pair_row] = 'specific_to_ubiquitous'
-    }
-    else if (as.character(specie2_data$spec_tissue_human[pair_row]) != 'ubiquitous'){
-      specie2_data$shift[pair_row] = 'ubiquitous_to_specific'
-    }
-    else{
-      specie2_data$shift[pair_row] = 'undefined'
-    }
   }
   
-  specie2_data$DomainStatus = as.factor(specie2_data$DomainStatus)
-  specie2_data$TspecF = as.factor(specie2_data$TspecF)
-  specie2_data$spec_tissue = as.factor(specie2_data$spec_tissue)
-  specie2_data$TspecF_human = as.factor(specie2_data$TspecF_human)
-  specie2_data$spec_tissue_human = as.factor(specie2_data$spec_tissue_human)
-  specie2_data$shift = as.factor(specie2_data$shift)
-  specie2_data$Sex = as.factor(specie2_data$Sex)
-  specie2_data$tspec = as.numeric(specie2_data$tspec)
-  specie2_data$tspec_human = as.numeric(specie2_data$tspec_human)
+  specie2_data$longer_domain_specie = as.factor(specie2_data$longer_domain_specie)
   
   return(specie2_data)
 }
-
-
 ####
 
 ####Library needed####
@@ -448,10 +375,20 @@ pigxx_data = data_organization_one_sex(considered_species_name = 'PIGXX',
 #as BOVIN
 ratno_data = data_organization_one_sex(considered_species_name = 'RATNO',
                                        considered_sex_list = c('male'))
+
+#add domain architecture length and infer which species has the bigger domain
+bovin_data = add_specie_longer_domain_factor(bovin_data)
+gorgo_data = add_specie_longer_domain_factor(gorgo_data)
+macmu_data = add_specie_longer_domain_factor(macmu_data)
+mondo_data = add_specie_longer_domain_factor(mondo_data)
+mouse_data = add_specie_longer_domain_factor(mouse_data)
+pantr_data = add_specie_longer_domain_factor(pantr_data)
+pigxx_data = add_specie_longer_domain_factor(pigxx_data)
+ratno_data = add_specie_longer_domain_factor(ratno_data)
 ####
 
 ####Tspec analysis####
-##Dataset available / considered only male analysis
+###Dataset available / considered only male analysis
 specie2_data = bovin_data
 specie2_data = gorgo_data
 specie2_data = macmu_data
@@ -461,19 +398,40 @@ specie2_data = pantr_data
 specie2_data = pigxx_data
 specie2_data = ratno_data
 
-#Distribution effect of domain modification (DomainStatus) on Tspec values 
+##DomainStatus
+#Effect of domain modification (DomainStatus) on Tspec values 
 hist(specie2_data$tspec[specie2_data$DomainStatus == 'modif'], breaks = 100, freq = F, col = rgb(1, 0 , 0, 0.5), 
      main = paste0('Distribution of tissue specificity values in ', gsub('[[:digit:]]','' ,specie2_data$GeneID[1])), xlab = 'Tspec value', cex.main = 0.9)
 hist(specie2_data$tspec[specie2_data$DomainStatus == 'control'], breaks = 100, freq = F, col = rgb(0, 0 , 1, 0.5), add = T)
 legend('top', c("Domain modification", "No modification"), fill = c(rgb(1, 0, 0, 0.5), rgb(0, 0, 1, 0.5)), cex = 0.8, horiz = F)
 
-hist(specie2_data$tspec[specie2_data$DomainStatus == 'modif'], breaks = 100, freq = F, col = rgb(1, 0 , 0, 0.5), 
+hist(specie2_data$tspec_human[specie2_data$DomainStatus == 'modif'], breaks = 100, freq = F, col = rgb(1, 0 , 0, 0.5), 
      main = paste0('Distribution of tissue specificity values in ', gsub('[[:digit:]]','' ,specie2_data$SpecieHomolog[1]), '\n', gsub('[[:digit:]]','' ,specie2_data$GeneID[1]), ' comparison'), xlab = 'Tspec value', cex.main = 0.9)
-hist(specie2_data$tspec[specie2_data$DomainStatus == 'control'], breaks = 100, freq = F, col = rgb(0, 0 , 1, 0.5), add = T)
+hist(specie2_data$tspec_human[specie2_data$DomainStatus == 'control'], breaks = 100, freq = F, col = rgb(0, 0 , 1, 0.5), add = T)
 legend('top', c("Domain modification", "No modification"), fill = c(rgb(1, 0, 0, 0.5), rgb(0, 0, 1, 0.5)), cex = 0.8, horiz = F)
 
 kruskal.test(specie2_data$tspec ~ specie2_data$DomainStatus)
 kruskal.test(specie2_data$tspec_human ~ specie2_data$DomainStatus)
+
+ks.test(specie2_data$tspec[specie2_data$DomainStatus == 'modif'], specie2_data$tspec[specie2_data$DomainStatus == 'control'])
+ks.test(specie2_data$tspec_human[specie2_data$DomainStatus == 'modif'], specie2_data$tspec_human[specie2_data$DomainStatus == 'control'])
+#
+
+#Effect of domain modification (DomainStatus) on specificity factor (ubiquitous / specificity)
+c_s = sum(specie2_data$TspecF[specie2_data$DomainStatus == 'control'] == 'specific')
+c_u = sum(specie2_data$TspecF[specie2_data$DomainStatus == 'control'] == 'ubiquitous')
+m_s = sum(specie2_data$TspecF[specie2_data$DomainStatus == 'modif'] == 'specific')
+m_u = sum(specie2_data$TspecF[specie2_data$DomainStatus == 'modif'] == 'ubiquitous')
+
+barplot(c(c(c_s / (c_s + c_u), c_u / (c_s + c_u)),
+          c(m_s / (m_s + m_u), m_u / (m_s + m_u))),
+        names.arg = rep(c('specific', 'ubiquitous'), 2),
+        cex.names = 0.6, col = rep(c('blue', 'red'), each = 2), beside = T,
+        main = paste0('Pair proportion in each group of specificity factor\n', gsub('[[:digit:]]', '', specie2_data$GeneID[1])), ylab = 'pair proportion')
+legend('bottomright', c( "domain modification", "control"), fill = c('red','blue'), 
+       cex = 0.6, horiz = F)
+
+chisq.test(specie2_data$TspecF, specie2_data$DomainStatus, correct = F)
 #
 
 #Correlation between tspec in function of DomainStatus
@@ -506,17 +464,18 @@ cor.diff.test(specie2_data$tspec[specie2_data$DomainStatus == 'modif'], specie2_
 
 #study proportion of specific factor in function of DomainStatus
 barplot(c(table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'modif']) / sum(table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'modif'])),
-          table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'control']) / table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'control'])),
-        cex.names = 0.6, col = c('red', 'blue'), las = 2,
+          table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'control']) / sum(table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'control']))),
+        cex.names = 0.6, las = 2, 
+        col =  rep(c('red', 'blue'), each =length(levels(specie2_data$spec_tissue))),
         main = paste0('Pair proportion in each group of specificity factor\n', gsub('[[:digit:]]', '', specie2_data$GeneID[1])), ylab = 'pair proportion')
-legend('top', c( "domain modification", "control"), fill = c('red','blue'), 
+legend('topleft', c( "domain modification", "control"), fill = c('red','blue'), 
        cex = 0.6, horiz = F)
 
-barplot(c(table(specie2_data$spec_tissue_human[specie2_data$DomainStatus == 'modif']) / sum(table(specie2_data$spec_tissue_human[specie2_data$DomainStatus == 'modif'])),
-          table(specie2_data$spec_tissue_human[specie2_data$DomainStatus == 'control']) / sum(table(specie2_data$spec_tissue_human[specie2_data$DomainStatus == 'control']))),
-        cex.names = 0.6, col = c('red', 'blue'), las = 2,
-        main = paste0('Pair proporton in each group of specificity factor\n', gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])), ylab = 'pair proportion')
-legend('top', c( "domain modification", "control"), fill = c('red','blue'), 
+barplot(c(table(specie2_data$spec_tissue_human[specie2_data$DomainStatus == 'modif']) / sum(table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'modif'])),
+          table(specie2_data$spec_tissue_human[specie2_data$DomainStatus == 'control']) / sum(table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'control']))),
+          cex.names = 0.6, col = rep(c('red', 'blue'), each =length(levels(specie2_data$spec_tissue_human))), las = 2,
+          main = paste0('Pair proportion in each group of specificity factor\n', gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])), ylab = 'pair proportion')
+legend('topleft', c( "domain modification", "control"), fill = c('red','blue'), 
        cex = 0.6, horiz = F)
 
 chisq.test(specie2_data$spec_tissue, specie2_data$DomainStatus, correct = F)
@@ -526,12 +485,97 @@ chisq.test(specie2_data$spec_tissue_human, specie2_data$DomainStatus, correct = 
 
 #study shift in specific factor in function of DomainStatus
 barplot(c(table(specie2_data$shift[specie2_data$DomainStatus == 'modif']) / sum(table(specie2_data$shift[specie2_data$DomainStatus == 'modif'])),
-          table(specie2_data$shift[specie2_data$DomainStatus == 'control']) / table(specie2_data$shift[specie2_data$DomainStatus == 'control'])),
-        cex.names = 0.6, col = c('red', 'blue'), las = 2,
-        main = paste0('Proportion pair in each group of shift specificity factor\n', gsub('[[:digit:]]', '', specie2_data$GeneID[1]), ' vs ', gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])), ylab = 'pair proportion')
+          table(specie2_data$shift[specie2_data$DomainStatus == 'control']) / sum(table(specie2_data$shift[specie2_data$DomainStatus == 'control']))),
+        cex.names = 0.6, col = rep(c('red', 'blue'), each = 5), las = 2, beside = T,
+        main = paste0('Pair proportion in each group of shift specificity factor\n', gsub('[[:digit:]]', '', specie2_data$GeneID[1]), ' vs ', gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])), ylab = 'pair proportion')
 legend('top', c( "domain modification", "control"), fill = c('red','blue'), 
        cex = 0.6, horiz = F)
 
 chisq.test(specie2_data$shift ,specie2_data$DomainStatus, correct = F)
 ##
+####
+
+###Effect of longer domain on the different estimators####
+#on Tspec values 
+hist(specie2_data$tspec[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$GeneID[1])], 
+     breaks = 20, freq = F, col = rgb(1, 0 , 0, 0.5), 
+     main = paste0('Domain modification group tissue specificity values distribution in function of domain length\n', 
+                   gsub('[[:digit:]]','' ,specie2_data$GeneID[1]), ' and ',gsub('[[:digit:]]','' ,specie2_data$SpecieHomolog[1]),
+                   ' comparison\nlonger domain in ', gsub('[[:digit:]]', '', specie2_data$GeneID[1])), 
+     xlab = 'Tspec value', cex.main = 0.8)
+hist(specie2_data$tspec_human[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$GeneID[1])], breaks = 20, freq = F, col = rgb(0, 0 , 1, 0.5), add = T)
+legend('top', c(paste0("tspec in ", gsub('[[:digit:]]', '', specie2_data$GeneID[1])), paste0("tpsec in ", gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1]))), fill = c(rgb(1, 0, 0, 0.5), rgb(0, 0, 1, 0.5)), cex = 0.8, horiz = F)
+
+hist(specie2_data$tspec[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])], 
+     breaks = 20, freq = F, col = rgb(1, 0 , 0, 0.5), 
+     main = paste0('Domain modification group tissue specificity values distribution in function of domain length\n', 
+                   gsub('[[:digit:]]','' ,specie2_data$GeneID[1]), ' and ',gsub('[[:digit:]]','' ,specie2_data$SpecieHomolog[1]),
+                   ' comparison\nlonger domain in ', gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])), 
+     xlab = 'Tspec value', cex.main = 0.8)
+hist(specie2_data$tspec_human[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])], breaks = 20, freq = F, col = rgb(0, 0 , 1, 0.5), add = T)
+legend('top', c(paste0("tspec in ", gsub('[[:digit:]]', '', specie2_data$GeneID[1])), paste0("tpsec in ", gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1]))), fill = c(rgb(1, 0, 0, 0.5), rgb(0, 0, 1, 0.5)), cex = 0.8, horiz = F)
+
+hist(specie2_data$tspec[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$GeneID[1])], 
+     breaks = 20, freq = F, col = rgb(1, 0 , 0, 0.5), 
+     main = paste0('Domain modification group tissue specificity values distribution in function of domain length\n', 
+                   gsub('[[:digit:]]','' ,specie2_data$GeneID[1]), ' and ',gsub('[[:digit:]]','' ,specie2_data$SpecieHomolog[1]),
+                   ' comparison\ntspec in ', gsub('[[:digit:]]', '', specie2_data$GeneID[1])), 
+     xlab = 'Tspec value', cex.main = 0.8)
+hist(specie2_data$tspec[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])], breaks = 20, freq = F, col = rgb(0, 0 , 1, 0.5), add = T)
+legend('top', c(paste0("longer domain in ", gsub('[[:digit:]]', '', specie2_data$GeneID[1])), paste0("longer domain in ", gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1]))), fill = c(rgb(1, 0, 0, 0.5), rgb(0, 0, 1, 0.5)), cex = 0.8, horiz = F)
+
+hist(specie2_data$tspec_human[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$GeneID[1])], 
+     breaks = 20, freq = F, col = rgb(1, 0 , 0, 0.5), 
+     main = paste0('Domain modification group tissue specificity values distribution in function of domain length\n', 
+                   gsub('[[:digit:]]','' ,specie2_data$GeneID[1]), ' and ',gsub('[[:digit:]]','' ,specie2_data$SpecieHomolog[1]),
+                   ' comparison\ntspec in ', gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])), 
+     xlab = 'Tspec value', cex.main = 0.8)
+hist(specie2_data$tspec_human[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])], breaks = 20, freq = F, col = rgb(0, 0 , 1, 0.5), add = T)
+legend('top', c(paste0("longer domain in ", gsub('[[:digit:]]', '', specie2_data$GeneID[1])), paste0("longer domain in ", gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1]))), fill = c(rgb(1, 0, 0, 0.5), rgb(0, 0, 1, 0.5)), cex = 0.8, horiz = F)
+
+kruskal.test(specie2_data$tspec[specie2_data$DomainStatus == 'modif'] ~ specie2_data$longer_domain_specie[specie2_data$DomainStatus == 'modif'])
+kruskal.test(specie2_data$tspec_human[specie2_data$DomainStatus == 'modif' ] ~ specie2_data$longer_domain_specie[specie2_data$DomainStatus == 'modif'])
+
+ks.test(specie2_data$tspec[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1]) & !(is.na(specie2_data$tspec[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])]))],
+        specie2_data$tspec[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$GeneID[1]) & !(is.na(specie2_data$tspec[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$GeneID[1])]))])
+ks.test(specie2_data$tspec_human[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1]) & !(is.na(specie2_data$tspec_human[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])]))],
+        specie2_data$tspec_human[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$GeneID[1]) & !(is.na(specie2_data$tspec_human[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$GeneID[1])]))])
+
+ks.test(specie2_data$tspec[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])],
+        specie2_data$tspec[specie2_data$DomainStatus == 'control'])
+ks.test(specie2_data$tspec[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$GeneID[1])],
+        specie2_data$tspec[specie2_data$DomainStatus == 'control'])
+ks.test(specie2_data$tspec_human[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])],
+        specie2_data$tspec_human[specie2_data$DomainStatus == 'control'])
+ks.test(specie2_data$tspec_human[specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$GeneID[1])],
+        specie2_data$tspec_human[specie2_data$DomainStatus == 'control'])
+#
+
+#Effect of longer domain on specificity factor (ubiquitous / specificity)
+c_s = sum(c(specie2_data$TspecF == 'specific' & specie2_data$DomainStatus == 'modif' &  specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])))
+c_u = sum(c(specie2_data$TspecF == 'ubiquitous' & specie2_data$DomainStatus == 'modif' &  specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])))
+m_s = sum(c(specie2_data$TspecF == 'specific' & specie2_data$DomainStatus == 'modif' &  specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$GeneID[1])))
+m_u = sum(c(specie2_data$TspecF == 'ubiquitous' & specie2_data$DomainStatus == 'modif' &  specie2_data$longer_domain_specie == gsub('[[:digit:]]', '', specie2_data$GeneID[1])))
+
+b = barplot(c(c_s / (c_s + c_u), c_u / (c_s + c_u),
+          m_s / (m_s + m_u), m_u / (m_s + m_u)),
+        names.arg = rep(c('specific', 'ubiquitous'), 2),
+        cex.names = 0.6, col = rep(c('blue', 'red'), each = 2), beside = T,
+        main = paste0('Proportion of domain modified pair in each group of specificity factor\n', gsub('[[:digit:]]', '', specie2_data$GeneID[1])), ylab = 'pair proportion')
+text(x = b, b[1,], labels = round(c(c(c_s / (c_s + c_u), c_u / (c_s + c_u)),
+                           c(m_s / (m_s + m_u), m_u / (m_s + m_u))), digits = 2), cex = 0.8)
+legend('bottomright', c( paste0('longest domain in ',gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])), paste0('longest domain in ',gsub('[[:digit:]]', '', specie2_data$GeneID[1]))), fill = c('blue', 'red'), 
+       cex = 0.6, horiz = F)
+
+b = barplot(c(c_s, c_u,
+              m_s, m_u),
+            names.arg = rep(c('specific', 'ubiquitous'), 2),
+            cex.names = 0.6, col = rep(c('blue', 'red'), each = 2), beside = T,
+            main = paste0('Number of domain modified pair in each group of specificity factor\n', gsub('[[:digit:]]', '', specie2_data$GeneID[1])), ylab = 'pair proportion')
+text(x = b, b[2,]*10, labels = round(c(c(c_s, c_u),
+                                    c(m_s, m_u)), digits = 2), cex = 0.8)
+legend('topright', c( paste0('longest domain in ',gsub('[[:digit:]]', '', specie2_data$SpecieHomolog[1])), paste0('longest domain in ',gsub('[[:digit:]]', '', specie2_data$GeneID[1]))), fill = c('blue', 'red'), 
+       cex = 0.6, horiz = F)
+
+chisq.test(specie2_data$TspecF[specie2_data$DomainStatus == 'modif'], specie2_data$longer_domain_specie[specie2_data$DomainStatus == 'modif'], correct = F)
 ####
