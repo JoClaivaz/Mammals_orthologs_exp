@@ -102,9 +102,9 @@ cor.diff.test = function(x1, x2, y1, y2, method="pearson") {
 
 data_organization_one_sex = function(considered_species_name, 
                                      central_species_name = 'HUMAN',
-                                     considered_sex_list = F,
-                                     considered_anat_list = F,
-                                     considered_devtime_list = F){
+                                     considered_sex_vector = F,
+                                     considered_anat_vector = F,
+                                     considered_devtime_vector = F){
   
   specie2_data = read.table(paste0('D:/UNIL/Master/Master_Project/Data/Bgee/',
                                    considered_species_name,
@@ -114,9 +114,9 @@ data_organization_one_sex = function(considered_species_name,
                                       '_expression_parsed'), header = T, sep = '\t')
   
   #Sex
-  if (considered_sex_list != F){
-    central_sp_data = central_sp_data[central_sp_data$Sex %in% considered_sex_list,]
-    specie2_data = specie2_data[specie2_data$Sex %in% considered_sex_list,]
+  if (considered_sex_vector != F){
+    central_sp_data = central_sp_data[central_sp_data$Sex %in% considered_sex_vector,]
+    specie2_data = specie2_data[specie2_data$Sex %in% considered_sex_vector,]
     
   }else{
     notkeep_Sex = unique(central_sp_data$Sex)[!(unique(central_sp_data$Sex) %in% unique(specie2_data$Sex))]
@@ -132,16 +132,16 @@ data_organization_one_sex = function(considered_species_name,
   specie2_data = specie2_data[specie2_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
   #
   
-  if (considered_anat_list != F){
-    central_sp_data = central_sp_data[central_sp_data$AnatomicalEntityName %in% considered_anat_list,]
-    specie2_data = specie2_data[specie2_data$AnatomicalEntityName %in% considered_anat_list,]
+  if (considered_anat_vector != F){
+    central_sp_data = central_sp_data[central_sp_data$AnatomicalEntityName %in% considered_anat_vector,]
+    specie2_data = specie2_data[specie2_data$AnatomicalEntityName %in% considered_anat_vector,]
     
   }
   
   #developmental time filtering
-  if (considered_devtime_list != F){
-    central_sp_data = central_sp_data[central_sp_data$StageName %in% considered_devtime_list,]
-    specie2_data = specie2_data[specie2_data$StageName %in% considered_devtime_list,]
+  if (considered_devtime_vector != F){
+    central_sp_data = central_sp_data[central_sp_data$StageName %in% considered_devtime_vector,]
+    specie2_data = specie2_data[specie2_data$StageName %in% considered_devtime_vector,]
     
   }
   #
@@ -297,7 +297,7 @@ require(tidyr)
 # unique(bovin_test$Sex)[unique(bovin_test$Sex) %in% unique(human_test$Sex)]
 #sex available (male / NA)
 bovin_data = data_organization_one_sex(considered_species_name = 'BOVIN',
-                                       considered_sex_list = c('male'))
+                                       considered_sex_vector = c('male'))
 
 #
 # gorgo_test = read.table('D:/UNIL/Master/Master_Project/Data/Bgee/GORGO_expression_parsed', header = T, sep = '\t')
@@ -308,7 +308,7 @@ bovin_data = data_organization_one_sex(considered_species_name = 'BOVIN',
 # unique(gorgo_test$Sex)[unique(gorgo_test$Sex) %in% unique(human_test$Sex)]
 #need sex consideration (female / male)
 gorgo_data = data_organization_one_sex(considered_species_name = 'GORGO',
-                                       considered_sex_list = c('male'))
+                                       considered_sex_vector = c('male'))
 
 #
 # macmu_test = read.table('D:/UNIL/Master/Master_Project/Data/Bgee/MACMU_expression_parsed', header = T, sep = '\t')
@@ -319,7 +319,7 @@ gorgo_data = data_organization_one_sex(considered_species_name = 'GORGO',
 # unique(macmu_test$Sex)[unique(macmu_test$Sex) %in% unique(human_test$Sex)]
 #sex consideration (female / male / NA)
 macmu_data = data_organization_one_sex(considered_species_name = 'MACMU',
-                                       considered_sex_list = c('male'))
+                                       considered_sex_vector = c('male'))
 
 #
 # mondo_test = read.table('D:/UNIL/Master/Master_Project/Data/Bgee/MONDO_expression_parsed', header = T, sep = '\t')
@@ -330,7 +330,7 @@ macmu_data = data_organization_one_sex(considered_species_name = 'MACMU',
 # unique(mondo_test$Sex)[unique(mondo_test$Sex) %in% unique(human_test$Sex)]
 #sex consideration (female / male)
 mondo_data = data_organization_one_sex(considered_species_name = 'MONDO',
-                                       considered_sex_list = c('male'))
+                                       considered_sex_vector = c('male'))
 
 #
 # mouse_test = read.table('D:/UNIL/Master/Master_Project/Data/Bgee/MOUSE_expression_parsed', header = T, sep = '\t')
@@ -341,7 +341,7 @@ mondo_data = data_organization_one_sex(considered_species_name = 'MONDO',
 # unique(mouse_test$Sex)[unique(mouse_test$Sex) %in% unique(human_test$Sex)]
 #sex consideration !warning sex factor: female male NA mixed (No consider mixed, as first step)
 mouse_data = data_organization_one_sex(considered_species_name = 'MOUSE',
-                                       considered_sex_list = c('male'))
+                                       considered_sex_vector = c('male'))
 
 #
 # pantr_test = read.table('D:/UNIL/Master/Master_Project/Data/Bgee/PANTR_expression_parsed', header = T, sep = '\t')
@@ -352,7 +352,7 @@ mouse_data = data_organization_one_sex(considered_species_name = 'MOUSE',
 # unique(pantr_test$Sex)[unique(pantr_test$Sex) %in% unique(human_test$Sex)]
 #sex consideration (female / male)
 pantr_data = data_organization_one_sex(considered_species_name = 'PANTR',
-                                       considered_sex_list = c('male'))
+                                       considered_sex_vector = c('male'))
 
 #
 # pigxx_test = read.table('D:/UNIL/Master/Master_Project/Data/Bgee/pigxx_expression_parsed', header = T, sep = '\t')
@@ -363,7 +363,7 @@ pantr_data = data_organization_one_sex(considered_species_name = 'PANTR',
 # unique(pigxx_test$Sex)[unique(pigxx_test$Sex) %in% unique(human_test$Sex)]
 #as BOVIN
 pigxx_data = data_organization_one_sex(considered_species_name = 'PIGXX',
-                                       considered_sex_list = c('male'))
+                                       considered_sex_vector = c('male'))
 
 #
 # ratno_test = read.table('D:/UNIL/Master/Master_Project/Data/Bgee/RATNO_expression_parsed', header = T, sep = '\t')
@@ -374,7 +374,7 @@ pigxx_data = data_organization_one_sex(considered_species_name = 'PIGXX',
 # unique(ratno_test$Sex)[unique(ratno_test$Sex) %in% unique(human_test$Sex)]
 #as BOVIN
 ratno_data = data_organization_one_sex(considered_species_name = 'RATNO',
-                                       considered_sex_list = c('male'))
+                                       considered_sex_vector = c('male'))
 
 #add domain architecture length and infer which species has the bigger domain
 bovin_data = add_specie_longer_domain_factor(bovin_data)
@@ -460,7 +460,7 @@ cor.test(specie2_data$tspec[specie2_data$DomainStatus == 'control'], specie2_dat
 cor.diff.test(specie2_data$tspec[specie2_data$DomainStatus == 'modif'], specie2_data$tspec_human[specie2_data$DomainStatus == 'modif'],
               specie2_data$tspec[specie2_data$DomainStatus == 'control'], specie2_data$tspec_human[specie2_data$DomainStatus == 'control'])
 #better results for BOVIN, if male and NA are used using: 
-#data_organization_one_sex(considered_species_name = 'BOVIN', considered_sex_list = F)
+#data_organization_one_sex(considered_species_name = 'BOVIN', considered_sex_vector = F)
 
 #study proportion of specific factor in function of DomainStatus
 barplot(c(table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'modif']) / sum(table(specie2_data$spec_tissue[specie2_data$DomainStatus == 'modif'])),
