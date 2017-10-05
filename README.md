@@ -5,6 +5,8 @@ Scripts folder contains all scripts we created for data analysis.
 
 #Aim
 Study the effect of domain architecture modification on protein function in mammals evolution.
+#General HYP
+Domain architecture modification has an effect on tissue expression pattern in mammals evolution.
 
 #Domain Inference
 Considered orthologs:
@@ -58,6 +60,11 @@ Output: 'ortholog_HUMAN_Specie2_both', 'ortholog_HUMAN_Specie2_partial' and 'ort
 #'extract_ortholog_domain_loss_domainDiff.py'
 intersect of ortholog pair with one domain modification in N- or C- termini of the protein inferred by domainDIFF and the loss domain is not part of a repetition inferred by 'extract_ortholog_repeated_domain.py'
 Input: 'ortholog_HUMAN_Species2_1_domain_notrepeated' and 'ortholog_HUMAN_Specie2_domain_modifications'
+Output: 'final_pair_HUMAN_Specie2_domain_loss'
+
+#'extract_ortholog_terminal_domain.py'
+extract pair with modification in the terminal part of the protein. avoid utilization of domainDIFF and extra steps
+Input: 'ortholog_HUMAN_Species2_1_domain_notrepeated'
 Output: 'final_pair_HUMAN_Specie2_domain_loss'
 
 #'domain_modification_analysis.py' and 'barplot_result_domain_modification.R'
