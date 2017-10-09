@@ -8,6 +8,7 @@ extraction of pair which have at least one domain inferred by pfamscan (both/par
 extraction of pair which have only one domain modification and no modification (control group)
 extraction of pair with domain modification not involved in domain repetition
 Inference of the position of the loss (f-1, b-1, int-1; N-terminal, C-terminal, internal respectively)
+The parameter '1:1' indicate unique ortholog, if the consideration is on whole ortholog parameter should be set as ':'
 
 Command line
 python extract_ortholog_modification_group.py list_mammals PairOrtho_in_path_with_regexp Domain_file_in_path Domain_file_out_with_regexp
