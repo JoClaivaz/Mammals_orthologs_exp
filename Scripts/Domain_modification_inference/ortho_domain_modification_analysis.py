@@ -77,14 +77,14 @@ def run_function_in_mammals_dataset(list_mammals = ['BOVIN', 'GORGO', 'MACMU', '
         dict_results[considered_mammals]['final'] = {} 
         
         try:
-            dict_results[considered_mammals]['final']['f-1'] = number_pair_in_file(path_file + 'final_pair_%s_%s_domain_loss' % (central_mammals, considered_mammals), reg_exp = 'f-1')
-            dict_results[considered_mammals]['final']['b-1'] = number_pair_in_file(path_file + 'final_pair_%s_%s_domain_loss' % (central_mammals, considered_mammals), reg_exp = 'b-1')
-            dict_results[considered_mammals]['final']['int-1'] = number_pair_in_file(path_file + 'final_pair_%s_%s_domain_loss' % (central_mammals, considered_mammals), reg_exp = 'int-1')
+            dict_results[considered_mammals]['final']['f-1'] = number_pair_in_file(path_file + 'putative_ortholog_%s_%s_domain_loss' % (central_mammals, considered_mammals), reg_exp = 'f-1')
+            dict_results[considered_mammals]['final']['b-1'] = number_pair_in_file(path_file + 'putative_ortholog_%s_%s_domain_loss' % (central_mammals, considered_mammals), reg_exp = 'b-1')
+            dict_results[considered_mammals]['final']['int-1'] = number_pair_in_file(path_file + 'putative_ortholog_%s_%s_domain_loss' % (central_mammals, considered_mammals), reg_exp = 'int-1')
         
         except:
-            dict_results[considered_mammals]['final']['f-1'] = number_pair_in_file(path_file + 'final_pair_%s_%s_domain_loss' % (considered_mammals, central_mammals), reg_exp = 'f-1')
-            dict_results[considered_mammals]['final']['b-1'] = number_pair_in_file(path_file + 'final_pair_%s_%s_domain_loss' % (considered_mammals, central_mammals), reg_exp = 'b-1')
-            dict_results[considered_mammals]['final']['int-1'] = number_pair_in_file(path_file + 'final_pair_%s_%s_domain_loss' % (considered_mammals, central_mammals), reg_exp = 'int-1')
+            dict_results[considered_mammals]['final']['f-1'] = number_pair_in_file(path_file + 'putative_ortholog_%s_%s_domain_loss' % (considered_mammals, central_mammals), reg_exp = 'f-1')
+            dict_results[considered_mammals]['final']['b-1'] = number_pair_in_file(path_file + 'putative_ortholog_%s_%s_domain_loss' % (considered_mammals, central_mammals), reg_exp = 'b-1')
+            dict_results[considered_mammals]['final']['int-1'] = number_pair_in_file(path_file + 'putative_ortholog_%s_%s_domain_loss' % (considered_mammals, central_mammals), reg_exp = 'int-1')
         
     return(dict_results)
 #
