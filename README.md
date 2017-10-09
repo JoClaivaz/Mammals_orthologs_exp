@@ -58,6 +58,15 @@ Input: 'SPECIE_domain' (pfamscan output, called by 'Domain_file_in_path' argumen
 Output: 'putative_ortholog_SPECIE1_SPECIE2_domain_loss', 'ortholog_SPECIE1_SPECIE2_partial', 'ortholog_SPECIE1_SPECIE2_both', 'ortholog_SPECIE1_SPECIE2_none', 'ortholog_SPECIE1_SPECIE2_domain_nomodif', 'ortholog_SPECIE1_SPECIE2_domain_complex_modif', 'ortholog_SPECIE1_SPECIE2_1_domain_modif', 'ortholog_SPECIE1_SPECIE2_1_domain_repeated' and 'ortholog_SPECIE1_SPECIE2_1_domain_notrepeated'.
 Command line: python extract_ortholog_modification_group.py list_mammals PairOrtho_in_path_with_regexp Domain_file_in_path Domain_file_out_with_regexp
 
+#'extract_paralog_modification_group.py'
+extraction of pair which have at least one domain inferred by pfamscan (both/partial/none)
+extraction of pair without domain modification (control group in analysis, same domain architecture sequence), complex domain modification (with the same number of domain in both gene of a pair but not the same sequence or more than 1 domain difference), domain modification with 1 domain difference (group of interest, one domain of difference (not consider the kind of domain in this step)). All considered pair have at least one domain inferred by pfamscan.
+extraction of pair with one domain modification not involved in domain repetition
+Inference of the position of the loss (f-1, b-1, int-1; N-terminal, C-terminal, internal respectively) in the no repeated pair
+Input: 'SPECIE_domain' (pfamscan output, called by 'Domain_file_in_path' argument), 'pairwise_paralog_SPECIE' (called by the combination of 'list_mammals' and 'PairPara_in_path_with_regexp' arguments)
+Output: 'putative_paralog_SPECIE_domain_loss', 'paralog_SPECIE_partial', 'paralog_SPECIE_both', 'paralog_SPECIE_none', 'paralog_SPECIE_domain_nomodif', 'paralog_SPECIE_domain_complex_modif', 'paralog_SPECIE_1_domain_modif', 'paralog_SPECIE_1_domain_repeated' and 'paralog_SPECIE_1_domain_notrepeated'.
+Command line: python extract_paralog_modification_group.py list_mammals PairPara_in_path_with_regexp Domain_file_in_path Domain_file_out_with_regexp
+
 #'ortho_domain_modification_analysis.py' and 'barplot_result_domain_modification.R'
 analysis number of gene available in the different files produced through this step, and use R script to obtained plot
 Input: all the files produced for 'Domain_modification_inference' for the ortholog part
