@@ -66,7 +66,7 @@ def extract_ortholog_modification_group(PairOrtho_in_path,
     Domain_file_modif_1 = open(Domain_file_out + '_1_domain_modif', 'w')
     Domain_file_notrepeated = open(Domain_file_out + '_1_domain_notrepeated', 'w')
     Domain_file_repeated = open(Domain_file_out + '_1_domain_repeated', 'w')
-    Domain_file_final = open('%sfinal_pair_%s_%s_domain_loss' % (Domain_file_out.split('ortholog_')[0], second_species, considered_species), 'w')
+    Domain_file_final = open('%sputative_ortholog_%s_%s_domain_loss' % (Domain_file_out.split('ortholog_')[0], second_species, considered_species), 'w')
     #
     
     #sorting ortholog pair

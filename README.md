@@ -55,7 +55,7 @@ extraction of pair without domain modification (control group in analysis, same 
 extraction of pair with one domain modification not involved in domain repetition
 Inference of the position of the loss (f-1, b-1, int-1; N-terminal, C-terminal, internal respectively) in the no repeated pair
 Input: 'SPECIE_domain' (pfamscan output, called by 'Domain_file_in_path' argument), 'pairwise_ortholog_SPECIE1_SPECIE2' (called by the combination of 'list_mammals' and 'PairOrtho_in_path_with_regexp' arguments)
-Output: 'final_pair_SPECIE1_SPECIE2_domain_loss', 'ortholog_SPECIE1_SPECIE2_partial', 'ortholog_SPECIE1_SPECIE2_both', 'ortholog_SPECIE1_SPECIE2_none', 'ortholog_SPECIE1_SPECIE2_domain_nomodif', 'ortholog_SPECIE1_SPECIE2_domain_complex_modif', 'ortholog_SPECIE1_SPECIE2_1_domain_modif', 'ortholog_SPECIE1_SPECIE2_1_domain_repeated' and 'ortholog_SPECIE1_SPECIE2_1_domain_notrepeated'.
+Output: 'putative_ortholog_SPECIE1_SPECIE2_domain_loss', 'ortholog_SPECIE1_SPECIE2_partial', 'ortholog_SPECIE1_SPECIE2_both', 'ortholog_SPECIE1_SPECIE2_none', 'ortholog_SPECIE1_SPECIE2_domain_nomodif', 'ortholog_SPECIE1_SPECIE2_domain_complex_modif', 'ortholog_SPECIE1_SPECIE2_1_domain_modif', 'ortholog_SPECIE1_SPECIE2_1_domain_repeated' and 'ortholog_SPECIE1_SPECIE2_1_domain_notrepeated'.
 Command line: python extract_ortholog_modification_group.py list_mammals PairOrtho_in_path_with_regexp Domain_file_in_path Domain_file_out_with_regexp
 
 #'ortho_domain_modification_analysis.py' and 'barplot_result_domain_modification.R'
