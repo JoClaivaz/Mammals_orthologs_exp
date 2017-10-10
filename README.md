@@ -85,8 +85,13 @@ N.B.: species chosen with at least 6 equivalent tissue data expression in human
 parsed expression files in function of the considered species and tissues & the results of domain rearrengement (control group / 1 domain lost not repeated in termini part of the proten). 
 Formate the outputfile for R analysis (by column): 'ExperimentID\tLibraryID\tGeneID\tAnatomicalEntityName\tStageName\tSex\tDomainStatus\t%s_homolog\tFPKM\n' % (central_species) 
 N.B.: central speceies homology and status column are not available for central species
-Input: all dataset of 'ortholog_HUMAN_Specie2_domain_nomodif' and 'final_pair_HUMAN_Specie2_domain_loss' and expression files from Bgee, 'oma-ensembl' from OMA, list of considered species and tissues
-Output: 'Species2_expression_parsed' and 'HUMAN_expression_parsed'
+Input: all dataset of 'ortholog_Specie1_Specie2_domain_nomodif', 'putative_ortholog_Specie1_Specie2_domain_loss', 'paralog_SPECIE_domain_nomodif', 'putative_paralog_SPECIE_domain_loss' and expression files from Bgee, 'oma-ensembl' from OMA, list of considered species and tissues
+Output: 'SPECIE_expression_parsed'
+Command line: python extraction_state_expression_file.py considered_tissues considered_species control_modification_pairs_folder_path  path_expression_dir oma_ensembl_converter output_file_path
+
+
+
+
 
 #'barplot_result_expression_analysis.R'
 barplot visualization of the available pair in expression data
@@ -115,4 +120,7 @@ Input: 'Species2_expression_parsed' and 'HUMAN_expression_parsed'
 	2. recover a table of conversion between OMA and Bgee identifier ('oma-ensembl') from http://omabrowser.org/oma/current/
 	3. run 'tissue_availability_mammals_bgee.py' (not mendatory if the species are selected and the states are known)
 	4. run 'extraction_state_expression_file.py'
+	
+	
+	
 	5. use 'Tspec_analysis.R'
