@@ -90,8 +90,8 @@ def extract_ortholog_modification_group(PairOrtho_in_path,
                     
                     #check if the considered pair have unmodified domain architecture or one domain lost and store the pair in appropriate file
                     if spec_domain[pair_ortho.split('\t')[0].rstrip('0123456789')][pair_ortho.split('\t')[0]] == spec_domain[pair_ortho.split('\t')[1].rstrip('0123456789')][pair_ortho.split('\t')[1]]:
-                        Domain_file_nomodif.write(pair_ortho.split('\t')[0] + '\t' + str(len(spec_domain[pair_ortho.split('\t')[1].rstrip('0123456789')][pair_ortho.split('\t')[1]])) +
-                                                  '\t' + pair_ortho.split('\t')[1] + '\tnomodif\n')
+                        Domain_file_nomodif.write(pair_ortho.split('\t')[0] + '\t' + str(len(spec_domain[pair_ortho.split('\t')[0].rstrip('0123456789')][pair_ortho.split('\t')[0]])) +
+                                                  '\t' + pair_ortho.split('\t')[1] + '\t' + str(len(spec_domain[pair_ortho.split('\t')[1].rstrip('0123456789')][pair_ortho.split('\t')[1]])) + '\tnomodif\n')
                     elif len(spec_domain[pair_ortho.split('\t')[0].rstrip('0123456789')][pair_ortho.split('\t')[0]]) == len(spec_domain[pair_ortho.split('\t')[1].rstrip('0123456789')][pair_ortho.split('\t')[1]]):
                         Domain_file_modif_complex.write(pair_ortho.split('\t')[0] + '\t' + str(len(spec_domain[pair_ortho.split('\t')[1].rstrip('0123456789')][pair_ortho.split('\t')[1]])) +
                                                             '\t' + pair_ortho.split('\t')[1] + '\tcomplex_modif\n')
@@ -124,13 +124,22 @@ def extract_ortholog_modification_group(PairOrtho_in_path,
                                     
                                     #Inference of the position of the loss
                                     if domain_sp1[1:] == domain_sp2 or domain_sp2[1:] == domain_sp1:
-                                        Domain_file_final.write('%s\tf-1\t%s\t%s\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
+                                        Domain_file_final.write('%s\t%s\t%s\t%s\tf-1\t%s\n' 
+                                                                % (pair_ortho.split('\t')[0], str(len(spec_domain[pair_ortho.split('\t')[0].rstrip('0123456789')][pair_ortho.split('\t')[0]])),
+                                                                   pair_ortho.split('\t')[1], str(len(spec_domain[pair_ortho.split('\t')[1].rstrip('0123456789')][pair_ortho.split('\t')[1]])),
+                                                                   pair_ortho.split('\t')[2]))
                                         
                                     elif domain_sp1[:-1] == domain_sp2 or domain_sp2[:-1] == domain_sp1:
-                                        Domain_file_final.write('%s\tb-1\t%s\t%s\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
+                                        Domain_file_final.write('%s\t%s\t%s\t%s\tb-1\t%s\n' 
+                                                                % (pair_ortho.split('\t')[0], str(len(spec_domain[pair_ortho.split('\t')[0].rstrip('0123456789')][pair_ortho.split('\t')[0]])),
+                                                                   pair_ortho.split('\t')[1], str(len(spec_domain[pair_ortho.split('\t')[1].rstrip('0123456789')][pair_ortho.split('\t')[1]])),
+                                                                   pair_ortho.split('\t')[2]))
                                     
                                     else:
-                                        Domain_file_final.write('%s\tint-1\t%s\t%s\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
+                                        Domain_file_final.write('%s\t%s\t%s\t%s\tint-1\t%s\n' 
+                                                                % (pair_ortho.split('\t')[0], str(len(spec_domain[pair_ortho.split('\t')[0].rstrip('0123456789')][pair_ortho.split('\t')[0]])),
+                                                                   pair_ortho.split('\t')[1], str(len(spec_domain[pair_ortho.split('\t')[1].rstrip('0123456789')][pair_ortho.split('\t')[1]])),
+                                                                   pair_ortho.split('\t')[2]))
                                                                 
                             elif len(set(domain_sp2)) + 1 == len(set(domain_sp1)):
                                 not_all_present = False
@@ -149,14 +158,23 @@ def extract_ortholog_modification_group(PairOrtho_in_path,
                                     
                                     #Inference of the position of the loss
                                     if domain_sp1[1:] == domain_sp2 or domain_sp2[1:] == domain_sp1:
-                                        Domain_file_final.write('%s\tf-1\t%s\t%s\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
+                                        Domain_file_final.write('%s\t%s\t%s\t%s\tf-1\t%s\n' 
+                                                                % (pair_ortho.split('\t')[0], str(len(spec_domain[pair_ortho.split('\t')[0].rstrip('0123456789')][pair_ortho.split('\t')[0]])),
+                                                                   pair_ortho.split('\t')[1], str(len(spec_domain[pair_ortho.split('\t')[1].rstrip('0123456789')][pair_ortho.split('\t')[1]])),
+                                                                   pair_ortho.split('\t')[2]))
                                         
                                     elif domain_sp1[:-1] == domain_sp2 or domain_sp2[:-1] == domain_sp1:
-                                        Domain_file_final.write('%s\tb-1\t%s\t%s\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
+                                        Domain_file_final.write('%s\t%s\t%s\t%s\tb-1\t%s\n' 
+                                                                % (pair_ortho.split('\t')[0], str(len(spec_domain[pair_ortho.split('\t')[0].rstrip('0123456789')][pair_ortho.split('\t')[0]])),
+                                                                   pair_ortho.split('\t')[1], str(len(spec_domain[pair_ortho.split('\t')[1].rstrip('0123456789')][pair_ortho.split('\t')[1]])),
+                                                                   pair_ortho.split('\t')[2]))
                                     
                                     else:
-                                        Domain_file_final.write('%s\tint-1\t%s\t%s\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
-                                    
+                                        Domain_file_final.write('%s\t%s\t%s\t%s\tint-1\t%s\n' 
+                                                                % (pair_ortho.split('\t')[0], str(len(spec_domain[pair_ortho.split('\t')[0].rstrip('0123456789')][pair_ortho.split('\t')[0]])),
+                                                                   pair_ortho.split('\t')[1], str(len(spec_domain[pair_ortho.split('\t')[1].rstrip('0123456789')][pair_ortho.split('\t')[1]])),
+                                                                   pair_ortho.split('\t')[2]))
+                                        
                             else:
                                 Domain_file_modif_complex.write(pair_ortho)
                                                 

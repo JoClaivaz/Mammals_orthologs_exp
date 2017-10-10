@@ -3,7 +3,7 @@
 Created on Sun Oct  1 15:51:25 2017
 
 @author: Claivaz
-analysis of domain modification inference amongst mammals ortholog
+analysis of domain modification inference amongst mammals ortholog per selceted central species
 """
 
 def number_pair_in_file(file_in, reg_exp = False):
