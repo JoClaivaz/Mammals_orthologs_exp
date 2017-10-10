@@ -124,13 +124,13 @@ def extract_ortholog_modification_group(PairOrtho_in_path,
                                     
                                     #Inference of the position of the loss
                                     if domain_sp1[1:] == domain_sp2 or domain_sp2[1:] == domain_sp1:
-                                        Domain_file_final.write('%s\t%s\t%s\tf-1\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
+                                        Domain_file_final.write('%s\tf-1\t%s\t%s\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
                                         
                                     elif domain_sp1[:-1] == domain_sp2 or domain_sp2[:-1] == domain_sp1:
-                                        Domain_file_final.write('%s\t%s\t%s\tb-1\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
+                                        Domain_file_final.write('%s\tb-1\t%s\t%s\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
                                     
                                     else:
-                                        Domain_file_final.write('%s\t%s\t%s\tint-1\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
+                                        Domain_file_final.write('%s\tint-1\t%s\t%s\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
                                                                 
                             elif len(set(domain_sp2)) + 1 == len(set(domain_sp1)):
                                 not_all_present = False
@@ -149,13 +149,13 @@ def extract_ortholog_modification_group(PairOrtho_in_path,
                                     
                                     #Inference of the position of the loss
                                     if domain_sp1[1:] == domain_sp2 or domain_sp2[1:] == domain_sp1:
-                                        Domain_file_final.write('%s\t%s\t%s\tf-1\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
+                                        Domain_file_final.write('%s\tf-1\t%s\t%s\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
                                         
                                     elif domain_sp1[:-1] == domain_sp2 or domain_sp2[:-1] == domain_sp1:
-                                        Domain_file_final.write('%s\t%s\t%s\tb-1\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
+                                        Domain_file_final.write('%s\tb-1\t%s\t%s\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
                                     
                                     else:
-                                        Domain_file_final.write('%s\t%s\t%s\tint-1\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
+                                        Domain_file_final.write('%s\tint-1\t%s\t%s\n' % (pair_ortho.split('\t')[0], pair_ortho.split('\t')[1], pair_ortho.split('\t')[2]))
                                     
                             else:
                                 Domain_file_modif_complex.write(pair_ortho)

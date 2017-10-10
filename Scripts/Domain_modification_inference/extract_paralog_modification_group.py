@@ -71,15 +71,15 @@ def extract_paralog_modification_group(PairPara_in_path,
             
             #check if the considered pair have unmodified domain architecture or one domain lost and store the pair in appropriate file
             if spec_domain[pair_para.split('\t')[0]] == spec_domain[pair_para.split('\t')[1]]:
-                Domain_file_nomodif.write(pair_para.split('\t')[0] + '\t' +  pair_para.split('\t')[1] + '\t' +
-                                          pair_para.split('\t')[3] + '\t' + pair_para.split('\t')[4].replace('\n', '') + '\tnomodif\n')
+                Domain_file_nomodif.write(pair_para.split('\t')[0] + '\t' +  pair_para.split('\t')[3] + '\t' +
+                                          pair_para.split('\t')[1] + '\t' + pair_para.split('\t')[4].replace('\n', '') + '\tnomodif\n')
             elif len(spec_domain[pair_para.split('\t')[0]]) == len(spec_domain[pair_para.split('\t')[1]]):
-                Domain_file_modif_complex.write(pair_para.split('\t')[0] + '\t' +  pair_para.split('\t')[1] + '\t' +
-                                                pair_para.split('\t')[3] + '\t' + pair_para.split('\t')[4].replace('\n', '') + '\tcomplex_modif\n')
+                Domain_file_modif_complex.write(pair_para.split('\t')[0] + '\t' +  pair_para.split('\t')[3] + '\t' +
+                                                pair_para.split('\t')[1] + '\t' + pair_para.split('\t')[4].replace('\n', '') + '\tcomplex_modif\n')
             else:
                 if len(spec_domain[pair_para.split('\t')[0]]) + 1 == len(spec_domain[pair_para.split('\t')[1]]) or len(spec_domain[pair_para.split('\t')[0]]) - 1 == len(spec_domain[pair_para.split('\t')[1]]):
-                    Domain_file_modif_1.write(pair_para.split('\t')[0] + '\t' +  pair_para.split('\t')[1] + '\t' +
-                                              pair_para.split('\t')[3] + '\t' + pair_para.split('\t')[4].replace('\n', '') + '\tmodif\n')
+                    Domain_file_modif_1.write(pair_para.split('\t')[0] + '\t' +  pair_para.split('\t')[3] + '\t' +
+                                              pair_para.split('\t')[1] + '\t' + pair_para.split('\t')[4].replace('\n', '') + '\tmodif\n')
 
                     #check if the loss domain is repeated into the protein or not                    
                     domain_sp1 = spec_domain[pair_para.split('\t')[0]]
@@ -105,13 +105,13 @@ def extract_paralog_modification_group(PairPara_in_path,
                             
                             #Inference of the position of the loss
                             if domain_sp1[1:] == domain_sp2 or domain_sp2[1:] == domain_sp1:
-                                Domain_file_final.write('%s\t%s\t%s\tf-1\t%s\n' % (pair_para.split('\t')[0], pair_para.split('\t')[1], pair_para.split('\t')[3], pair_para.split('\t')[4].replace('\n', '')))
+                                Domain_file_final.write('%s\tf-1\t%s\t%s\t%s\n' % (pair_para.split('\t')[0], pair_para.split('\t')[1], pair_para.split('\t')[3], pair_para.split('\t')[4].replace('\n', '')))
                                 
                             elif domain_sp1[:-1] == domain_sp2 or domain_sp2[:-1] == domain_sp1:
-                                Domain_file_final.write('%s\t%s\t%s\tb-1\t%s\n' % (pair_para.split('\t')[0], pair_para.split('\t')[1], pair_para.split('\t')[3], pair_para.split('\t')[4].replace('\n', '')))
+                                Domain_file_final.write('%s\tb-1\t%s\t%s\t%s\n' % (pair_para.split('\t')[0], pair_para.split('\t')[1], pair_para.split('\t')[3], pair_para.split('\t')[4].replace('\n', '')))
                             
                             else:
-                                Domain_file_final.write('%s\t%s\t%s\tint-1\t%s\n' % (pair_para.split('\t')[0], pair_para.split('\t')[1], pair_para.split('\t')[3], pair_para.split('\t')[4].replace('\n', '')))
+                                Domain_file_final.write('%s\tint-1\t%s\t%s\t%s\n' % (pair_para.split('\t')[0], pair_para.split('\t')[1], pair_para.split('\t')[3], pair_para.split('\t')[4].replace('\n', '')))
                                                         
                     elif len(set(domain_sp2)) + 1 == len(set(domain_sp1)):
                         not_all_present = False
@@ -130,13 +130,13 @@ def extract_paralog_modification_group(PairPara_in_path,
                             
                             #Inference of the position of the loss
                             if domain_sp1[1:] == domain_sp2 or domain_sp2[1:] == domain_sp1:
-                                Domain_file_final.write('%s\t%s\t%s\tf-1\t%s\n' % (pair_para.split('\t')[0], pair_para.split('\t')[1], pair_para.split('\t')[3], pair_para.split('\t')[4].replace('\n', '')))
+                                Domain_file_final.write('%s\tf-1\t%s\t%s\t%s\n' % (pair_para.split('\t')[0], pair_para.split('\t')[1], pair_para.split('\t')[3], pair_para.split('\t')[4].replace('\n', '')))
                                 
                             elif domain_sp1[:-1] == domain_sp2 or domain_sp2[:-1] == domain_sp1:
-                                Domain_file_final.write('%s\t%s\t%s\tb-1\t%s\n' % (pair_para.split('\t')[0], pair_para.split('\t')[1], pair_para.split('\t')[3], pair_para.split('\t')[4].replace('\n', '')))
+                                Domain_file_final.write('%s\tb-1\t%s\t%s\t%s\n' % (pair_para.split('\t')[0], pair_para.split('\t')[1], pair_para.split('\t')[3], pair_para.split('\t')[4].replace('\n', '')))
                             
                             else:
-                                Domain_file_final.write('%s\t%s\t%s\tint-1\t%s\n' % (pair_para.split('\t')[0], pair_para.split('\t')[1], pair_para.split('\t')[3], pair_para.split('\t')[4].replace('\n', '')))
+                                Domain_file_final.write('%s\tint-1\t%s\t%s\t%s\n' % (pair_para.split('\t')[0], pair_para.split('\t')[1], pair_para.split('\t')[3], pair_para.split('\t')[4].replace('\n', '')))
                             
                     else:
                         Domain_file_modif_complex.write(pair_para)
