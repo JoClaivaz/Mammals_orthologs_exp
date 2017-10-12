@@ -56,6 +56,7 @@ extraction of pair with one domain modification not involved in domain repetitio
 Inference of the position of the loss (f-1, b-1, int-1; N-terminal, C-terminal, internal respectively) in the no repeated pair
 Input: 'SPECIE_domain' (pfamscan output, called by 'Domain_file_in_path' argument), 'pairwise_ortholog_SPECIE1_SPECIE2' (called by the combination of 'list_mammals' and 'PairOrtho_in_path_with_regexp' arguments)
 Output: 'putative_ortholog_SPECIE1_SPECIE2_domain_loss', 'ortholog_SPECIE1_SPECIE2_partial', 'ortholog_SPECIE1_SPECIE2_both', 'ortholog_SPECIE1_SPECIE2_none', 'ortholog_SPECIE1_SPECIE2_domain_nomodif', 'ortholog_SPECIE1_SPECIE2_domain_complex_modif', 'ortholog_SPECIE1_SPECIE2_1_domain_modif', 'ortholog_SPECIE1_SPECIE2_1_domain_repeated' and 'ortholog_SPECIE1_SPECIE2_1_domain_notrepeated'.
+N.B.:after each gene in the output file, the domain length is indicated (2nd and 4th columns)
 Command line: python extract_ortholog_modification_group.py list_mammals PairOrtho_in_path_with_regexp Domain_file_in_path Domain_file_out_with_regexp
 
 #'extract_paralog_modification_group.py'
@@ -65,9 +66,10 @@ extraction of pair with one domain modification not involved in domain repetitio
 Inference of the position of the loss (f-1, b-1, int-1; N-terminal, C-terminal, internal respectively) in the no repeated pair
 Input: 'SPECIE_domain' (pfamscan output, called by 'Domain_file_in_path' argument), 'pairwise_paralog_SPECIE' (called by the combination of 'list_mammals' and 'PairPara_in_path_with_regexp' arguments)
 Output: 'putative_paralog_SPECIE_domain_loss', 'paralog_SPECIE_partial', 'paralog_SPECIE_both', 'paralog_SPECIE_none', 'paralog_SPECIE_domain_nomodif', 'paralog_SPECIE_domain_complex_modif', 'paralog_SPECIE_1_domain_modif', 'paralog_SPECIE_1_domain_repeated' and 'paralog_SPECIE_1_domain_notrepeated'.
+N.B.:after each gene in the output file, the domain length is indicated (2nd and 4th columns) and the 6th column contains the paralog group
 Command line: python extract_paralog_modification_group.py list_mammals PairPara_in_path_with_regexp Domain_file_in_path Domain_file_out_with_regexp
 
-#'ortho_domain_modification_analysis.py' and 'barplot_result_domain_modification.R'
+#'ortho_domain_modification_analysis.py', 'para_domain_modification_analysis.py' and 'barplot_result_domain_modification.R'
 analysis number of gene available in the different files produced through this step, and use R script to obtained plot
 Input: all the files produced for 'Domain_modification_inference' for the ortholog part
 Ouput: barplot visualization
@@ -89,21 +91,18 @@ Input: all dataset of 'ortholog_Specie1_Specie2_domain_nomodif', 'putative_ortho
 Output: 'SPECIE_expression_parsed'
 Command line: python extraction_state_expression_file.py considered_tissues considered_species control_modification_pairs_folder_path  path_expression_dir oma_ensembl_converter output_file_path
 
-
-
-
-
-#'barplot_result_expression_analysis.R'
-barplot visualization of the available pair in expression data
+#'Tspec_inference.R'
+Inference of tissue specificity estimators for ortholog and paralog pairs
+Input: 'SPECIE_expression_parsed', 'putative_paralog_SPECIE_domain_loss', 'putative_ortholog_SPECIE_domain_loss', 'paralog_SPECIE_domain_nomodif' and 'ortholog_SPECIE1_SPECIE2_1_domain_modif_domain_nomodif'
+Output:
 
 #'Tspec_analysis.R'
-Study the effect of domain modification on Tspec. Script allowed the inference of the different estimator
+Study the effect of paralog and ortholog domain modifications on Tspec.
 HYP assessed:
 	*effect of domain modification on Tspec values for a given species
 	*effect of domain modification on correlation between pairwise species comparisons
 	*effect of domain modification on Tspec factors shift for a given pairwise species comparison
 	*effect of domain architecture length on Tspec values
-Input: 'Species2_expression_parsed' and 'HUMAN_expression_parsed'
 
 
 ###Pipeline
@@ -120,7 +119,5 @@ Input: 'Species2_expression_parsed' and 'HUMAN_expression_parsed'
 	2. recover a table of conversion between OMA and Bgee identifier ('oma-ensembl') from http://omabrowser.org/oma/current/
 	3. run 'tissue_availability_mammals_bgee.py' (not mendatory if the species are selected and the states are known)
 	4. run 'extraction_state_expression_file.py'
-	
-	
-	
-	5. use 'Tspec_analysis.R'
+	5. run 'Tspec_inference.R'
+	6. use 'Tspec_analysis.R'
