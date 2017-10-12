@@ -467,99 +467,214 @@ require(tidyr)
 # unique(mouse_test$StageName)[unique(mouse_test$StageName)
 #                              %in% unique(human_test$StageName)]
 # unique(mouse_test$Sex)[unique(mouse_test$Sex) %in% unique(human_test$Sex)]
-mouse_human_ortho_notfemale = data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
-                                                               expression_data_sufix = '_expression_parsed',
-                                                               considered_species_name_1 = 'MOUSE',
-                                                               considered_species_name_2 = 'HUMAN',
-                                                               domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
-                                                               domain_control_sufix = '_domain_nomodif',
-                                                               domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
-                                                               domain_modif_sufix = '_domain_loss',
-                                                               notconsidered_sex_vector = c('female'))
 
-mouse_human_ortho_onlymale = data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
-                                                              expression_data_sufix = '_expression_parsed',
-                                                              considered_species_name_1 = 'MOUSE',
-                                                              considered_species_name_2 = 'HUMAN',
-                                                              domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
-                                                              domain_control_sufix = '_domain_nomodif',
-                                                              domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
-                                                              domain_modif_sufix = '_domain_loss',
-                                                              considered_sex_vector = c('male'))
-
-mouse_human_ortho_notfemale_nottestis = data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
-                                                                         expression_data_sufix = '_expression_parsed',
-                                                                         considered_species_name_1 = 'MOUSE',
-                                                                         considered_species_name_2 = 'HUMAN',
-                                                                         domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
-                                                                         domain_control_sufix = '_domain_nomodif',
-                                                                         domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
-                                                                         domain_modif_sufix = '_domain_loss',
-                                                                         notconsidered_sex_vector = c('female'),
-                                                                         notconsidered_anat_vector = c('testis'))
-
-mouse_human_ortho_onlymale_nottestis = data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
-                                                                        expression_data_sufix = '_expression_parsed',
-                                                                        considered_species_name_1 = 'MOUSE',
-                                                                        considered_species_name_2 = 'HUMAN',
-                                                                        domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
-                                                                        domain_control_sufix = '_domain_nomodif',
-                                                                        domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
-                                                                        domain_modif_sufix = '_domain_loss',
-                                                                        considered_sex_vector = c('male'),
-                                                                        notconsidered_anat_vector = c('testis'))
-
-mouse_human_ortho_notfemale_onlybrain = data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
-                                                                         expression_data_sufix = '_expression_parsed',
-                                                                         considered_species_name_1 = 'MOUSE',
-                                                                         considered_species_name_2 = 'HUMAN',
-                                                                         domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
-                                                                         domain_control_sufix = '_domain_nomodif',
-                                                                         domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
-                                                                         domain_modif_sufix = '_domain_loss',
-                                                                         notconsidered_sex_vector = c('female'),
-                                                                         notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum'))
-
-mouse_human_ortho_onlymale_onlybrain = data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
-                                                                        expression_data_sufix = '_expression_parsed',
-                                                                        considered_species_name_1 = 'MOUSE',
-                                                                        considered_species_name_2 = 'HUMAN',
-                                                                        domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
-                                                                        domain_control_sufix = '_domain_nomodif',
-                                                                        domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
-                                                                        domain_modif_sufix = '_domain_loss',
-                                                                        considered_sex_vector = c('male'),
-                                                                        notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum'))
-
-mouse_human_ortho_notfemale_onlybrain_nottestis = data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
-                                                                                   expression_data_sufix = '_expression_parsed',
-                                                                                   considered_species_name_1 = 'MOUSE',
-                                                                                   considered_species_name_2 = 'HUMAN',
-                                                                                   domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
-                                                                                   domain_control_sufix = '_domain_nomodif',
-                                                                                   domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
-                                                                                   domain_modif_sufix = '_domain_loss',
-                                                                                   notconsidered_sex_vector = c('female'),
-                                                                                   notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis'))
-
-mouse_human_ortho_onlymale_onlybrain_nottestis = data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
-                                                                                  expression_data_sufix = '_expression_parsed',
-                                                                                  considered_species_name_1 = 'MOUSE',
-                                                                                  considered_species_name_2 = 'HUMAN',
-                                                                                  domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
-                                                                                  domain_control_sufix = '_domain_nomodif',
-                                                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
-                                                                                  domain_modif_sufix = '_domain_loss',
-                                                                                  considered_sex_vector = c('male'),
-                                                                                  notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis'))
-
-human_para = data_organization_Tspec_paralog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
-                                             expression_data_sufix = '_expression_parsed',
-                                             considered_species_name = 'HUMAN',
-                                             domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paralog_',
-                                             domain_control_sufix = '_domain_nomodif',
-                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
-                                             domain_modif_sufix = '_domain_loss',
-                                             notconsidered_sex_vector = c('female'))
-
+species_vector = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN') 
+specie_done = c()
+#not_female
+for (cons_specie1 in 1:length(species_vector)){
+  specie_done = c(specie_done, species_vector[cons_specie1])
+  
+  write.csv(data_organization_Tspec_paralog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                               expression_data_sufix = '_expression_parsed',
+                                               considered_species_name = species_vector[cons_specie1],
+                                               domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paralog_',
+                                               domain_control_sufix = '_domain_nomodif',
+                                               domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
+                                               domain_modif_sufix = '_domain_loss',
+                                               notconsidered_sex_vector = c('female')),
+            file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                          species_vector[cons_specie1], '_', 'para_notfemale_dataset'))
+  
+  write.csv(data_organization_Tspec_paralog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                            expression_data_sufix = '_expression_parsed',
+                                            considered_species_name = species_vector[cons_specie1],
+                                            domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paralog_',
+                                            domain_control_sufix = '_domain_nomodif',
+                                            domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
+                                            domain_modif_sufix = '_domain_loss',
+                                            considered_sex_vector = c('male')),
+            file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                          species_vector[cons_specie1], '_', 'para_onlymale_dataset'))
+  
+  write.csv(data_organization_Tspec_paralog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                            expression_data_sufix = '_expression_parsed',
+                                            considered_species_name = species_vector[cons_specie1],
+                                            domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paralog_',
+                                            domain_control_sufix = '_domain_nomodif',
+                                            domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
+                                            domain_modif_sufix = '_domain_loss',
+                                            notconsidered_sex_vector = c('female'),
+                                            notconsidered_anat_vector = c('testis')),
+            file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                          species_vector[cons_specie1], '_', 'para_notfemale_nottestis_dataset'))
+  
+  write.csv(data_organization_Tspec_paralog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                            expression_data_sufix = '_expression_parsed',
+                                            considered_species_name = species_vector[cons_specie1],
+                                            domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paralog_',
+                                            domain_control_sufix = '_domain_nomodif',
+                                            domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
+                                            domain_modif_sufix = '_domain_loss',
+                                            considered_sex_vector = c('male'),
+                                            notconsidered_anat_vector = c('testis')),
+            file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                          species_vector[cons_specie1], '_', 'para_onlymale_nottestis_dataset'))
+  
+  write.csv(data_organization_Tspec_paralog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                            expression_data_sufix = '_expression_parsed',
+                                            considered_species_name = species_vector[cons_specie1],
+                                            domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paralog_',
+                                            domain_control_sufix = '_domain_nomodif',
+                                            domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
+                                            domain_modif_sufix = '_domain_loss',
+                                            notconsidered_sex_vector = c('female'),
+                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum')),
+            file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                          species_vector[cons_specie1], '_', 'para_notfemale_onlybrain_dataset'))
+  
+  write.csv(data_organization_Tspec_paralog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                            expression_data_sufix = '_expression_parsed',
+                                            considered_species_name = species_vector[cons_specie1],
+                                            domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paralog_',
+                                            domain_control_sufix = '_domain_nomodif',
+                                            domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
+                                            domain_modif_sufix = '_domain_loss',
+                                            considered_sex_vector = c('male'),
+                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum')),
+            file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                          species_vector[cons_specie1], '_', 'para_onlymale_onlybrain_dataset'))
+  
+  write.csv(data_organization_Tspec_paralog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                            expression_data_sufix = '_expression_parsed',
+                                            considered_species_name = species_vector[cons_specie1],
+                                            domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paralog_',
+                                            domain_control_sufix = '_domain_nomodif',
+                                            domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
+                                            domain_modif_sufix = '_domain_loss',
+                                            notconsidered_sex_vector = c('female'),
+                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis')),
+            file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                          species_vector[cons_specie1], '_', 'para_notfemale_onlybrain_nottestis_dataset'))
+  
+  write.csv(data_organization_Tspec_paralog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                            expression_data_sufix = '_expression_parsed',
+                                            considered_species_name = species_vector[cons_specie1],
+                                            domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paralog_',
+                                            domain_control_sufix = '_domain_nomodif',
+                                            domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
+                                            domain_modif_sufix = '_domain_loss',
+                                            considered_sex_vector = c('male'),
+                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis')),
+            file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                          species_vector[cons_specie1], '_', 'para_onlymale_onlybrain_nottestis_dataset'))
+  
+  for (cons_specie2 in 1:length(species_vector)){
+    if (!(species_vector[cons_specie2] %in% specie_done)){
+      
+      write.csv(data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                                 expression_data_sufix = '_expression_parsed',
+                                                 considered_species_name_1 = species_vector[cons_specie1],
+                                                 considered_species_name_2 = species_vector[cons_specie2],
+                                                 domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
+                                                 domain_control_sufix = '_domain_nomodif',
+                                                 domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
+                                                 domain_modif_sufix = '_domain_loss',
+                                                 notconsidered_sex_vector = c('female')), 
+                file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                              species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_notfemale_dataset'))
+      
+      write.csv(data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                                 expression_data_sufix = '_expression_parsed',
+                                                 considered_species_name_1 = species_vector[cons_specie1],
+                                                 considered_species_name_2 = species_vector[cons_specie2],
+                                                 domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
+                                                 domain_control_sufix = '_domain_nomodif',
+                                                 domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
+                                                 domain_modif_sufix = '_domain_loss',
+                                                 considered_sex_vector = c('male')),
+                file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                              species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_onlymale_dataset'))
+      
+      write.csv(data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                                 expression_data_sufix = '_expression_parsed',
+                                                 considered_species_name_1 = species_vector[cons_specie1],
+                                                 considered_species_name_2 = species_vector[cons_specie2],
+                                                 domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
+                                                 domain_control_sufix = '_domain_nomodif',
+                                                 domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
+                                                 domain_modif_sufix = '_domain_loss',
+                                                 notconsidered_sex_vector = c('female'),
+                                                 notconsidered_anat_vector = c('testis')),
+                file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                              species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_notfemale_nottestis_dataset'))
+      
+      write.csv(data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                                 expression_data_sufix = '_expression_parsed',
+                                                 considered_species_name_1 = species_vector[cons_specie1],
+                                                 considered_species_name_2 = species_vector[cons_specie2],
+                                                 domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
+                                                 domain_control_sufix = '_domain_nomodif',
+                                                 domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
+                                                 domain_modif_sufix = '_domain_loss',
+                                                 considered_sex_vector = c('male'),
+                                                 notconsidered_anat_vector = c('testis')),
+                file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                              species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_onlymale_nottestis_dataset'))
+      
+      
+      write.csv(data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                                 expression_data_sufix = '_expression_parsed',
+                                                 considered_species_name_1 = species_vector[cons_specie1],
+                                                 considered_species_name_2 = species_vector[cons_specie2],
+                                                 domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
+                                                 domain_control_sufix = '_domain_nomodif',
+                                                 domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
+                                                 domain_modif_sufix = '_domain_loss',
+                                                 notconsidered_sex_vector = c('female'),
+                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum')),
+                file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                              species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_notfemale_onlybrain_dataset'))
+      
+      write.csv(data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                                 expression_data_sufix = '_expression_parsed',
+                                                 considered_species_name_1 = species_vector[cons_specie1],
+                                                 considered_species_name_2 = species_vector[cons_specie2],
+                                                 domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
+                                                 domain_control_sufix = '_domain_nomodif',
+                                                 domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
+                                                 domain_modif_sufix = '_domain_loss',
+                                                 considered_sex_vector = c('male'),
+                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum')),
+                file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                              species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_onlymale_onlybrain_dataset'))
+      
+      write.csv(data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                                 expression_data_sufix = '_expression_parsed',
+                                                 considered_species_name_1 = species_vector[cons_specie1],
+                                                 considered_species_name_2 = species_vector[cons_specie2],
+                                                 domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
+                                                 domain_control_sufix = '_domain_nomodif',
+                                                 domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
+                                                 domain_modif_sufix = '_domain_loss',
+                                                 notconsidered_sex_vector = c('female'),
+                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis')),
+                file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                              species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_notfemale_onlybrain_nottestis_dataset'))
+      
+      write.csv(data_organization_Tspec_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                                                 expression_data_sufix = '_expression_parsed',
+                                                 considered_species_name_1 = species_vector[cons_specie1],
+                                                 considered_species_name_2 = species_vector[cons_specie2],
+                                                 domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
+                                                 domain_control_sufix = '_domain_nomodif',
+                                                 domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
+                                                 domain_modif_sufix = '_domain_loss',
+                                                 considered_sex_vector = c('male'),
+                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis')),
+                file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
+                              species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_onlymale_onlybrain_nottestis_dataset'))
+      
+    }  
+  }
+}
 ####

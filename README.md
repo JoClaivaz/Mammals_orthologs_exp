@@ -94,7 +94,7 @@ Command line: python extraction_state_expression_file.py considered_tissues cons
 #'Tspec_inference.R'
 Inference of tissue specificity estimators for ortholog and paralog pairs
 Input: 'SPECIE_expression_parsed', 'putative_paralog_SPECIE_domain_loss', 'putative_ortholog_SPECIE_domain_loss', 'paralog_SPECIE_domain_nomodif' and 'ortholog_SPECIE1_SPECIE2_1_domain_modif_domain_nomodif'
-Output:
+Output: store tables for 'Tspec_analysis.R'
 
 #'Tspec_analysis.R'
 Study the effect of paralog and ortholog domain modifications on Tspec.
@@ -103,6 +103,7 @@ HYP assessed:
 	*effect of domain modification on correlation between pairwise species comparisons
 	*effect of domain modification on Tspec factors shift for a given pairwise species comparison
 	*effect of domain architecture length on Tspec values
+Input: output tables from 'Tspec_inference.R'
 
 
 ###Pipeline
