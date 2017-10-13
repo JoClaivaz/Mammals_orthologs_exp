@@ -98,12 +98,13 @@ Output: store tables for 'Tspec_analysis.R'
 
 #'Tspec_analysis.R'
 Study the effect of paralog and ortholog domain modifications on Tspec.
+Organization of paralog: reference paralog is whether the longer one or the most expressed one in any tissues (TPM values)
 HYP assessed:
 	*effect of domain modification on Tspec values for a given species
 	*effect of domain modification on correlation between pairwise species comparisons
 	*effect of domain modification on Tspec factors shift for a given pairwise species comparison
 	*effect of domain architecture length on Tspec values
-Input: output tables from 'Tspec_inference.R'
+Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 
 
 ###Pipeline
