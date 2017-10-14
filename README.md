@@ -104,6 +104,7 @@ HYP assessed:
 	*effect of domain modification on correlation between pairwise species comparisons
 	*effect of domain modification on Tspec factors shift for a given pairwise species comparison
 	*effect of domain architecture length on Tspec values
+	*effect of the position where the modification occured
 Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 
 

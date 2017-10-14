@@ -201,7 +201,6 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'control'] ~ speci
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'control'], species_data$tspec_1[species_data$status == 'control'])$estimate[[1]]
 text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
-
 #model_ancova = lm(species_data$tspec_1 ~ species_data$tspec_2 + species_data$status)
 #qqnorm(residuals(model_ancova)); qqline(residuals(model_ancova))
 #plot(fitted.values(model_ancova), residuals(model_ancova))
@@ -415,6 +414,82 @@ legend('topright', c( paste0('longest domain in ',gsub('[[:digit:]]', '', specie
        cex = 0.6, horiz = F)
 
 chisq.test(species_data$TspecF_1[species_data$status != 'control'], species_data$longer_domain_specie[species_data$status != 'control'], correct = F)
+
+#Effect of loss position
+smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
+              species_data$tspec_2[species_data$status == 'int-1'],
+              xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' ref Tspec values'),
+              ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' other Tspec values'),
+              main = paste0('Correlation amongst Tspec values between ', gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' and ', gsub('[[:digit:]]','' ,species_data$GeneID_1[1]),
+                            ' orthologs',
+                            '\nDomain modification group: int-1'), cex.main = 0.8)
+abline(lm(species_data$tspec_2[species_data$status == 'int-1'] ~
+            species_data$tspec_1[species_data$status == 'int-1']), col = 'red')
+linear_param = lm(species_data$tspec_2[species_data$status == 'int-1'] ~
+                    species_data$tspec_1[species_data$status == 'int-1'])$coefficients
+cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
+                     species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+
+smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
+              species_data$tspec_2[species_data$status == 'b-1'],
+              xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' ref Tspec values'),
+              ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' other Tspec values'),
+              main = paste0('Correlation amongst Tspec values between ', gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' and ', gsub('[[:digit:]]','' ,species_data$GeneID_1[1]),
+                            ' orthologs',
+                            '\nDomain modification group: b-1'), cex.main = 0.8)
+abline(lm(species_data$tspec_2[species_data$status == 'b-1'] ~
+            species_data$tspec_1[species_data$status == 'b-1']), col = 'red')
+linear_param = lm(species_data$tspec_2[species_data$status == 'b-1'] ~
+                    species_data$tspec_1[species_data$status == 'b-1'])$coefficients
+cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
+                     species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+
+smoothScatter(species_data$tspec_1[species_data$status == 'f-1'],
+              species_data$tspec_2[species_data$status == 'f-1'],
+              xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' ref Tspec values'),
+              ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' other Tspec values'),
+              main = paste0('Correlation amongst Tspec values between ', gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' and ', gsub('[[:digit:]]','' ,species_data$GeneID_1[1]),
+                            ' orthologs',
+                            '\nDomain modification group: f-1'), cex.main = 0.8)
+abline(lm(species_data$tspec_2[species_data$status == 'f-1'] ~
+            species_data$tspec_1[species_data$status == 'f-1']), col = 'red')
+linear_param = lm(species_data$tspec_2[species_data$status == 'f-1'] ~
+                    species_data$tspec_1[species_data$status == 'f-1'])$coefficients
+cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
+                     species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+
+cor.diff.test(species_data$tspec_1[species_data$status == 'int-1'],
+              species_data$tspec_2[species_data$status == 'int-1'],
+              species_data$tspec_1[species_data$status == 'b-1'],
+              species_data$tspec_2[species_data$status == 'b-1'])
+
+cor.diff.test(species_data$tspec_1[species_data$status == 'int-1'],
+              species_data$tspec_2[species_data$status == 'int-1'],
+              species_data$tspec_1[species_data$status == 'f-1'],
+              species_data$tspec_2[species_data$status == 'f-1'])
+
+cor.diff.test(species_data$tspec_1[species_data$status == 'f-1'],
+              species_data$tspec_2[species_data$status == 'f-1'],
+              species_data$tspec_1[species_data$status == 'b-1'],
+              species_data$tspec_2[species_data$status == 'b-1'])
+
+cor.diff.test(species_data$tspec_1[species_data$status == 'int-1'],
+              species_data$tspec_2[species_data$status == 'int-1'],
+              species_data$tspec_1[species_data$status == 'control'],
+              species_data$tspec_2[species_data$status == 'control'])
+
+cor.diff.test(species_data$tspec_1[species_data$status == 'b-1'],
+              species_data$tspec_2[species_data$status == 'b-1'],
+              species_data$tspec_1[species_data$status == 'control'],
+              species_data$tspec_2[species_data$status == 'control'])
+
+cor.diff.test(species_data$tspec_1[species_data$status == 'f-1'],
+              species_data$tspec_2[species_data$status == 'f-1'],
+              species_data$tspec_1[species_data$status == 'control'],
+              species_data$tspec_2[species_data$status == 'control'])
 ####
 
 ####Paralog####
@@ -433,7 +508,6 @@ paralog_reference = aggregate(species_data$GeneID_1 ~ species_data$ParalogGroup,
 #keep_gene_1 = !(species_data$GeneID_1 %in% species_data$GeneID_2)
 keep_gene_1 = species_data$GeneID_1 %in% paralog_reference$`species_data$GeneID_1`
 species_data = species_data[keep_gene_1,]
-
 ###
 
 #correlation among ref paralog and other
@@ -489,3 +563,79 @@ abline( v = 0.8, col = 'red')
 ks.test(species_data$tspec_1[species_data$status != 'control'], species_data$tspec_1[species_data$status == 'control'])
 ks.test(species_data$tspec_2[species_data$status != 'control'], species_data$tspec_2[species_data$status == 'control'])
 #
+
+#Effect of loss position
+smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
+              species_data$tspec_2[species_data$status == 'int-1'],
+              xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' ref Tspec values'),
+              ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' other Tspec values'),
+              main = paste0('Correlation amongst Tspec values between ', gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' and ', gsub('[[:digit:]]','' ,species_data$GeneID_1[1]),
+                            ' orthologs',
+                            '\nDomain modification group: int-1'), cex.main = 0.8)
+abline(lm(species_data$tspec_2[species_data$status == 'int-1'] ~
+            species_data$tspec_1[species_data$status == 'int-1']), col = 'red')
+linear_param = lm(species_data$tspec_2[species_data$status == 'int-1'] ~
+                    species_data$tspec_1[species_data$status == 'int-1'])$coefficients
+cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
+                     species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+
+smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
+              species_data$tspec_2[species_data$status == 'b-1'],
+              xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' ref Tspec values'),
+              ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' other Tspec values'),
+              main = paste0('Correlation amongst Tspec values between ', gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' and ', gsub('[[:digit:]]','' ,species_data$GeneID_1[1]),
+                            ' orthologs',
+                            '\nDomain modification group: b-1'), cex.main = 0.8)
+abline(lm(species_data$tspec_2[species_data$status == 'b-1'] ~
+            species_data$tspec_1[species_data$status == 'b-1']), col = 'red')
+linear_param = lm(species_data$tspec_2[species_data$status == 'b-1'] ~
+                    species_data$tspec_1[species_data$status == 'b-1'])$coefficients
+cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
+                     species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+
+smoothScatter(species_data$tspec_1[species_data$status == 'f-1'],
+              species_data$tspec_2[species_data$status == 'f-1'],
+              xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' ref Tspec values'),
+              ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' other Tspec values'),
+              main = paste0('Correlation amongst Tspec values between ', gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' and ', gsub('[[:digit:]]','' ,species_data$GeneID_1[1]),
+                            ' orthologs',
+                            '\nDomain modification group: f-1'), cex.main = 0.8)
+abline(lm(species_data$tspec_2[species_data$status == 'f-1'] ~
+            species_data$tspec_1[species_data$status == 'f-1']), col = 'red')
+linear_param = lm(species_data$tspec_2[species_data$status == 'f-1'] ~
+                    species_data$tspec_1[species_data$status == 'f-1'])$coefficients
+cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
+                     species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+
+cor.diff.test(species_data$tspec_1[species_data$status == 'int-1'],
+              species_data$tspec_2[species_data$status == 'int-1'],
+              species_data$tspec_1[species_data$status == 'b-1'],
+              species_data$tspec_2[species_data$status == 'b-1'])
+
+cor.diff.test(species_data$tspec_1[species_data$status == 'int-1'],
+              species_data$tspec_2[species_data$status == 'int-1'],
+              species_data$tspec_1[species_data$status == 'f-1'],
+              species_data$tspec_2[species_data$status == 'f-1'])
+
+cor.diff.test(species_data$tspec_1[species_data$status == 'f-1'],
+              species_data$tspec_2[species_data$status == 'f-1'],
+              species_data$tspec_1[species_data$status == 'b-1'],
+              species_data$tspec_2[species_data$status == 'b-1'])
+
+cor.diff.test(species_data$tspec_1[species_data$status == 'int-1'],
+              species_data$tspec_2[species_data$status == 'int-1'],
+              species_data$tspec_1[species_data$status == 'control'],
+              species_data$tspec_2[species_data$status == 'control'])
+
+cor.diff.test(species_data$tspec_1[species_data$status == 'b-1'],
+              species_data$tspec_2[species_data$status == 'b-1'],
+              species_data$tspec_1[species_data$status == 'control'],
+              species_data$tspec_2[species_data$status == 'control'])
+
+cor.diff.test(species_data$tspec_1[species_data$status == 'f-1'],
+              species_data$tspec_2[species_data$status == 'f-1'],
+              species_data$tspec_1[species_data$status == 'control'],
+              species_data$tspec_2[species_data$status == 'control'])
