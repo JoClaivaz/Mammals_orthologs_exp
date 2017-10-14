@@ -114,6 +114,10 @@ sort_paralog = function(paralog_dataset, expression_dataset){
   return(paralog_dataset)
   
 }
+
+most_occurence_vector = function(data){
+  return(names(sort(table(data), decreasing = T)[1]))
+}
 ####
 
 #####Tspec analysis#####
@@ -422,7 +426,16 @@ species_data$X = NULL
 #maximal expression (reference, maximal in one state) gene is the GeneID_1
 #and longer domain is also GeneID_1 in modified gene
 species_data = sort_paralog(paralog_dataset = species_data, expression_dataset = paste0('D:/UNIL/Master/Master_Project/Data/Bgee/', gsub('[[:digit:]]', '', species_data$GeneID_1[1]), '_expression_parsed'))
+
+#unique paralog consideration
+paralog_reference = aggregate(species_data$GeneID_1 ~ species_data$ParalogGroup, FUN = most_occurence_vector)
+#keep_gene_1 = species_data$GeneID_1 %in% paralog_reference$`species_data$GeneID_1` & !(species_data$GeneID_1 %in% species_data$GeneID_2)
+#keep_gene_1 = !(species_data$GeneID_1 %in% species_data$GeneID_2)
+keep_gene_1 = species_data$GeneID_1 %in% paralog_reference$`species_data$GeneID_1`
+species_data = species_data[keep_gene_1,]
+
 ###
+
 #correlation among ref paralog and other
 smoothScatter(species_data$tspec_1[species_data$status != 'control'],
               species_data$tspec_2[species_data$status != 'control'],

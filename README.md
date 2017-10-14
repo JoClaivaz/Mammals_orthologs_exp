@@ -98,7 +98,7 @@ Output: store tables for 'Tspec_analysis.R'
 
 #'Tspec_analysis.R'
 Study the effect of paralog and ortholog domain modifications on Tspec.
-Organization of paralog: reference paralog is whether the longer one or the most expressed one in any tissues (TPM values)
+Organization of paralog: reference paralog is defined by the most represented gene for a given paralog group which is whether the longer one or the most expressed one in any tissues (TPM values)
 HYP assessed:
 	*effect of domain modification on Tspec values for a given species
 	*effect of domain modification on correlation between pairwise species comparisons
