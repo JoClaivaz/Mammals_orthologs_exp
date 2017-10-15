@@ -75,7 +75,7 @@ Input: all the files produced for 'Domain_modification_inference' for the orthol
 Ouput: barplot visualization
 
 
-##Analysis
+##Analysis subfolder
 #'tissue_availability_mammals_bgee.py'
 extract unique Anatomical entity name and Stage name for each expression dataset from Bgee, allowing the choice of the species (with at least 6 common tissue with the central species, here HUMAN)
 Input: * all expression data from Bgee
@@ -107,10 +107,19 @@ HYP assessed:
 	*effect of the position where the modification occured
 Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 
+#'extract_DNA_sequence.py'
+create one file containing all the cDNA sequence specific to one specie extracted from 'eukaryotes.cdna.fa'
+Input: 'eukaryotes.cdna.fa' and list of considered species
+Output: 'SPECIE_dna_seq'
+
+#'ortholog_family_to_file.py' and 'paralog_family_to_file.py'
+create one file per ortholog or paralog family, contining cDNA sequences. Considered pairs are present in control or domain modification considered groups.
+Input: 'ortholog_Specie1_Specie2_domain_nomodif', 'paralog_SPECIE_domain_nomodif', 'putative_ortholog_SPECIE1_SPECIE2_domain_loss', 'putative_paralog_SPECIE_domain_loss' and 'SPECIE_dna_seq'
+Output: 'ortholog_family_#' and 'SPECIE_family_#' (paralog files)
 
 ###Pipeline
 ##Domain_modification_inference
-	1. recover fasta sequence ('oma-seqs.fa') and pairwise orthology ('oma-pairs.txt', read with 'zcat') from http://omabrowser.org/oma/current/
+	1. recover protein fasta sequence ('oma-seqs.fa') and pairwise orthology ('oma-pairs.txt', read with 'zcat') from http://omabrowser.org/oma/current/
 	2. run python script 'extract_ortholog_pair_OMA.py'
 	3. run python script 'extract_ortolog_fasta_sequence.py'
 	4. run pfamscan perl tool on 'protein_sequence_SPECIE' > 'Specie_domain'
@@ -124,3 +133,6 @@ Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 	4. run 'extraction_state_expression_file.py'
 	5. run 'Tspec_inference.R'
 	6. use 'Tspec_analysis.R'
+	7. recover cDNA fasta sequences ('eukaryotes.cdna.fa') from http://omabrowser.org/oma/current/
+	8. run 'extract_DNA_sequence.py'
+	9. run 'ortholog_family_to_file.py' and 'paralog_family_to_file.py'
