@@ -107,6 +107,7 @@ HYP assessed:
 	*effect of the position where the modification occured
 Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 
+******NOT FINISH********
 #'extract_DNA_sequence.py'
 create one file containing all the cDNA sequence specific to one specie extracted from 'eukaryotes.cdna.fa'
 Input: 'eukaryotes.cdna.fa' and list of considered species
@@ -116,6 +117,12 @@ Output: 'SPECIE_dna_seq'
 create one file per ortholog or paralog family, contining cDNA sequences. Considered pairs are present in control or domain modification considered groups.
 Input: 'ortholog_Specie1_Specie2_domain_nomodif', 'paralog_SPECIE_domain_nomodif', 'putative_ortholog_SPECIE1_SPECIE2_domain_loss', 'putative_paralog_SPECIE_domain_loss' and 'SPECIE_dna_seq'
 Output: 'ortholog_family_#' and 'SPECIE_family_#' (paralog files)
+
+#'kaks_analysis.R'
+compute the selective pressure amongst homolog genes based on the calculation of kaks
+Input: 'ortholog_family_#' and 'SPECIE_family_#'
+********************
+
 
 ###Pipeline
 ##Domain_modification_inference
@@ -133,6 +140,9 @@ Output: 'ortholog_family_#' and 'SPECIE_family_#' (paralog files)
 	4. run 'extraction_state_expression_file.py'
 	5. run 'Tspec_inference.R'
 	6. use 'Tspec_analysis.R'
-	7. recover cDNA fasta sequences ('eukaryotes.cdna.fa') from http://omabrowser.org/oma/current/
-	8. run 'extract_DNA_sequence.py'
-	9. run 'ortholog_family_to_file.py' and 'paralog_family_to_file.py'
+	7.
+	*****NOT FINISH****
+	8. recover cDNA fasta sequences ('eukaryotes.cdna.fa') from http://omabrowser.org/oma/current/
+	9. run 'extract_DNA_sequence.py'
+	10. run 'ortholog_family_to_file.py' and 'paralog_family_to_file.py'
+	11. use 'kaks_analysis.R'
