@@ -1,9 +1,9 @@
-'''
+"""
 Joaquim Claivaz
 171003, last modification 171013
 
 Tspec analysis in mammals
-'''
+"""
 ####FUN####
 #taken from rg255
 cor.diff.test = function(x1, x2, y1, y2, method="pearson") {
@@ -126,6 +126,7 @@ species_data$X = NULL
 ####Ortholog####
 ##status
 #Effect of domain modification (status) on Tspec values 
+"""
 hist(species_data$tspec_1[species_data$status != 'control'], breaks = 100, freq = F, col = rgb(1, 0 , 0, 0.5), 
      main = paste0('Distribution of tissue specificity values in ', gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), '\n', gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' comparison'), xlab = 'Tspec value', cex.main = 0.9)
 hist(species_data$tspec_1[species_data$status == 'control'], breaks = 100, freq = F, col = rgb(0, 0 , 1, 0.5), add = T)
@@ -142,9 +143,10 @@ abline( v = 0.8, col = 'red')
 ks.test(species_data$tspec_1[species_data$status != 'control'], species_data$tspec_1[species_data$status == 'control'])
 ks.test(species_data$tspec_2[species_data$status != 'control'], species_data$tspec_2[species_data$status == 'control'])
 #
+"""
 
 #Effect of domain modification (status) on specificity factor (ubiquitous / specificity)
-'''
+"""
 c_s = sum(species_data$TspecF_1[species_data$status == 'control'] == 'specific')
 c_u = sum(species_data$TspecF_1[species_data$status == 'control'] == 'ubiquitous')
 m_s = sum(species_data$TspecF_1[species_data$status != 'control'] == 'specific')
@@ -175,7 +177,7 @@ legend('bottomright', c( "domain modification", "control"), fill = c('red','blue
 #HO: no difference amongst specific and ubiquitous factor proportion in function of domain modification status
 chisq.test(species_data$TspecF_1, species_data$status, correct = F)
 chisq.test(species_data$TspecF_2, species_data$status, correct = F)
-'''
+"""
 #
 
 #Correlation between tspec in function of status
@@ -215,7 +217,7 @@ cor.diff.test(species_data$tspec_1[species_data$status != 'control'], species_da
 #
 
 #study proportion of specific factor in function of status
-'''
+"""
 barplot(c(table(species_data$spec_tissue_1[species_data$status != 'control']) / sum(table(species_data$spec_tissue_1[species_data$status != 'control'])),
           table(species_data$spec_tissue_1[species_data$status == 'control']) / sum(table(species_data$spec_tissue_1[species_data$status == 'control']))),
         cex.names = 0.6, las = 2,
@@ -234,18 +236,18 @@ legend('topleft', c( "domain modification", "control"), fill = c('red','blue'),
 #H0: no difference amongst the proportion of specificity factor in function of domain modification
 chisq.test(species_data$spec_tissue_1, species_data$status, correct = F)
 chisq.test(species_data$spec_tissue_2, species_data$status, correct = F)
-'''
+"""
 #
 
 #study shift in specific factor in function of status
-'''
+"""
 barplot(c(table(species_data$shift[species_data$status != 'control']) / sum(table(species_data$shift[species_data$status != 'control'])),
           table(species_data$shift[species_data$status == 'control']) / sum(table(species_data$shift[species_data$status == 'control']))),
         cex.names = 0.6, col = rep(c('red', 'blue'), each = 5), las = 2, beside = T,
         main = paste0('Pair proportion in each group of shift specificity factor\n', gsub('[[:digit:]]', '', species_data$GeneID_1[1]), ' vs ', gsub('[[:digit:]]', '', species_data$GeneID_2[1])), ylab = 'pair proportion')
 legend('top', c( "domain modification", "control"), fill = c('red','blue'),
        cex = 0.6, horiz = F)
-'''
+
 
 pie(table(species_data$shift[species_data$status != 'control']) / sum(table(species_data$shift[species_data$status != 'control'])),
         cex.names = 0.6 , 
@@ -272,11 +274,13 @@ chisq.test(c(rep(1, length(species_data$shift[species_data$shift == 'ubiquitous_
              rep(0, length(species_data$shift[!(species_data$shift == 'ubiquitous_to_specific' | species_data$shift == 'specificity_shift' | species_data$shift == 'specific_to_ubiquitous')]))), 
            c(as.factor(species_data$status[species_data$shift == 'ubiquitous_to_specific' | species_data$shift == 'specificity_shift' | species_data$shift == 'specific_to_ubiquitous']), 
              as.factor(species_data$status[!(species_data$shift == 'ubiquitous_to_specific' | species_data$shift == 'specificity_shift' | species_data$shift == 'specific_to_ubiquitous')])), correct = F)
+"""
 ##
 ####
 
 ###Effect of longer domain on the different estimators####
 #on Tspec values 
+"""
 hist(species_data$tspec_1[species_data$longer_domain_specie == 'specie1'],
      breaks = 20, freq = F, col = rgb(1, 0 , 0, 0.5),
      main = paste0('Domain modification group tissue specificity values distribution in function of domain length\n',
@@ -414,7 +418,7 @@ legend('topright', c( paste0('longest domain in ',gsub('[[:digit:]]', '', specie
        cex = 0.6, horiz = F)
 
 chisq.test(species_data$TspecF_1[species_data$status != 'control'], species_data$longer_domain_specie[species_data$status != 'control'], correct = F)
-
+"""
 #Effect of loss position
 smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
               species_data$tspec_2[species_data$status == 'int-1'],
@@ -547,6 +551,7 @@ cor.diff.test(species_data$tspec_1[species_data$status != 'control'],
               species_data$tspec_2[species_data$status == 'control'])
 
 #Effect of domain modification (status) on Tspec values 
+"""
 hist(species_data$tspec_1[species_data$status != 'control'], breaks = 100, freq = F, col = rgb(1, 0 , 0, 0.5), 
      main = paste0('Distribution of tissue specificity values in ', gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' paralogs\nRef expression comparison'), xlab = 'Tspec value', cex.main = 0.9)
 hist(species_data$tspec_1[species_data$status == 'control'], breaks = 100, freq = F, col = rgb(0, 0 , 1, 0.5), add = T)
@@ -563,7 +568,7 @@ abline( v = 0.8, col = 'red')
 ks.test(species_data$tspec_1[species_data$status != 'control'], species_data$tspec_1[species_data$status == 'control'])
 ks.test(species_data$tspec_2[species_data$status != 'control'], species_data$tspec_2[species_data$status == 'control'])
 #
-
+"""
 #Effect of loss position
 smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
               species_data$tspec_2[species_data$status == 'int-1'],
