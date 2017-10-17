@@ -492,7 +492,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)",
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
-                                                                             "19th week post-fertilization human stage (human)")),
+                                                                             "19th week post-fertilization human stage (human)"),
+                                            notconsidered_anat_vector = c('kidney')),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_notfemale_dataset'))
   
@@ -514,7 +515,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)",
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
-                                                                             "19th week post-fertilization human stage (human)")),
+                                                                             "19th week post-fertilization human stage (human)"),
+                                            notconsidered_anat_vector = c('kidney')),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_onlymale_dataset'))
   
@@ -537,7 +539,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)",
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
-                                                                             "19th week post-fertilization human stage (human)")),
+                                                                             "19th week post-fertilization human stage (human)"),
+                                            notconsidered_anat_vector = c('kidney')),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_notfemale_nottestis_dataset'))
   
@@ -560,7 +563,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)",
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
-                                                                             "19th week post-fertilization human stage (human)")),
+                                                                             "19th week post-fertilization human stage (human)"),
+                                            notconsidered_anat_vector = c('kidney')),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_onlymale_nottestis_dataset'))
   
@@ -583,7 +587,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)",
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
-                                                                             "19th week post-fertilization human stage (human)")),
+                                                                             "19th week post-fertilization human stage (human)"),
+                                            notconsidered_anat_vector = c('kidney')),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_notfemale_onlybrain_dataset'))
   
@@ -606,7 +611,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)",
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
-                                                                             "19th week post-fertilization human stage (human)")),
+                                                                             "19th week post-fertilization human stage (human)"),
+                                            notconsidered_anat_vector = c('kidney')),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_onlymale_onlybrain_dataset'))
   
@@ -629,7 +635,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)",
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
-                                                                             "19th week post-fertilization human stage (human)")),
+                                                                             "19th week post-fertilization human stage (human)"),
+                                            notconsidered_anat_vector = c('kidney')),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_notfemale_onlybrain_nottestis_dataset'))
   
@@ -652,7 +659,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)",
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
-                                                                             "19th week post-fertilization human stage (human)")),
+                                                                             "19th week post-fertilization human stage (human)"),
+                                            notconsidered_anat_vector = c('kidney')),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_onlymale_onlybrain_nottestis_dataset'))
   
@@ -678,7 +686,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "19th week post-fertilization human stage (human)",
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
-                                                                                  "19th week post-fertilization human stage (human)")), 
+                                                                                  "19th week post-fertilization human stage (human)"),
+                                                 notconsidered_anat_vector = c('kidney')), 
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_notfemale_dataset'))
       
@@ -701,7 +710,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "19th week post-fertilization human stage (human)",
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
-                                                                                  "19th week post-fertilization human stage (human)")),
+                                                                                  "19th week post-fertilization human stage (human)"),
+                                                 notconsidered_anat_vector = c('kidney')),
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_onlymale_dataset'))
       
@@ -725,7 +735,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "19th week post-fertilization human stage (human)",
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
-                                                                                  "19th week post-fertilization human stage (human)")),
+                                                                                  "19th week post-fertilization human stage (human)"),
+                                                 notconsidered_anat_vector = c('kidney')),
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_notfemale_nottestis_dataset'))
       
@@ -749,7 +760,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "19th week post-fertilization human stage (human)",
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
-                                                                                  "19th week post-fertilization human stage (human)")),
+                                                                                  "19th week post-fertilization human stage (human)"),
+                                                 notconsidered_anat_vector = c('kidney')),
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_onlymale_nottestis_dataset'))
       
@@ -774,7 +786,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "19th week post-fertilization human stage (human)",
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
-                                                                                  "19th week post-fertilization human stage (human)")),
+                                                                                  "19th week post-fertilization human stage (human)"),
+                                                 notconsidered_anat_vector = c('kidney')),
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_notfemale_onlybrain_dataset'))
       
@@ -798,7 +811,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "19th week post-fertilization human stage (human)",
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
-                                                                                  "19th week post-fertilization human stage (human)")),
+                                                                                  "19th week post-fertilization human stage (human)"),
+                                                 notconsidered_anat_vector = c('kidney')),
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_onlymale_onlybrain_dataset'))
       
@@ -822,7 +836,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "19th week post-fertilization human stage (human)",
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
-                                                                                  "19th week post-fertilization human stage (human)")),
+                                                                                  "19th week post-fertilization human stage (human)"),
+                                                 notconsidered_anat_vector = c('kidney')),
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_notfemale_onlybrain_nottestis_dataset'))
       
@@ -846,7 +861,8 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "19th week post-fertilization human stage (human)",
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
-                                                                                  "19th week post-fertilization human stage (human)")),
+                                                                                  "19th week post-fertilization human stage (human)"),
+                                                 notconsidered_anat_vector = c('kidney')),
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_onlymale_onlybrain_nottestis_dataset'))
       
