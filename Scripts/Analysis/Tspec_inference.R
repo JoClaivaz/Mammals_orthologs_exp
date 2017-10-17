@@ -528,7 +528,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             notconsidered_sex_vector = c('female'),
-                                            notconsidered_anat_vector = c('testis'),
+                                            notconsidered_anat_vector = c('testis', 'kidney'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -539,8 +539,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)",
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
-                                                                             "19th week post-fertilization human stage (human)"),
-                                            notconsidered_anat_vector = c('kidney')),
+                                                                             "19th week post-fertilization human stage (human)")),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_notfemale_nottestis_dataset'))
   
@@ -552,7 +551,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             considered_sex_vector = c('male'),
-                                            notconsidered_anat_vector = c('testis'),
+                                            notconsidered_anat_vector = c('testis', 'kidney'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -563,8 +562,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)",
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
-                                                                             "19th week post-fertilization human stage (human)"),
-                                            notconsidered_anat_vector = c('kidney')),
+                                                                             "19th week post-fertilization human stage (human)")),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_onlymale_nottestis_dataset'))
   
@@ -576,7 +574,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             notconsidered_sex_vector = c('female'),
-                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum'),
+                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'kidney'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -587,8 +585,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)",
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
-                                                                             "19th week post-fertilization human stage (human)"),
-                                            notconsidered_anat_vector = c('kidney')),
+                                                                             "19th week post-fertilization human stage (human)")),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_notfemale_onlybrain_dataset'))
   
@@ -600,7 +597,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             considered_sex_vector = c('male'),
-                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum'),
+                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'kidney'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -611,8 +608,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)",
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
-                                                                             "19th week post-fertilization human stage (human)"),
-                                            notconsidered_anat_vector = c('kidney')),
+                                                                             "19th week post-fertilization human stage (human)")),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_onlymale_onlybrain_dataset'))
   
@@ -624,7 +620,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             notconsidered_sex_vector = c('female'),
-                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis'),
+                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis', 'kidney'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -635,8 +631,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)",
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
-                                                                             "19th week post-fertilization human stage (human)"),
-                                            notconsidered_anat_vector = c('kidney')),
+                                                                             "19th week post-fertilization human stage (human)")),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_notfemale_onlybrain_nottestis_dataset'))
   
@@ -648,7 +643,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             considered_sex_vector = c('male'),
-                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis'),
+                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis', 'kidney'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -659,8 +654,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)",
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
-                                                                             "19th week post-fertilization human stage (human)"),
-                                            notconsidered_anat_vector = c('kidney')),
+                                                                             "19th week post-fertilization human stage (human)")),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_onlymale_onlybrain_nottestis_dataset'))
   
@@ -724,7 +718,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  notconsidered_sex_vector = c('female'),
-                                                 notconsidered_anat_vector = c('testis'),
+                                                 notconsidered_anat_vector = c('testis', 'kidney'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -735,8 +729,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "19th week post-fertilization human stage (human)",
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
-                                                                                  "19th week post-fertilization human stage (human)"),
-                                                 notconsidered_anat_vector = c('kidney')),
+                                                                                  "19th week post-fertilization human stage (human)")),
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_notfemale_nottestis_dataset'))
       
@@ -749,7 +742,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  considered_sex_vector = c('male'),
-                                                 notconsidered_anat_vector = c('testis'),
+                                                 notconsidered_anat_vector = c('testis', 'kidney'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -760,8 +753,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "19th week post-fertilization human stage (human)",
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
-                                                                                  "19th week post-fertilization human stage (human)"),
-                                                 notconsidered_anat_vector = c('kidney')),
+                                                                                  "19th week post-fertilization human stage (human)")),
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_onlymale_nottestis_dataset'))
       
@@ -775,7 +767,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  notconsidered_sex_vector = c('female'),
-                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum'),
+                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'kidney'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -786,8 +778,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "19th week post-fertilization human stage (human)",
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
-                                                                                  "19th week post-fertilization human stage (human)"),
-                                                 notconsidered_anat_vector = c('kidney')),
+                                                                                  "19th week post-fertilization human stage (human)")),
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_notfemale_onlybrain_dataset'))
       
@@ -800,7 +791,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  considered_sex_vector = c('male'),
-                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum'),
+                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'kidney'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -811,8 +802,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "19th week post-fertilization human stage (human)",
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
-                                                                                  "19th week post-fertilization human stage (human)"),
-                                                 notconsidered_anat_vector = c('kidney')),
+                                                                                  "19th week post-fertilization human stage (human)")),
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_onlymale_onlybrain_dataset'))
       
@@ -825,7 +815,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  notconsidered_sex_vector = c('female'),
-                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis'),
+                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis', 'kidney'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -836,8 +826,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "19th week post-fertilization human stage (human)",
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
-                                                                                  "19th week post-fertilization human stage (human)"),
-                                                 notconsidered_anat_vector = c('kidney')),
+                                                                                  "19th week post-fertilization human stage (human)")),
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_notfemale_onlybrain_nottestis_dataset'))
       
@@ -850,7 +839,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  considered_sex_vector = c('male'),
-                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis'),
+                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis', 'kidney'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -861,8 +850,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "19th week post-fertilization human stage (human)",
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
-                                                                                  "19th week post-fertilization human stage (human)"),
-                                                 notconsidered_anat_vector = c('kidney')),
+                                                                                  "19th week post-fertilization human stage (human)")),
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_onlymale_onlybrain_nottestis_dataset'))
       
