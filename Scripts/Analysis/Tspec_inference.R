@@ -130,9 +130,9 @@ data_organization_Tspec_ortholog = function(considered_species_name_1,
   keep_AnatomicalEntityName = unique(specie2_data$AnatomicalEntityName)[unique(specie2_data$AnatomicalEntityName) %in% unique(specie1_data$AnatomicalEntityName)]
   specie1_data = specie1_data[specie1_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
   specie2_data = specie2_data[specie2_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
-  keep_AnatomicalEntityName = unique(specie1_data$AnatomicalEntityName)[unique(specie1_data$AnatomicalEntityName) %in% unique(specie2_data$AnatomicalEntityName)]
-  specie1_data = specie1_data[specie1_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
-  specie2_data = specie2_data[specie2_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
+  # keep_AnatomicalEntityName = unique(specie1_data$AnatomicalEntityName)[unique(specie1_data$AnatomicalEntityName) %in% unique(specie2_data$AnatomicalEntityName)]
+  # specie1_data = specie1_data[specie1_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
+  # specie2_data = specie2_data[specie2_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
   #
   if (considered_anat_vector != F){
     specie1_data = specie1_data[specie1_data$AnatomicalEntityName %in% considered_anat_vector,]
