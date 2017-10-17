@@ -11,7 +11,9 @@ central_species = c('BOVIN', 'MOUSE', 'HUMAN')
 regexp_list = c('_ortho_notfemale_dataset', '_ortho_onlymale_dataset',
                 '_ortho_notfemale_onlybrain_dataset', '_ortho_onlymale_onlybrain_dataset',
                 '_ortho_notfemale_nottestis_dataset', '_ortho_onlymale_nottestis_dataset',
-                '_ortho_notfemale_onlybrain_nottestis_dataset', '_ortho_onlymale_onlybrain_nottestis_dataset') 
+                '_ortho_notfemale_onlybrain_nottestis_dataset', '_ortho_onlymale_onlybrain_nottestis_dataset',
+                '_ortho_notfemale_onlypref_nottestis_dataset', '_ortho_onlymale_onlypref_nottestis_dataset',
+                '_ortho_notfemale_onlypref_dataset', '_ortho_onlymale_onlypref_dataset') 
 
 
 for (regexp_out in 1:length(regexp_list)){
@@ -99,7 +101,9 @@ central_species = c('BOVIN', 'MOUSE', 'HUMAN')
 regexp_list = c('_ortho_notfemale_dataset', 
                 '_ortho_notfemale_onlybrain_dataset',
                 '_ortho_notfemale_nottestis_dataset',
-                '_ortho_notfemale_onlybrain_nottestis_dataset')
+                '_ortho_notfemale_onlybrain_nottestis_dataset',
+                '_ortho_notfemale_onlypref_dataset',
+                '_ortho_notfemale_onlypref_nottestis_dataset')
 
 for (regexp_out in 1:length(regexp_list)){
   pdf(paste0('C:/Users/Claivaz/Desktop/result_modif', regexp_list[regexp_out] ,'.pdf'))
@@ -337,7 +341,9 @@ central_species = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX
 regexp_list = c('_para_notfemale_dataset', '_para_onlymale_dataset',
                 '_para_notfemale_onlybrain_dataset', '_para_onlymale_onlybrain_dataset',
                 '_para_notfemale_nottestis_dataset', '_para_onlymale_nottestis_dataset',
-                '_para_notfemale_onlybrain_nottestis_dataset', '_para_onlymale_onlybrain_nottestis_dataset') 
+                '_para_notfemale_onlybrain_nottestis_dataset', '_para_onlymale_onlybrain_nottestis_dataset',
+                '_para_notfemale_onlypref_nottestis_dataset', '_para_onlymale_onlypref_nottestis_dataset',
+                '_para_notfemale_onlypref_dataset', '_para_onlymale_onlypref_dataset') 
 
 for (regexp_out in 1:length(regexp_list)){
   pdf(paste0('C:/Users/Claivaz/Desktop/result_cor', regexp_list[regexp_out] ,'.pdf'))
@@ -386,7 +392,9 @@ central_species = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX
 regexp_list = c('_para_notfemale_dataset', '_para_onlymale_dataset',
                 '_para_notfemale_onlybrain_dataset', '_para_onlymale_onlybrain_dataset',
                 '_para_notfemale_nottestis_dataset', '_para_onlymale_nottestis_dataset',
-                '_para_notfemale_onlybrain_nottestis_dataset', '_para_onlymale_onlybrain_nottestis_dataset') 
+                '_para_notfemale_onlybrain_nottestis_dataset', '_para_onlymale_onlybrain_nottestis_dataset',
+                '_para_notfemale_onlypref_nottestis_dataset', '_para_onlymale_onlypref_nottestis_dataset',
+                '_para_notfemale_onlypref_dataset', '_para_onlymale_onlypref_dataset') 
 
 for (regexp_out in 1:length(regexp_list)){
   pdf(paste0('C:/Users/Claivaz/Desktop/result_modif', regexp_list[regexp_out] ,'.pdf'))
