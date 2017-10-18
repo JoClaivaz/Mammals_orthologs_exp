@@ -254,7 +254,7 @@ for (regexp_out in 1:length(regexp_list)){
   dev.off()
 }
 
-####Paralog / correlation Tspec####
+####Paralog (ref:max expression tissue and longer domain) / correlation Tspec####
 ###FUN
 sort_paralog = function(paralog_dataset, expression_dataset){
   
@@ -391,7 +391,7 @@ for (regexp_out in 1:length(regexp_list)){
   dev.off()
 }
 
-####Paralog plots / correlation function of modification position####
+####Paralog plots (ref:max expression tissue and longer domain)/ correlation function of modification position####
 path_folder = 'D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/'
 central_species = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN')
 regexp_list = c('_para_notfemale_dataset', '_para_onlymale_dataset',
@@ -480,4 +480,154 @@ for (regexp_out in 1:length(regexp_list)){
   dev.off()
 }
 
+####Paralog (ref:max expression tissue or longer domain) / correlation Tspec####
+path_folder = 'D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/'
+central_species = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN')
+regexp_list = c('_para_notfemale_dataset', '_para_onlymale_dataset',
+                '_para_notfemale_onlybrain_dataset', '_para_onlymale_onlybrain_dataset',
+                '_para_notfemale_nottestis_dataset', '_para_onlymale_nottestis_dataset',
+                '_para_notfemale_onlybrain_nottestis_dataset', '_para_onlymale_onlybrain_nottestis_dataset',
+                '_para_notfemale_onlypref_nottestis_dataset', '_para_onlymale_onlypref_nottestis_dataset',
+                '_para_notfemale_onlypref_dataset', '_para_onlymale_onlypref_dataset') 
+
+for (regexp_out in 1:length(regexp_list)){
+  pdf(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/result_cor', regexp_list[regexp_out] ,'_allmodif.pdf'))
+  par(mfrow = c(4,4), mai=c(0.4,0.35,0.3,0.01))
+  
+  for (sp1 in 1:length(central_species)){
+    
+    species_data = read.csv(paste0(path_folder, central_species[sp1],
+                                   regexp_list[regexp_out]))
+    species_data$X = NULL
+    
+    ###Determine maximal paralog expression for a group family, according to Kryuchkova et al., 2016
+    #maximal expression (reference, maximal in one state) gene is the GeneID_1
+    #or longer domain is also GeneID_1 in modified gene
+    #unique paralog consideration
+    species_data = sort_paralog(paralog_dataset = species_data, expression_dataset = paste0('D:/UNIL/Master/Master_Project/Data/Bgee/', gsub('[[:digit:]]', '', species_data$GeneID_1[1]), '_expression_parsed'))
+    paralog_reference = aggregate(species_data$GeneID_1 ~ species_data$ParalogGroup, FUN = most_occurence_vector)
+    species_data_modif = species_data[species_data$status != 'control',]
+    species_data_c = species_data[species_data$status == 'control',]
+    keep_gene_1 = species_data_c$GeneID_1 %in% paralog_reference$`species_data$GeneID_1`
+    species_data_c = species_data_c[keep_gene_1,]
+    species_data = rbind(species_data_c, species_data_modif)
+    #
+    
+    smoothScatter(species_data$tspec_1[species_data$status != 'control'], species_data$tspec_2[species_data$status != 'control'],
+                  xlab = '',
+                  ylab = '',
+                  main = 'Domain modification group', cex.main = 0.8, cex.lab = 0.6)
+    title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' ref Tspec values'), cex.lab =0.6, line = 2)
+    title(ylab = paste0('Other ' ,gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+    abline(lm(species_data$tspec_2[species_data$status != 'control'] ~ species_data$tspec_1[species_data$status != 'control']), col = 'red')
+    linear_param = lm(species_data$tspec_2[species_data$status != 'control'] ~ species_data$tspec_1[species_data$status != 'control'])$coefficients
+    cor_value = cor.test(species_data$tspec_2[species_data$status != 'control'], species_data$tspec_1[species_data$status != 'control'])$estimate[[1]]
+    text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+    
+    smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
+                  xlab = '',
+                  ylab = '',
+                  main = 'Domain control group', cex.main = 0.8, cex.lab = 0.6)
+    title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' ref Tspec values'), cex.lab =0.6, line = 2)
+    title(ylab = paste0('Other ' ,gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+    abline(lm(species_data$tspec_2[species_data$status == 'control'] ~ species_data$tspec_1[species_data$status == 'control']), col = 'red')
+    linear_param = lm(species_data$tspec_2[species_data$status == 'control'] ~ species_data$tspec_1[species_data$status == 'control'])$coefficients
+    cor_value = cor.test(species_data$tspec_2[species_data$status == 'control'], species_data$tspec_1[species_data$status == 'control'])$estimate[[1]]
+    text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+    
+  }
+  dev.off()
+}
+
+####Paralog plots (ref:max expression tissue or longer domain)/ correlation function of modification position####
+path_folder = 'D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/'
+central_species = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN')
+regexp_list = c('_para_notfemale_dataset', '_para_onlymale_dataset',
+                '_para_notfemale_onlybrain_dataset', '_para_onlymale_onlybrain_dataset',
+                '_para_notfemale_nottestis_dataset', '_para_onlymale_nottestis_dataset',
+                '_para_notfemale_onlybrain_nottestis_dataset', '_para_onlymale_onlybrain_nottestis_dataset',
+                '_para_notfemale_onlypref_nottestis_dataset', '_para_onlymale_onlypref_nottestis_dataset',
+                '_para_notfemale_onlypref_dataset', '_para_onlymale_onlypref_dataset') 
+
+for (regexp_out in 1:length(regexp_list)){
+  pdf(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/result_modif', regexp_list[regexp_out] ,'_allmodif.pdf'))
+  par(mfrow = c(4,4), mai=c(0.4,0.35,0.3,0.01))
+  
+  for (sp1 in 1:length(central_species)){
+    
+    species_data = read.csv(paste0(path_folder, central_species[sp1],
+                                   regexp_list[regexp_out]))
+    species_data$X = NULL
+    
+    ###Determine maximal paralog expression for a group family, according to Kryuchkova et al., 2016
+    #maximal expression (reference, maximal in one state) gene is the GeneID_1
+    #or longer domain is also GeneID_1 in modified gene
+    #unique paralog consideration
+    species_data = sort_paralog(paralog_dataset = species_data, expression_dataset = paste0('D:/UNIL/Master/Master_Project/Data/Bgee/', gsub('[[:digit:]]', '', species_data$GeneID_1[1]), '_expression_parsed'))
+    paralog_reference = aggregate(species_data$GeneID_1 ~ species_data$ParalogGroup, FUN = most_occurence_vector)
+    species_data_modif = species_data[species_data$status != 'control',]
+    species_data_c = species_data[species_data$status == 'control',]
+    keep_gene_1 = species_data_c$GeneID_1 %in% paralog_reference$`species_data$GeneID_1`
+    species_data_c = species_data_c[keep_gene_1,]
+    species_data = rbind(species_data_c, species_data_modif)
+    #
+    
+    smoothScatter(species_data$tspec_1[species_data$status == 'f-1'],
+                  species_data$tspec_2[species_data$status == 'f-1'],
+                  xlab = '',
+                  ylab = '',
+                  main = paste0('Domain modification group: f-1'), cex.main = 0.8)
+    title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' ref Tspec values'), cex.lab =0.6, line = 2)
+    title(ylab = paste0('Other ' ,gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+    abline(lm(species_data$tspec_2[species_data$status == 'f-1'] ~
+                species_data$tspec_1[species_data$status == 'f-1']), col = 'red')
+    linear_param = lm(species_data$tspec_2[species_data$status == 'f-1'] ~
+                        species_data$tspec_1[species_data$status == 'f-1'])$coefficients
+    cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
+                         species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
+    text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+    
+    smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
+                  species_data$tspec_2[species_data$status == 'int-1'],
+                  xlab = '',
+                  ylab = '',
+                  main = paste0('Domain modification group: int-1'), cex.main = 0.8)
+    title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' ref Tspec values'), cex.lab =0.6, line = 2)
+    title(ylab = paste0('Other ' ,gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+    abline(lm(species_data$tspec_2[species_data$status == 'int-1'] ~
+                species_data$tspec_1[species_data$status == 'int-1']), col = 'red')
+    linear_param = lm(species_data$tspec_2[species_data$status == 'int-1'] ~
+                        species_data$tspec_1[species_data$status == 'int-1'])$coefficients
+    cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
+                         species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
+    text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+    
+    smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
+                  species_data$tspec_2[species_data$status == 'b-1'],
+                  xlab = '',
+                  ylab = '',
+                  main = paste0('Domain modification group: b-1'), cex.main = 0.8)
+    title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' ref Tspec values'), cex.lab =0.6, line = 2)
+    title(ylab = paste0('Other ' ,gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+    abline(lm(species_data$tspec_2[species_data$status == 'b-1'] ~
+                species_data$tspec_1[species_data$status == 'b-1']), col = 'red')
+    linear_param = lm(species_data$tspec_2[species_data$status == 'b-1'] ~
+                        species_data$tspec_1[species_data$status == 'b-1'])$coefficients
+    cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
+                         species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
+    text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+    
+    smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
+                  xlab = '',
+                  ylab = '',
+                  main = 'Domain control group', cex.main = 0.8, cex.lab = 0.6)
+    title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' ref Tspec values'), cex.lab =0.6, line = 2)
+    title(ylab = paste0('Other ' ,gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+    abline(lm(species_data$tspec_2[species_data$status == 'control'] ~ species_data$tspec_1[species_data$status == 'control']), col = 'red')
+    linear_param = lm(species_data$tspec_2[species_data$status == 'control'] ~ species_data$tspec_1[species_data$status == 'control'])$coefficients
+    cor_value = cor.test(species_data$tspec_2[species_data$status == 'control'], species_data$tspec_1[species_data$status == 'control'])$estimate[[1]]
+    text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  }
+  dev.off()
+}
 

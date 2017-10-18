@@ -109,7 +109,7 @@ Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 
 #'plot_results_tspec.R'
 Create pdf files containing correaltion results in function of status or kind of modifications in different ortholog or paralog datasets. 
-Consideration of unique paralog pair: longest or most expresssed gene of pair in any considered tissues.
+Consideration of unique paralog pair: longest and/or most expresssed gene of pair in any considered tissues.
 Plot:
 	*tspec Specie1 function of tspec Specie2
 	*tspec Specie1 function of tspec Specie2 and function of the modification group
