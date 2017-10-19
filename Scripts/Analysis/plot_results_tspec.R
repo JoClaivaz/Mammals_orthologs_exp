@@ -7,7 +7,7 @@ Tspec analysis plot results
 ####Ortholog plots / tspec correlation####
 path_folder = 'D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/'
 different_species = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN')
-central_species = c('BOVIN', 'MOUSE', 'HUMAN')
+central_species = c('BOVIN', 'MOUSE', 'HUMAN', 'MACMU')
 regexp_list = c('_ortho_notfemale_dataset', '_ortho_onlymale_dataset',
                 '_ortho_notfemale_onlybrain_dataset', '_ortho_onlymale_onlybrain_dataset',
                 '_ortho_notfemale_nottestis_dataset', '_ortho_onlymale_nottestis_dataset',
@@ -97,7 +97,7 @@ for (regexp_out in 1:length(regexp_list)){
 ####Ortholog plots / correlation function of modification position####
 path_folder = 'D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/'
 different_species = c('BOVIN', 'MACMU', 'MOUSE', 'PIGXX', 'HUMAN')
-central_species = c('BOVIN', 'MOUSE', 'HUMAN')
+central_species = c('BOVIN', 'MOUSE', 'HUMAN', 'MACMU')
 regexp_list = c('_ortho_notfemale_dataset', 
                 '_ortho_notfemale_onlybrain_dataset',
                 '_ortho_notfemale_nottestis_dataset',
