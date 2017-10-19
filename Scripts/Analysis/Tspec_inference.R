@@ -140,8 +140,8 @@ data_organization_Tspec_ortholog = function(considered_species_name_1,
     
   }
   if (notconsidered_anat_vector != F){
-    specie1_data = specie1_data[!(specie1_data$Sex %in% notconsidered_anat_vector),]
-    specie2_data = specie2_data[!(specie2_data$Sex %in% notconsidered_anat_vector),]
+    specie1_data = specie1_data[!(specie1_data$AnatomicalEntityName %in% notconsidered_anat_vector),]
+    specie2_data = specie2_data[!(specie2_data$AnatomicalEntityName %in% notconsidered_anat_vector),]
   }
   
   #developmental time filtering
@@ -151,8 +151,8 @@ data_organization_Tspec_ortholog = function(considered_species_name_1,
     
   }
   if (notconsidered_devtime_vector != F){
-    specie1_data = specie1_data[!(specie1_data$Sex %in% notconsidered_devtime_vector),]
-    specie2_data = specie2_data[!(specie2_data$Sex %in% notconsidered_devtime_vector),]
+    specie1_data = specie1_data[!(specie1_data$StageName %in% notconsidered_devtime_vector),]
+    specie2_data = specie2_data[!(specie2_data$StageName %in% notconsidered_devtime_vector),]
   }
   #
   
@@ -326,7 +326,7 @@ data_organization_Tspec_paralog = function(considered_species_name,
     specie_data = specie_data[specie_data$AnatomicalEntityName %in% considered_anat_vector,]
   }
   if (notconsidered_anat_vector != F){
-    specie_data = specie_data[!(specie_data$Sex %in% notconsidered_anat_vector),]
+    specie_data = specie_data[!(specie_data$AnatomicalEntityName %in% notconsidered_anat_vector),]
   }
   
   #developmental time filtering
@@ -334,7 +334,7 @@ data_organization_Tspec_paralog = function(considered_species_name,
     specie_data = specie_data[specie_data$StageName %in% considered_devtime_vector,]
   }
   if (notconsidered_devtime_vector != F){
-    specie_data = specie_data[!(specie_data$Sex %in% notconsidered_devtime_vector),]
+    specie_data = specie_data[!(specie_data$StageName %in% notconsidered_devtime_vector),]
   }
   #
   
@@ -496,7 +496,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
                                                                              "19th week post-fertilization human stage (human)"),
-                                            notconsidered_anat_vector = c('kidney')),
+                                            notconsidered_anat_vector = c('kidney', 'frontal cortex')),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_notfemale_dataset'))
   
@@ -519,7 +519,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "9th week post-fertilization human stage (human)",
                                                                              "15th week post-fertilization human stage (human)",
                                                                              "19th week post-fertilization human stage (human)"),
-                                            notconsidered_anat_vector = c('kidney')),
+                                            notconsidered_anat_vector = c('kidney', 'frontal cortex')),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_onlymale_dataset'))
   
@@ -531,7 +531,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             notconsidered_sex_vector = c('female'),
-                                            notconsidered_anat_vector = c('testis', 'kidney'),
+                                            notconsidered_anat_vector = c('testis', 'kidney', 'frontal cortex'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -554,7 +554,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             considered_sex_vector = c('male'),
-                                            notconsidered_anat_vector = c('testis', 'kidney'),
+                                            notconsidered_anat_vector = c('testis', 'kidney', 'frontal cortex'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -577,7 +577,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             notconsidered_sex_vector = c('female'),
-                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'kidney'),
+                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'kidney', 'frontal cortex'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -600,7 +600,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             considered_sex_vector = c('male'),
-                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'kidney'),
+                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'kidney', 'frontal cortex'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -623,7 +623,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             notconsidered_sex_vector = c('female'),
-                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis', 'kidney'),
+                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis', 'kidney', 'frontal cortex'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -646,7 +646,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             considered_sex_vector = c('male'),
-                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis', 'kidney'),
+                                            notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis', 'kidney', 'frontal cortex'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -669,7 +669,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             notconsidered_sex_vector = c('female'),
-                                            notconsidered_anat_vector = c('brain', 'cerebellum', 'kidney'),
+                                            notconsidered_anat_vector = c('brain', 'cerebellum', 'kidney', 'frontal cortex'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -692,7 +692,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             considered_sex_vector = c('male'),
-                                            notconsidered_anat_vector = c('brain', 'cerebellum', 'kidney'),
+                                            notconsidered_anat_vector = c('brain', 'cerebellum', 'kidney', 'frontal cortex'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -715,7 +715,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             notconsidered_sex_vector = c('female'),
-                                            notconsidered_anat_vector = c('brain', 'cerebellum', 'testis', 'kidney'),
+                                            notconsidered_anat_vector = c('brain', 'cerebellum', 'testis', 'kidney', 'frontal cortex'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -738,7 +738,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                             domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                                             domain_modif_sufix = '_domain_loss',
                                             considered_sex_vector = c('male'),
-                                            notconsidered_anat_vector = c('brain', 'cerebellum', 'testis', 'kidney'),
+                                            notconsidered_anat_vector = c('brain', 'cerebellum', 'testis', 'kidney', 'frontal cortex'),
                                             notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                              "10th week post-fertilization human stage (human)",
                                                                              "16th week post-fertilization human stage (human)",
@@ -776,7 +776,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
                                                                                   "19th week post-fertilization human stage (human)"),
-                                                 notconsidered_anat_vector = c('kidney')), 
+                                                 notconsidered_anat_vector = c('kidney', 'frontal cortex')), 
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_notfemale_dataset'))
       
@@ -800,7 +800,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                                   "9th week post-fertilization human stage (human)",
                                                                                   "15th week post-fertilization human stage (human)",
                                                                                   "19th week post-fertilization human stage (human)"),
-                                                 notconsidered_anat_vector = c('kidney')),
+                                                 notconsidered_anat_vector = c('kidney', 'frontal cortex')),
                 file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                               species_vector[cons_specie1], '_', species_vector[cons_specie2], '_', 'ortho_onlymale_dataset'))
       
@@ -813,7 +813,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  notconsidered_sex_vector = c('female'),
-                                                 notconsidered_anat_vector = c('testis', 'kidney'),
+                                                 notconsidered_anat_vector = c('testis', 'kidney', 'frontal cortex'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -837,7 +837,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  considered_sex_vector = c('male'),
-                                                 notconsidered_anat_vector = c('testis', 'kidney'),
+                                                 notconsidered_anat_vector = c('testis', 'kidney', 'frontal cortex'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -862,7 +862,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  notconsidered_sex_vector = c('female'),
-                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'kidney'),
+                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'kidney', 'frontal cortex'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -886,7 +886,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  considered_sex_vector = c('male'),
-                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'kidney'),
+                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'kidney', 'frontal cortex'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -910,7 +910,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  notconsidered_sex_vector = c('female'),
-                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis', 'kidney'),
+                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis', 'kidney', 'frontal cortex'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -934,7 +934,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  considered_sex_vector = c('male'),
-                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis', 'kidney'),
+                                                 notconsidered_anat_vector = c('prefrontal cortex', 'cerebellum', 'testis', 'kidney', 'frontal cortex'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -958,7 +958,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  notconsidered_sex_vector = c('female'),
-                                                 notconsidered_anat_vector = c('brain', 'cerebellum', 'kidney'),
+                                                 notconsidered_anat_vector = c('brain', 'cerebellum', 'kidney', 'frontal cortex'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -982,7 +982,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  considered_sex_vector = c('male'),
-                                                 notconsidered_anat_vector = c('brain', 'cerebellum', 'kidney'),
+                                                 notconsidered_anat_vector = c('brain', 'cerebellum', 'kidney', 'frontal cortex'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -1006,7 +1006,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  notconsidered_sex_vector = c('female'),
-                                                 notconsidered_anat_vector = c('brain', 'cerebellum', 'testis', 'kidney'),
+                                                 notconsidered_anat_vector = c('brain', 'cerebellum', 'testis', 'kidney', 'frontal cortex'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
@@ -1030,7 +1030,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                  domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
                                                  domain_modif_sufix = '_domain_loss',
                                                  considered_sex_vector = c('male'),
-                                                 notconsidered_anat_vector = c('brain', 'cerebellum', 'testis', 'kidney'),
+                                                 notconsidered_anat_vector = c('brain', 'cerebellum', 'testis', 'kidney', 'frontal cortex'),
                                                  notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                                                   "10th week post-fertilization human stage (human)",
                                                                                   "16th week post-fertilization human stage (human)",
