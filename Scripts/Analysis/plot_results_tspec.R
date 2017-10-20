@@ -7,7 +7,7 @@ Tspec analysis plot results
 ####Ortholog plots / tspec correlation####
 path_folder = 'D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/'
 different_species = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN')
-central_species = cc('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN')
+central_species = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN')
 regexp_list = c('_ortho_notfemale_dataset', '_ortho_onlymale_dataset',
                 '_ortho_notfemale_onlybrain_dataset', '_ortho_onlymale_onlybrain_dataset',
                 '_ortho_notfemale_nottestis_dataset', '_ortho_onlymale_nottestis_dataset',
@@ -15,16 +15,17 @@ regexp_list = c('_ortho_notfemale_dataset', '_ortho_onlymale_dataset',
                 '_ortho_notfemale_onlypref_nottestis_dataset', '_ortho_onlymale_onlypref_nottestis_dataset',
                 '_ortho_notfemale_onlypref_dataset', '_ortho_onlymale_onlypref_dataset') 
 
-
+specie_done = c()
 for (regexp_out in 1:length(regexp_list)){
   pdf(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/result_cor', regexp_list[regexp_out] ,'.pdf'))
   par(mfrow = c(4,4), mai=c(0.4,0.35,0.3,0.01))
   
   for (sp1 in 1:length(central_species)){
-  
+    specie_done = c(specie_done, central_species[sp1])
+    
     for (sp2 in 1:length(different_species)){
       
-      if (central_species[sp1] != different_species[sp2]){
+      if (central_species[sp1] != different_species[sp2] & !(different_species[sp2] %in% specie_done)){
         options(show.error.messages = FALSE)
         try_test = try(read.csv(paste0(path_folder, central_species[sp1], '_', different_species[sp2],
                                        regexp_list[regexp_out])))
@@ -105,15 +106,17 @@ regexp_list = c('_ortho_notfemale_dataset',
                 '_ortho_notfemale_onlypref_dataset',
                 '_ortho_notfemale_onlypref_nottestis_dataset')
 
+specie_done = c()
 for (regexp_out in 1:length(regexp_list)){
-  pdf(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/result_modif', regexp_list[regexp_out] ,'.pdf'))
+  pdf(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/result_cor', regexp_list[regexp_out] ,'.pdf'))
   par(mfrow = c(4,4), mai=c(0.4,0.35,0.3,0.01))
   
   for (sp1 in 1:length(central_species)){
+    specie_done = c(specie_done, central_species[sp1])
     
     for (sp2 in 1:length(different_species)){
       
-      if (central_species[sp1] != different_species[sp2]){
+      if (central_species[sp1] != different_species[sp2] & !(different_species[sp2] %in% specie_done)){
         options(show.error.messages = FALSE)
         try_test = try(read.csv(paste0(path_folder, central_species[sp1], '_', different_species[sp2],
                                        regexp_list[regexp_out])))
