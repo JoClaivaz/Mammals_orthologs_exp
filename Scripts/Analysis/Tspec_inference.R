@@ -473,7 +473,7 @@ require(tidyr)
 
 species_vector = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN') 
 specie_done = c()
-#not_female
+
 for (cons_specie1 in 1:length(species_vector)){
   specie_done = c(specie_done, species_vector[cons_specie1])
   
