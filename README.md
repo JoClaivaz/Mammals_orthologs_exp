@@ -117,7 +117,7 @@ Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 Output: pdf contiainig plots
 
 #'cor_dif_test.R'
-Function allowing the process of exact fisher test on the correlation amongst specie 1 and specie2
+Function allowing the process of exact fisher test on the correlation amongst specie 1 and specie2, and other one allows to know the number of tissues considered
 Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 
 ******NOT FINISH********

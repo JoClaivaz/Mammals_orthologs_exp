@@ -4,7 +4,7 @@ Joaquim Claivaz
 
 get cor.diff values for any considered dataset
 '''
-##FUN
+####FUN####
 #taken from rg255
 cor.diff.test = function(x1, x2, y1, y2, method="pearson") {
   cor1 = cor.test(x1, x2, method=method)
@@ -168,17 +168,240 @@ output_cordif_test_para = function(specie,
                        species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control']))
 }
 
+number_tissue_ortholog = function(considered_species_name_1, 
+                                  considered_species_name_2,
+                                  considered_sex_vector = F,
+                                  notconsidered_sex_vector = F,
+                                  considered_anat_vector = F,
+                                  notconsidered_anat_vector = F,
+                                  considered_devtime_vector = F,
+                                  notconsidered_devtime_vector = F,
+                                  expression_data_path_prefix,
+                                  expression_data_sufix,
+                                  domain_control_path_prefix,
+                                  domain_control_sufix,
+                                  domain_modif_path_prefix,
+                                  domain_modif_sufix){
+  
+  #open_files
+  specie1_data = read.table(paste0(expression_data_path_prefix,
+                                   considered_species_name_1,
+                                   expression_data_sufix), header = T, sep = '\t')
+  specie2_data = read.table(paste0(expression_data_path_prefix,
+                                   considered_species_name_2,
+                                   expression_data_sufix), header = T, sep = '\t')
+  
+  options(show.error.messages = FALSE)
+  if (class(try(read.table(paste0(domain_control_path_prefix,
+                                  considered_species_name_2, '_', considered_species_name_1,
+                                  domain_control_sufix), header = F, sep = '\t'))) != 'try-error'){
+    domain_control = read.table(paste0(domain_control_path_prefix,
+                                       considered_species_name_2, '_', considered_species_name_1,
+                                       domain_control_sufix), header = F, sep = '\t')
+    domain_modif = read.table(paste0(domain_modif_path_prefix,
+                                     considered_species_name_2, '_', considered_species_name_1,
+                                     domain_modif_sufix), header = F, sep = '\t')
+  }else{
+    domain_control = read.table(paste0(domain_control_path_prefix,
+                                       considered_species_name_1, '_', considered_species_name_2,
+                                       domain_control_sufix), header = F, sep = '\t')
+    domain_modif = read.table(paste0(domain_modif_path_prefix,
+                                     considered_species_name_1, '_', considered_species_name_2,
+                                     domain_modif_sufix), header = F, sep = '\t')
+  }
+  options(show.error.messages = TRUE)
+  #
+  
+  #Sex
+  if (considered_sex_vector != F){
+    specie1_data = specie1_data[specie1_data$Sex %in% considered_sex_vector,]
+    specie2_data = specie2_data[specie2_data$Sex %in% considered_sex_vector,]
+  } 
+  if (notconsidered_sex_vector != F){
+    specie1_data = specie1_data[!(specie1_data$Sex %in% notconsidered_sex_vector),]
+    specie2_data = specie2_data[!(specie2_data$Sex %in% notconsidered_sex_vector),]
+    
+  }
+  if (notconsidered_sex_vector == F & considered_sex_vector == F){
+    notkeep_Sex = unique(specie1_data$Sex)[!(unique(specie1_data$Sex) %in% unique(specie2_data$Sex))]
+    specie1_data = specie1_data[!(specie1_data$Sex %in% notkeep_Sex),]
+    specie2_data = specie2_data[!(specie2_data$Sex %in% notkeep_Sex),]
+  }
+  #
+  
+  #AnatomicalEntityName
+  keep_AnatomicalEntityName = unique(specie2_data$AnatomicalEntityName)[unique(specie2_data$AnatomicalEntityName) %in% unique(specie1_data$AnatomicalEntityName)]
+  specie1_data = specie1_data[specie1_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
+  specie2_data = specie2_data[specie2_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
+  # keep_AnatomicalEntityName = unique(specie1_data$AnatomicalEntityName)[unique(specie1_data$AnatomicalEntityName) %in% unique(specie2_data$AnatomicalEntityName)]
+  # specie1_data = specie1_data[specie1_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
+  # specie2_data = specie2_data[specie2_data$AnatomicalEntityName %in% keep_AnatomicalEntityName,]
+  #
+  if (considered_anat_vector != F){
+    specie1_data = specie1_data[specie1_data$AnatomicalEntityName %in% considered_anat_vector,]
+    specie2_data = specie2_data[specie2_data$AnatomicalEntityName %in% considered_anat_vector,]
+    
+  }
+  if (notconsidered_anat_vector != F){
+    specie1_data = specie1_data[!(specie1_data$AnatomicalEntityName %in% notconsidered_anat_vector),]
+    specie2_data = specie2_data[!(specie2_data$AnatomicalEntityName %in% notconsidered_anat_vector),]
+  }
+  
+  #developmental time filtering
+  if (considered_devtime_vector != F){
+    specie1_data = specie1_data[specie1_data$StageName %in% considered_devtime_vector,]
+    specie2_data = specie2_data[specie2_data$StageName %in% considered_devtime_vector,]
+    
+  }
+  if (notconsidered_devtime_vector != F){
+    specie1_data = specie1_data[!(specie1_data$StageName %in% notconsidered_devtime_vector),]
+    specie2_data = specie2_data[!(specie2_data$StageName %in% notconsidered_devtime_vector),]
+  }
+  #
+  
+  #MEAN tpm in function of geneID and AnatomicalEntityName / Sex not considered (for each sex the function should be run separatedly)
+  specie2_data = aggregate(specie2_data$TPM ~ specie2_data$GeneID + specie2_data$AnatomicalEntityName, FUN = mean)
+  names(specie2_data) = c('GeneID', 'Tissue', 'TPM')
+  specie1_data = aggregate(specie1_data$TPM ~ specie1_data$GeneID + specie1_data$AnatomicalEntityName, FUN = mean)
+  names(specie1_data) = c('GeneID', 'Tissue', 'TPM')
+  #
+  
+  #group the domain inference data
+  domain_modif$V6 = NULL
+  domain_status = rbind(domain_control, domain_modif)
+  names(domain_status) = c('GeneID_1', 'len_1', 'GeneID_2', 'len_2', 'status')
+  domain_status$status = as.character(domain_status$status)
+  domain_status$status[domain_status$status == 'nomodif'] = 'control'
+  #
+  
+  return(length(unique(as.character(specie2_data$Tissue))))
+}  
+
+number_tissue_paralog = function(considered_species_name,
+                                 considered_sex_vector = F,
+                                 notconsidered_sex_vector = F,
+                                 considered_anat_vector = F,
+                                 notconsidered_anat_vector = F,
+                                 considered_devtime_vector = F,
+                                 notconsidered_devtime_vector = F,
+                                 expression_data_path_prefix,
+                                 expression_data_sufix,
+                                 domain_control_path_prefix,
+                                 domain_control_sufix,
+                                 domain_modif_path_prefix,
+                                 domain_modif_sufix){
+  
+  #open_files
+  specie_data = read.table(paste0(expression_data_path_prefix,
+                                  considered_species_name,
+                                  expression_data_sufix), header = T, sep = '\t')
+  
+  domain_control = read.table(paste0(domain_control_path_prefix,
+                                     considered_species_name,
+                                     domain_control_sufix), header = F, sep = '\t')
+  domain_modif = read.table(paste0(domain_modif_path_prefix,
+                                   considered_species_name,
+                                   domain_modif_sufix), header = F, sep = '\t')
+  #
+  
+  #Sex
+  if (considered_sex_vector != F){
+    specie_data = specie_data[specie_data$Sex %in% considered_sex_vector,]
+  } 
+  if (notconsidered_sex_vector != F){
+    specie_data = specie_data[!(specie_data$Sex %in% notconsidered_sex_vector),]
+  }
+  #
+  
+  #AnatomicalEntityName
+  if (considered_anat_vector != F){
+    specie_data = specie_data[specie_data$AnatomicalEntityName %in% considered_anat_vector,]
+  }
+  if (notconsidered_anat_vector != F){
+    specie_data = specie_data[!(specie_data$AnatomicalEntityName %in% notconsidered_anat_vector),]
+  }
+  
+  #developmental time filtering
+  if (considered_devtime_vector != F){
+    specie_data = specie_data[specie_data$StageName %in% considered_devtime_vector,]
+  }
+  if (notconsidered_devtime_vector != F){
+    specie_data = specie_data[!(specie_data$StageName %in% notconsidered_devtime_vector),]
+  }
+  #
+  
+  #MEAN tpm in function of geneID and AnatomicalEntityName / Sex not considered (for each sex the function should be run separatedly)
+  specie_data = aggregate(specie_data$TPM ~ specie_data$GeneID + specie_data$AnatomicalEntityName, FUN = mean)
+  names(specie_data) = c('GeneID', 'Tissue', 'TPM')
+  #
+  return(length(unique(as.character(specie_data$Tissue))))
+}  
+####
+
+###list species available
+species_list = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN')
+sp1 = 1 
+sp2 = 5
 #
 
 ###ortholog analysis
 ##Run test in considered dataset
-output_cordif_test_ortho(specie1 = 'HUMAN', specie2 = 'BOVIN')
+output_cordif_test_ortho(specie1 = species_list[sp1], specie2 = species_list[sp2])
+#
 
 ###paralog analysis
 ##Run test in considered dataset
-output_cordif_test_para(specie = 'HUMAN', 
+output_cordif_test_para(specie = species_list[sp1], 
                         regexp_considered = '_para_notfemale_dataset',
                         all_modif = FALSE)
-output_cordif_test_para(specie = 'HUMAN', 
+output_cordif_test_para(specie = species_list[sp1], 
                         regexp_considered = '_para_notfemale_dataset',
                         all_modif = TRUE)
+#
+
+###ortholog number of tissues
+number_tissue_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                       expression_data_sufix = '_expression_parsed',
+                       considered_species_name_1 = species_list[sp1],
+                       considered_species_name_2 = species_list[sp2],
+                       domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
+                       domain_control_sufix = '_domain_nomodif',
+                       domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
+                       domain_modif_sufix = '_domain_loss',
+                       notconsidered_sex_vector = c('female'),
+                       notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
+                                                        "10th week post-fertilization human stage (human)",
+                                                        "16th week post-fertilization human stage (human)",
+                                                        "17th week post-fertilization human stage (human)",
+                                                        "19th week post-fertilization human stage (human)",
+                                                        "9th week post-fertilization human stage (human)",
+                                                        "16th week post-fertilization human stage (human)",
+                                                        "19th week post-fertilization human stage (human)",
+                                                        "9th week post-fertilization human stage (human)",
+                                                        "15th week post-fertilization human stage (human)",
+                                                        "19th week post-fertilization human stage (human)"),
+                       notconsidered_anat_vector = c('kidney', 'frontal cortex'))
+#
+
+###paralog number of tissues
+number_tissue_paralog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                      expression_data_sufix = '_expression_parsed',
+                      considered_species_name = species_list[sp1],
+                      domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paralog_',
+                      domain_control_sufix = '_domain_nomodif',
+                      domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
+                      domain_modif_sufix = '_domain_loss',
+                      notconsidered_sex_vector = c('female'),
+                      notconsidered_anat_vector = c('kidney', 'frontal cortex'),
+                      notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
+                                                       "10th week post-fertilization human stage (human)",
+                                                       "16th week post-fertilization human stage (human)",
+                                                       "17th week post-fertilization human stage (human)",
+                                                       "19th week post-fertilization human stage (human)",
+                                                       "9th week post-fertilization human stage (human)",
+                                                       "16th week post-fertilization human stage (human)",
+                                                       "19th week post-fertilization human stage (human)",
+                                                       "9th week post-fertilization human stage (human)",
+                                                       "15th week post-fertilization human stage (human)",
+                                                       "19th week post-fertilization human stage (human)"))
+#
