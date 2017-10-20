@@ -116,6 +116,10 @@ Plot:
 Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 Output: pdf contiainig plots
 
+#'cor_dif_test.R'
+Function allowing the process of exact fisher test on the correlation amongst specie 1 and specie2
+Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
+
 ******NOT FINISH********
 #'extract_DNA_sequence.py'
 create one file containing all the cDNA sequence specific to one specie extracted from 'eukaryotes.cdna.fa'
@@ -148,7 +152,7 @@ Input: 'ortholog_family_#' and 'SPECIE_family_#'
 	3. run 'tissue_availability_mammals_bgee.py' (not mendatory if the species are selected and the states are known)
 	4. run 'extraction_state_expression_file.py'
 	5. run 'Tspec_inference.R'
-	6. use 'Tspec_analysis.R' and 'plot_results_tspec.R'
+	6. use 'Tspec_analysis.R', 'plot_results_tspec.R' and 'cor_dif_test.R'
 	7.
 	*****NOT FINISH****
 	8. recover cDNA fasta sequences ('eukaryotes.cdna.fa') from http://omabrowser.org/oma/current/
