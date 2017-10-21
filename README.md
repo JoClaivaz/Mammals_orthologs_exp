@@ -86,7 +86,6 @@ N.B.: species chosen with at least 6 equivalent tissue data expression in human
 #'extraction_state_expression_file.py'
 parsed expression files in function of the considered species and tissues & the results of domain rearrengement (control group / 1 domain lost not repeated in termini part of the proten). 
 Formate the outputfile for R analysis (by column): 'ExperimentID\tLibraryID\tGeneID\tAnatomicalEntityName\tStageName\tSex\tDomainStatus\t%s_homolog\tFPKM\n' % (central_species) 
-N.B.: central speceies homology and status column are not available for central species
 Input: all dataset of 'ortholog_Specie1_Specie2_domain_nomodif', 'putative_ortholog_Specie1_Specie2_domain_loss', 'paralog_SPECIE_domain_nomodif', 'putative_paralog_SPECIE_domain_loss' and expression files from Bgee, 'oma-ensembl' from OMA, list of considered species and tissues
 Output: 'SPECIE_expression_parsed'
 Command line: python extraction_state_expression_file.py considered_tissues considered_species control_modification_pairs_folder_path  path_expression_dir oma_ensembl_converter output_file_path
