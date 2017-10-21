@@ -35,16 +35,18 @@ Considered paralogs:
 ###Script folder
 ##Domain_modification_inference subfolder
 #AIM
-Filter out domain loss which are repeated in domain architecture, which are less informative and less susceptible to present expresssion pattern shift. Conserved only pair without domain modification (control) and 1 domain modification.
+Infer pair without domain modification or one domain loss
+Filter out domain loss which are repeated in domain architecture, known as less informative and less susceptible to present expresssion pattern shift. 
 
 #'extract_ortholog_pair_OMA.py'
-Infer the different paralog for each species from the not unique ortholog pairs present in OMA. Write one specific file for each specie paralog and each ortholog pariwise specie comparison.
+Conserved unique ortholog (1:1) from OMA and infer the different paralog for each species from the not unique ortholog pairs present in OMA. 
+A paralog family number is associated in function of which species gene is considered for the paralog inference (WARNING a geneID can have different paralog family; unique paralog family per gene identifier is considered in 'plot_results_tspec.R', can be done before if it accepted)
 Input: 'oma-pairs.txt' (recovered from OMA) and list of considered species
 Output: 'pairwise_ortholog_SPECIE1_SPECIE2' and 'pairwise_paralog_SPECIE' 
 Command line: python extract_ortholog_pair_oma.py list_considered_species pair_ortho_path sequence_file_input regexp_pair regexp_output
 
 #'extract_ortholog_fasta_sequence.py'
-extraction of the amino acid fasta sequence in function of the considered ortholog and paralog pairs, write files with considered protein sequence.
+extraction of the amino acid fasta sequence in function of the considered ortholog and paralog pairs, store in files considered protein sequences or each species.
 Input: 'pairwise_ortholog_SPECIE1_SPECIE2', 'pairwise_paralog_SPECIE' (both called by the combination of 'list_considered_species', 'pair_ortho_path', 'regexp_pair'), 'oma-seqs.fa' (recovered from OMA) and list of considered species
 Output: 'protein_sequence_SPECIE'
 Command line: python extract_ortholog_fasta_sequence.py list_considered_species pair_ortho_path sequence_file_input regexp_pair regexp_output
@@ -70,18 +72,16 @@ N.B.:after each gene in the output file, the domain length is indicated (2nd and
 Command line: python extract_paralog_modification_group.py list_mammals PairPara_in_path_with_regexp Domain_file_in_path Domain_file_out_with_regexp
 
 #'ortho_domain_modification_analysis.py', 'para_domain_modification_analysis.py' and 'barplot_result_domain_modification.R'
-analysis number of gene available in the different files produced through this step, and use R script to obtained plot
+number of gene available analysis in the different files produced through the domain architecture modification inference step, and use R script to obtained plot
 Input: all the files produced for 'Domain_modification_inference' for the ortholog part
 Ouput: barplot visualization
 
 
 ##Analysis subfolder
-#'tissue_availability_mammals_bgee.py'
-extract unique Anatomical entity name and Stage name for each expression dataset from Bgee, allowing the choice of the species (with at least 6 common tissue with the central species, here HUMAN)
+#'tissue_availability_mammals_bgee.py' 
+extract unique Anatomical entity name and Stage name for each expression dataset from Bgee, allowing the choice of the species
 Input: * all expression data from Bgee
 Output: 'tissue_available_bgee'
-This script extract the expression data specific to the considered ortholog pair (control and 1 domain modification) and tissue selectionned, and write a smaller new file
-N.B.: species chosen with at least 6 equivalent tissue data expression in human
 
 #'extraction_state_expression_file.py'
 parsed expression files in function of the considered species and tissues & the results of domain rearrengement (control group / 1 domain lost not repeated in termini part of the proten). 
@@ -108,7 +108,7 @@ Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 
 #'plot_results_tspec.R'
 Create pdf files containing correaltion results in function of status or kind of modifications in different ortholog or paralog datasets. 
-Consideration of unique paralog pair: longest and/or most expresssed gene of pair in any considered tissues.
+Consideration of unique paralog pair, having an unique Paralog Group identifier: longest and/or most expresssed gene of pair in any considered tissues.
 Plot:
 	*tspec Specie1 function of tspec Specie2
 	*tspec Specie1 function of tspec Specie2 and function of the modification group
@@ -116,7 +116,7 @@ Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 Output: pdf contiainig plots
 
 #'cor_dif_test.R'
-Function allowing the process of exact fisher test on the correlation amongst specie 1 and specie2, and other one allows to know the number of tissues considered
+Function allowing the process of exact fisher test on the correlation amongst specie 1 and specie2, and other one allows to get the number of tissues considered for a given analysis
 Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 
 ******NOT FINISH********

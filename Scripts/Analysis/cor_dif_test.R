@@ -148,6 +148,37 @@ output_cordif_test_para = function(specie,
   
   species_data = read.csv(paste0(path_folder, specie,
                                    regexp_considered))
+  #Unique family paralog for each gene id identifier
+  species_data1 = aggregate(as.character(species_data$ParalogGroup) ~ species_data$GeneID_1, FUN = paste, collapse = '_')
+  species_data2 = aggregate(as.character(species_data$ParalogGroup) ~ species_data$GeneID_2, FUN = paste, collapse = '_')
+  colnames(species_data1) = c('GeneID', 'ParalogFamily')
+  colnames(species_data2) = c('GeneID', 'ParalogFamily')
+  species_data_tmp = rbind(species_data1, species_data2)
+  
+  species_data_tmp = aggregate(species_data_tmp$ParalogFamily ~ species_data_tmp$GeneID, FUN = paste, collapse = '_')
+  colnames(species_data_tmp) = c('GeneID', 'ParalogFamily')
+  
+  for(row_paralog in 1:dim(species_data_tmp)[1]){
+    test_length = species_data_tmp$ParalogFamily[row_paralog]
+    if(length(unique(strsplit(test_length, '_')[[1]])) > 1){
+      list_fam = unique(strsplit(test_length, '_')[[1]])
+      for (paralogfam in 1:length(list_fam)){
+        species_data$ParalogGroup[as.character(species_data$ParalogGroup) == list_fam[paralogfam]] = min(list_fam)
+      }
+    }
+  }
+  
+  for(row_paralog in 1:dim(species_data_tmp)[1]){
+    test_length = species_data_tmp$ParalogFamily[row_paralog]
+    if(length(unique(strsplit(test_length, '_')[[1]])) > 1){
+      list_fam = unique(strsplit(test_length, '_')[[1]])
+      for (paralogfam in length(list_fam):1){
+        species_data$ParalogGroup[as.character(species_data$ParalogGroup) == list_fam[paralogfam]] = min(list_fam)
+      }
+    }
+  }
+  #
+  
   if(all_modif == FALSE){
     species_data = sort_paralog(paralog_dataset = species_data, expression_dataset = paste0('D:/UNIL/Master/Master_Project/Data/Bgee/', gsub('[[:digit:]]', '', species_data$GeneID_1[1]), '_expression_parsed'))
     paralog_reference = aggregate(species_data$GeneID_1 ~ species_data$ParalogGroup, FUN = most_occurence_vector)
