@@ -6,6 +6,7 @@ Tspec inference in mammals
 '''
 ####FUN####
 ##Tspec analysis##
+{
 log_transformation_tpm = function(data_frame, first_column_num = 2){
   for (i in first_column_num:dim(data_frame)[2]){
     data_frame[,i] = log2(data_frame[,i] + 0.000001)
@@ -402,6 +403,7 @@ data_organization_Tspec_paralog = function(considered_species_name,
   #
   
   #keep only complete case
+  domain_status$SpeciesParalogInference = NULL
   domain_status = domain_status[complete.cases(domain_status),]
   #
   
@@ -460,6 +462,7 @@ data_organization_Tspec_paralog = function(considered_species_name,
 
 ####Library needed####
 require(tidyr)
+}
 ####
 
 ####Data organization####
@@ -752,7 +755,7 @@ for (cons_specie1 in 1:length(species_vector)){
                                                                              "19th week post-fertilization human stage (human)")),
             file = paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', 
                           species_vector[cons_specie1], '_', 'para_onlymale_onlypref_nottestis_dataset'))
-  
+
   for (cons_specie2 in 1:length(species_vector)){
     if (!(species_vector[cons_specie2] %in% specie_done)){
       

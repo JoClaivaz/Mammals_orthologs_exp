@@ -78,42 +78,80 @@ def extract_ortholog_pair_OMA(list_considered_species = ['BOVIN', 'GORGO', 'MACM
         output_file = open('%spairwise_paralog_%s' % (output_path, cons_specie), 'w')
         dict_paralog = {}
         paralog_number = 0
+        fused_family = {}
         
         for key_tmp in dict_pair['!1:1'][cons_specie].keys():
             paralog_number += 1
             
             if len(dict_pair['!1:1'][cons_specie][key_tmp]) > 1:
-                done_key = []
                 list_paralog_tmp = []
                 list_paralog_tmp = dict_pair['!1:1'][cons_specie][key_tmp]
+                any_in_dict = False
+                considered_family = 0
                 
                 for paralog_tmp in list_paralog_tmp:
-                    
-                    if paralog_tmp not in done_key:
-                        done_key.append(paralog_tmp)
+                    try:
+                        dict_paralog[paralog_tmp]
+                        any_in_dict = True
                         
-                        for paralog_pair in list_paralog_tmp:
-                            
-                            if paralog_pair not in done_key:
-                                
-                                try: 
-                                    dict_paralog[paralog_tmp]
-                                
-                                except KeyError: 
-                                    dict_paralog[paralog_tmp] = {}
-                                
-                                try: 
-                                    dict_paralog[paralog_tmp][paralog_pair]
-                                
-                                except KeyError: 
-                                    dict_paralog[paralog_tmp][paralog_pair] = [paralog_number, []]
-                                    
-                                dict_paralog[paralog_tmp][paralog_pair][1].append(key_tmp.rstrip('0123456789'))
-           
+                        if considered_family == 0:
+                            considered_family = dict_paralog[paralog_tmp]
+                        elif considered_family != dict_paralog[paralog_tmp]:
+                            try:
+                                fused_family[considered_family]
+                                fused_family[considered_family].append(dict_paralog[paralog_tmp])
+                            except KeyError:
+                                fused_family[considered_family] = [dict_paralog[paralog_tmp]]
+                            try:
+                                fused_family[dict_paralog[paralog_tmp]]
+                                fused_family[dict_paralog[paralog_tmp]].append(considered_family)
+                            except KeyError:
+                                fused_family[dict_paralog[paralog_tmp]] = [considered_family]
+                    except KeyError:
+                        pass
+                
+                for paralog_tmp in list_paralog_tmp:
+                    if any_in_dict == False:
+                        dict_paralog[paralog_tmp] = paralog_number
+                        
+                    else:
+                        try:
+                            dict_paralog[paralog_tmp]
+                        except KeyError:
+                            dict_paralog[paralog_tmp] = considered_family
+                        
+        
+        dict_family = {}            
         for key_tmp in dict_paralog.keys():
+            try:
+                dict_family[dict_paralog[key_tmp]].append(key_tmp)
+            except KeyError:
+                dict_family[dict_paralog[key_tmp]] = [key_tmp]
+                
+        done_family = []
+        for key_tmp in fused_family.keys():
+            fused_numbers = fused_family[key_tmp]
             
-            for index_tmp in dict_paralog[key_tmp]:
-                output_file.write('%s\t%s\tparalog\t%s\t%s\n' % (key_tmp, index_tmp, str(dict_paralog[key_tmp][index_tmp][0]), ' '.join(set(dict_paralog[key_tmp][index_tmp][1]))))
+            for cons_number in fused_numbers:
+                if cons_number not in done_family and len(dict_family[cons_number]) > 0:
+                    
+                    for new_paralog in dict_family[cons_number]:
+                        if new_paralog not in dict_family[key_tmp]:
+                            dict_family[key_tmp].append(new_paralog)
+                        
+                    done_family.append(cons_number)
+                    dict_family[cons_number] = []
+            
+                    
+           
+        for key_tmp in dict_family.keys():
+            gene_done = []
+            
+            for gene_tmp in dict_family[key_tmp]:
+                gene_done.append(gene_tmp)
+                for gene_2 in dict_family[key_tmp]:
+                    if gene_2 not in gene_done:
+                        output_file.write('%s\t%s\tparalog\t%s\t\n' % (gene_tmp, gene_2, str(key_tmp)))
         
         output_file.close()
     #

@@ -40,7 +40,7 @@ Filter out domain loss which are repeated in domain architecture, known as less 
 
 #'extract_ortholog_pair_OMA.py'
 Conserved unique ortholog (1:1) from OMA and infer the different paralog for each species from the not unique ortholog pairs present in OMA. 
-A paralog family number is associated in function of which species gene is considered for the paralog inference (WARNING a geneID can have different paralog family; unique paralog family per gene identifier is considered in 'plot_results_tspec.R', can be done before if it accepted)
+A paralog family number is associated to each group of gene which are inferred as paralog from multiortholog inferred by OMA.
 Input: 'oma-pairs.txt' (recovered from OMA) and list of considered species
 Output: 'pairwise_ortholog_SPECIE1_SPECIE2' and 'pairwise_paralog_SPECIE' 
 Command line: python extract_ortholog_pair_oma.py list_considered_species pair_ortho_path sequence_file_input regexp_pair regexp_output
