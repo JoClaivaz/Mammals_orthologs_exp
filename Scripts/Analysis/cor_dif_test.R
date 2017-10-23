@@ -6,6 +6,7 @@ get cor.diff values for any considered dataset
 '''
 ####FUN####
 #taken from rg255
+{
 cor.diff.test = function(x1, x2, y1, y2, method="pearson") {
   cor1 = cor.test(x1, x2, method=method)
   cor2 = cor.test(y1, y2, method=method)
@@ -120,7 +121,7 @@ most_occurence_vector = function(data){
 }
 
 output_cordif_test_ortho = function(specie1, specie2,
-                                    regexp_considered = '_ortho_notfemale_dataset',
+                                    regexp_considered = '_ortho_notfemale_nottestis_dataset',
                                     path_folder = 'D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/'){
   options(show.error.messages = FALSE)
   try_test = try(read.csv(paste0(path_folder, specie1, '_', specie2,
@@ -338,30 +339,63 @@ number_tissue_paralog = function(considered_species_name,
   return(length(unique(as.character(specie_data$Tissue))))
 }  
 ####
-
+}
 ###list species available
-species_list = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN')
-sp1 = 1 
-sp2 = 5
+species_list = c('BOVIN', 'GORGO', 'HUMAN', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO')
+
 #
 
 ###ortholog analysis
 ##Run test in considered dataset
-output_cordif_test_ortho(specie1 = species_list[sp1], specie2 = species_list[sp2])
+species_done = c()
+for (sp1 in 1:length(species_list)){
+  species_done = c(species_done, species_list[sp1])
+  for (sp2 in 1:length(species_list)){
+    if(!(species_list[sp2] %in% species_done)){
+      
+      options(show.error.messages = FALSE)
+      try_test = try(output_cordif_test_ortho(specie1 = species_list[sp1], specie2 = species_list[sp2],
+                                              regexp_considered = '_ortho_notfemale_nottestis_dataset'))
+      options(show.error.messages = TRUE)
+      
+      if(class(try_test) != 'try-error'){
+        output_cordif_test_ortho(specie1 = species_list[sp1], specie2 = species_list[sp2],
+                               regexp_considered = '_ortho_notfemale_nottestis_dataset')
+      }else{
+        output_cordif_test_ortho(specie1 = species_list[sp2], specie2 = species_list[sp1],
+                                 regexp_considered = '_ortho_notfemale_nottestis_dataset')
+      }
+    }
+  }
+}
 #
 
 ###paralog analysis
 ##Run test in considered dataset
-output_cordif_test_para(specie = species_list[sp1], 
-                        regexp_considered = '_para_notfemale_dataset',
-                        all_modif = FALSE)
-output_cordif_test_para(specie = species_list[sp1], 
-                        regexp_considered = '_para_notfemale_dataset',
-                        all_modif = TRUE)
+for (sp1 in 1:length(species_list)){
+  output_cordif_test_para(specie = species_list[sp1], 
+                          regexp_considered = '_para_notfemale_nottestis_dataset',
+                          all_modif = FALSE)
+  output_cordif_test_para(specie = species_list[sp1], 
+                          regexp_considered = '_para_notfemale_nottestis_dataset',
+                          all_modif = TRUE)
+}
 #
 
 ###ortholog number of tissues
-number_tissue_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+species_done = c()
+for (sp1 in 1:length(species_list)){
+  species_done = c(species_done, species_list[sp1])
+  for (sp2 in 1:length(species_list)){
+    if(!(species_list[sp2] %in% species_done)){
+      
+      options(show.error.messages = FALSE)
+      try_test = try(read.csv(paste0('D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_', species_list[sp1], '_', species_list[sp2],
+                                     '_domain_nomodif')))
+      options(show.error.messages = TRUE)
+      
+      if(class(try_test) != 'try-error'){
+        number_tissue_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
                        expression_data_sufix = '_expression_parsed',
                        considered_species_name_1 = species_list[sp1],
                        considered_species_name_2 = species_list[sp2],
@@ -381,11 +415,38 @@ number_tissue_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Proj
                                                         "9th week post-fertilization human stage (human)",
                                                         "15th week post-fertilization human stage (human)",
                                                         "19th week post-fertilization human stage (human)"),
-                       notconsidered_anat_vector = c('kidney', 'frontal cortex'))
+                       notconsidered_anat_vector = c('kidney', 'frontal cortex', 'testis'))
+      }else{
+        number_tissue_ortholog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+                               expression_data_sufix = '_expression_parsed',
+                               considered_species_name_1 = species_list[sp2],
+                               considered_species_name_2 = species_list[sp1],
+                               domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/ortholog_',
+                               domain_control_sufix = '_domain_nomodif',
+                               domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_ortholog_',
+                               domain_modif_sufix = '_domain_loss',
+                               notconsidered_sex_vector = c('female'),
+                               notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
+                                                                "10th week post-fertilization human stage (human)",
+                                                                "16th week post-fertilization human stage (human)",
+                                                                "17th week post-fertilization human stage (human)",
+                                                                "19th week post-fertilization human stage (human)",
+                                                                "9th week post-fertilization human stage (human)",
+                                                                "16th week post-fertilization human stage (human)",
+                                                                "19th week post-fertilization human stage (human)",
+                                                                "9th week post-fertilization human stage (human)",
+                                                                "15th week post-fertilization human stage (human)",
+                                                                "19th week post-fertilization human stage (human)"),
+                               notconsidered_anat_vector = c('kidney', 'frontal cortex', 'testis'))  
+      }
+    }
+  }
+}
 #
 
 ###paralog number of tissues
-number_tissue_paralog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
+for (sp1 in 1:length(species_list)){
+  number_tissue_paralog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Project/Data/Bgee/',
                       expression_data_sufix = '_expression_parsed',
                       considered_species_name = species_list[sp1],
                       domain_control_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paralog_',
@@ -393,7 +454,7 @@ number_tissue_paralog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Proje
                       domain_modif_path_prefix = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/putative_paralog_',
                       domain_modif_sufix = '_domain_loss',
                       notconsidered_sex_vector = c('female'),
-                      notconsidered_anat_vector = c('kidney', 'frontal cortex'),
+                      notconsidered_anat_vector = c('kidney', 'frontal cortex', 'testis'),
                       notconsidered_devtime_vector = c("9th week post-fertilization human stage (human)",
                                                        "10th week post-fertilization human stage (human)",
                                                        "16th week post-fertilization human stage (human)",
@@ -405,4 +466,5 @@ number_tissue_paralog(expression_data_path_prefix = 'D:/UNIL/Master/Master_Proje
                                                        "9th week post-fertilization human stage (human)",
                                                        "15th week post-fertilization human stage (human)",
                                                        "19th week post-fertilization human stage (human)"))
+}
 #
