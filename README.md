@@ -119,6 +119,11 @@ Output: pdf contiainig plots
 Function allowing the process of exact fisher test on the correlation amongst specie 1 and specie2, and other one allows to get the number of tissues considered for a given analysis
 Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 
+#'expression_analysis_bytissue.R'
+allow the analysis of the conservation of expression level by tissue by homolog pair
+for the paralog datasets: only maximal expression gene (for a given tissue and a given paralog family) are set as reference and are used as predictive variable, moreover for domain modification group the longest domain are set as predictive and/'or not' as maximal expressed paralog family
+Input: 'SPECIE_expression_parsed' and 'putative_homologSPECIES_domain_loss' and 'hoomolog_SPECIES_nomodif'
+
 ******NOT FINISH********
 #'extract_DNA_sequence.py'
 create one file containing all the cDNA sequence specific to one specie extracted from 'eukaryotes.cdna.fa'
