@@ -125,6 +125,8 @@ data_organization_ExpAnal_ortholog = function(considered_species_name_1,
   #convert tpm into numerics and log transformation
   specie1_data$TPM = log2(as.numeric(specie1_data$TPM) + 0.000001)
   specie2_data$TPM = log2(as.numeric(specie2_data$TPM) + 0.000001)
+  specie1_data$TPM[specie1_data$TPM < 1] = 0  
+  specie2_data$TPM[specie2_data$TPM < 1] = 0
   #
   
   #domain_status file numerotation of pair
@@ -247,6 +249,7 @@ data_organization_ExpAnal_paralog = function(considered_species_name,
   
   #convert tpm into numerics and log transformation
   specie_data$TPM = log2(as.numeric(specie_data$TPM) + 0.000001)
+  specie_data$TPM[specie_data$TPM < 1] = 0
   #
   
   #group the domain inference data
@@ -265,6 +268,7 @@ data_organization_ExpAnal_paralog = function(considered_species_name,
 require(tidyr)
 
 ####HUMAN BOVIN orthologs####
+{
 list_output = data_organization_ExpAnal_ortholog(considered_species_name_1 = 'BOVIN', 
                                                  considered_species_name_2 = 'HUMAN')
 specie1_data = list_output[[1]]
@@ -280,7 +284,7 @@ all(specie1_data$pair_nbr == specie2_data$pair_nbr)
 tissue_list = colnames(specie1_data)[3:length(colnames(specie1_data))]
 
 {
-pdf(paste0('C:/Users/Claivaz/Desktop/', 'expression_analysis' ,'.pdf'))
+pdf(paste0('C:/Users/Claivaz/Desktop/', 'expression_analysis_HUMAN_BOVIN' ,'.pdf'))
 par(mfrow = c(5,4), mai=c(0.4,0.35,0.3,0.01))
   
 for (tissue_tmp in 1:length(tissue_list)){
@@ -289,7 +293,7 @@ for (tissue_tmp in 1:length(tissue_list)){
                 specie2_data[,(tissue_tmp + 2)][specie2_data$status == 'control'],
                 xlab = '',
                 ylab = '',
-                main = paste0(tissue_list[tissue_tmp], ' - control'), cex.main = 0.8, cex.lab = 0.6)
+                main = paste0(tissue_list[tissue_tmp], ' - control'), cex.main = 0.8, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
   title(xlab = paste0(specie1_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
   title(ylab = paste0(specie2_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
   value_tmp1 = as.numeric(specie1_data[,(tissue_tmp + 2)][specie1_data$status == 'control'])
@@ -297,13 +301,13 @@ for (tissue_tmp in 1:length(tissue_list)){
   abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
   linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
   cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   
   smoothScatter(specie1_data[,(tissue_tmp + 2)][specie1_data$status != 'control'], 
                 specie2_data[,(tissue_tmp + 2)][specie2_data$status != 'control'],
                 xlab = '',
                 ylab = '',
-                main = paste0(tissue_list[tissue_tmp], ' - domain modification'), cex.main = 0.8, cex.lab = 0.6)
+                main = paste0(tissue_list[tissue_tmp], ' - domain modification'), cex.main = 0.8, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
   title(xlab = paste0(specie1_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
   title(ylab = paste0(specie2_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
   value_tmp1 = as.numeric(specie1_data[,(tissue_tmp + 2)][specie1_data$status != 'control'])
@@ -311,20 +315,79 @@ for (tissue_tmp in 1:length(tissue_list)){
   abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
   linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
   cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   
 }
 
 dev.off()
 }
+}
+#
+
+####HUMAN MOUSE orthologs####
+{
+list_output = data_organization_ExpAnal_ortholog(considered_species_name_1 = 'MOUSE', 
+                                                 considered_species_name_2 = 'HUMAN')
+specie1_data = list_output[[1]]
+specie1_name = list_output[[2]]
+specie2_data = list_output[[3]]
+specie2_name = list_output[[4]]
+
+#test if the order of pair number are the same
+all(specie1_data$pair_nbr == specie2_data$pair_nbr)
+#
+
+#plot
+tissue_list = colnames(specie1_data)[3:length(colnames(specie1_data))]
+
+{
+  pdf(paste0('C:/Users/Claivaz/Desktop/', 'expression_analysis_HUMAN_MOUSE' ,'.pdf'))
+  par(mfrow = c(5,4), mai=c(0.4,0.35,0.3,0.01))
+  
+  for (tissue_tmp in 1:length(tissue_list)){
+    
+    smoothScatter(specie1_data[,(tissue_tmp + 2)][specie1_data$status == 'control'], 
+                  specie2_data[,(tissue_tmp + 2)][specie2_data$status == 'control'],
+                  xlab = '',
+                  ylab = '',
+                  main = paste0(tissue_list[tissue_tmp], ' - control'), cex.main = 0.8, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+    title(xlab = paste0(specie1_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
+    title(ylab = paste0(specie2_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
+    value_tmp1 = as.numeric(specie1_data[,(tissue_tmp + 2)][specie1_data$status == 'control'])
+    value_tmp2 = as.numeric(specie2_data[,(tissue_tmp + 2)][specie2_data$status == 'control'])
+    abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
+    linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
+    cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
+    text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+    
+    smoothScatter(specie1_data[,(tissue_tmp + 2)][specie1_data$status != 'control'], 
+                  specie2_data[,(tissue_tmp + 2)][specie2_data$status != 'control'],
+                  xlab = '',
+                  ylab = '',
+                  main = paste0(tissue_list[tissue_tmp], ' - domain modification'), cex.main = 0.8, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+    title(xlab = paste0(specie1_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
+    title(ylab = paste0(specie2_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
+    value_tmp1 = as.numeric(specie1_data[,(tissue_tmp + 2)][specie1_data$status != 'control'])
+    value_tmp2 = as.numeric(specie2_data[,(tissue_tmp + 2)][specie2_data$status != 'control'])
+    abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
+    linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
+    cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
+    text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+    
+  }
+  
+  dev.off()
+}
+}
 #
 
 ####HUMAN paralogs####
+{
 list_output = data_organization_ExpAnal_paralog(considered_species_name = 'HUMAN')
 specie_data = list_output[[1]]
 domain_status = list_output[[2]]
 {
-pdf(paste0('C:/Users/Claivaz/Desktop/', 'expression_analysis' ,'.pdf'))
+pdf(paste0('C:/Users/Claivaz/Desktop/', 'expression_analysis_HUMAN' ,'.pdf'))
 par(mfrow = c(6,3), mai=c(0.4,0.35,0.3,0.01))
   
 tissue_list = as.character(unique(specie_data$Tissue))
@@ -394,45 +457,44 @@ for (tissue_tmp in 1:length(tissue_list)){
   smoothScatter(domain_control$exp_1, domain_control$exp_2,
                 xlab = '',
                 ylab = '',
-                main = paste0(gsub('[[:digit:]]', '', domain_control$GeneID_1[1]) ,' paralogs - ',tissue_list[tissue_tmp], ' - control'), cex.main = 0.8, cex.lab = 0.6)
-  title(xlab = paste0('reference paralog', ' expression level (log transformed)'), cex.lab =0.6, line = 2)
-  title(ylab = paste0('other paralog', ' expression level (log transformed)'), cex.lab =0.6, line = 2)
+                main = paste0(gsub('[[:digit:]]', '', domain_control$GeneID_1[1]) ,' paralogs - ',tissue_list[tissue_tmp], ' - control'), cex.main = 0.6, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+  title(xlab = paste0('reference paralog', ' expression level (log transformed)'), cex.lab = 0.4, line = 2)
+  title(ylab = paste0('other paralog', ' expression level (log transformed)'), cex.lab = 0.4, line = 2)
   value_tmp1 = as.numeric(domain_control$exp_1)
   value_tmp2 = as.numeric(domain_control$exp_2)
   abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
   linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
   cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   
   smoothScatter(domain_modif_ref$exp_1, domain_modif_ref$exp_2,
                 xlab = '',
                 ylab = '',
-                main = paste0(gsub('[[:digit:]]', '', domain_control$GeneID_1[1]) ,' paralogs - ',tissue_list[tissue_tmp], ' - domain modification (only reference gene)'), cex.main = 0.8, cex.lab = 0.6)
-  title(xlab = paste0('reference longest paralog', ' expression level (log transformed)'), cex.lab =0.6, line = 2)
-  title(ylab = paste0('other paralog', ' expression level (log transformed)'), cex.lab =0.6, line = 2)
+                main = paste0(gsub('[[:digit:]]', '', domain_control$GeneID_1[1]) ,' paralogs - ',tissue_list[tissue_tmp], ' - domain modification (only reference gene)'), cex.main = 0.6, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+  title(xlab = paste0('reference longest paralog', ' expression level (log transformed)'), cex.lab =0.4, line = 2)
+  title(ylab = paste0('other paralog', ' expression level (log transformed)'), cex.lab =0.4, line = 2)
   value_tmp1 = as.numeric(domain_modif_ref$exp_1)
   value_tmp2 = as.numeric(domain_modif_ref$exp_2)
   abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
   linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
   cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   
   smoothScatter(domain_modif_all$exp_1, domain_modif_all$exp_2,
                 xlab = '',
                 ylab = '',
-                main = paste0(gsub('[[:digit:]]', '', domain_control$GeneID_1[1]) ,' paralogs - ',tissue_list[tissue_tmp], ' - domain modification (all modified gene)'), cex.main = 0.8, cex.lab = 0.6)
-  title(xlab = paste0('longest paralog', ' expression level (log transformed)'), cex.lab =0.6, line = 2)
-  title(ylab = paste0('other paralog', ' expression level (log transformed)'), cex.lab =0.6, line = 2)
+                main = paste0(gsub('[[:digit:]]', '', domain_control$GeneID_1[1]) ,' paralogs - ',tissue_list[tissue_tmp], ' - domain modification (all modified gene)'), cex.main = 0.6, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+  title(xlab = paste0('longest paralog', ' expression level (log transformed)'), cex.lab =0.4, line = 2)
+  title(ylab = paste0('other paralog', ' expression level (log transformed)'), cex.lab =0.4, line = 2)
   value_tmp1 = as.numeric(domain_modif_all$exp_1)
   value_tmp2 = as.numeric(domain_modif_all$exp_2)
   abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
   linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
   cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   
 }
 dev.off()
 }
-
-
+}
 ####

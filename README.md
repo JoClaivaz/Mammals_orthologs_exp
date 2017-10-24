@@ -120,7 +120,8 @@ Function allowing the process of exact fisher test on the correlation amongst sp
 Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 
 #'expression_analysis_bytissue.R'
-allow the analysis of the conservation of expression level by tissue by homolog pair
+see the influence of each tissue consideration
+allow the analysis of the conservation of expression level by tissue amongst homolog pair
 for the paralog datasets: only maximal expression gene (for a given tissue and a given paralog family) are set as reference and are used as predictive variable, moreover for domain modification group the longest domain are set as predictive and/'or not' as maximal expressed paralog family
 Input: 'SPECIE_expression_parsed' and 'putative_homologSPECIES_domain_loss' and 'hoomolog_SPECIES_nomodif'
 
@@ -157,7 +158,7 @@ Input: 'ortholog_family_#' and 'SPECIE_family_#'
 	4. run 'extraction_state_expression_file.py'
 	5. run 'Tspec_inference.R'
 	6. use 'Tspec_analysis.R', 'plot_results_tspec.R' and 'cor_dif_test.R'
-	7.
+	7. use 'expression_analysis_bytissue.R'
 	*****NOT FINISH****
 	8. recover cDNA fasta sequences ('eukaryotes.cdna.fa') from http://omabrowser.org/oma/current/
 	9. run 'extract_DNA_sequence.py'
