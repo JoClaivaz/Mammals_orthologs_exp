@@ -258,87 +258,6 @@ for (regexp_out in 1:length(regexp_list)){
 }
 
 ####Paralog (ref:max expression tissue and longer domain) / correlation Tspec####
-###FUN
-sort_paralog = function(paralog_dataset, expression_dataset){
-  
-  expression_para = read.table(expression_dataset, sep = '\t', header = T)
-  expression_para = aggregate(expression_para$TPM ~ expression_para$GeneID, FUN = max)
-  names(expression_para) = c('GeneID', 'maxTPM')
-  
-  expression_para$GeneID = as.character(expression_para$GeneID)
-  paralog_dataset$GeneID_1 = as.character(paralog_dataset$GeneID_1)
-  paralog_dataset$GeneID_2 = as.character(paralog_dataset$GeneID_2)
-  paralog_dataset$shift = as.character(paralog_dataset$shift)
-  paralog_dataset$longer_domain_specie = as.character(paralog_dataset$longer_domain_specie)
-  paralog_dataset$TspecF_1 = as.character(paralog_dataset$TspecF_1)
-  paralog_dataset$TspecF_2 = as.character(paralog_dataset$TspecF_2)
-  paralog_dataset$spec_tissue_1 = as.character(paralog_dataset$spec_tissue_1)
-  paralog_dataset$spec_tissue_2 = as.character(paralog_dataset$spec_tissue_2)
-  
-  for (para_pair in 1:dim(paralog_dataset)[1]){
-    if(expression_para$maxTPM[expression_para$GeneID == paralog_dataset$GeneID_1[para_pair]] 
-       < expression_para$maxTPM[expression_para$GeneID == paralog_dataset$GeneID_2[para_pair]]
-       & paralog_dataset$len_2[para_pair] >= paralog_dataset$len_1[para_pair] 
-       | paralog_dataset$len_2[para_pair] > paralog_dataset$len_1[para_pair]){
-      
-      gene_1_tmp = paralog_dataset$GeneID_2[para_pair]
-      gene_2_tmp = paralog_dataset$GeneID_1[para_pair]
-      paralog_dataset$GeneID_2[para_pair] = gene_2_tmp
-      paralog_dataset$GeneID_1[para_pair] = gene_1_tmp
-      
-      gene_1_tmp = paralog_dataset$len_2[para_pair]
-      gene_2_tmp = paralog_dataset$len_1[para_pair]
-      paralog_dataset$len_1[para_pair] = gene_1_tmp
-      paralog_dataset$len_2[para_pair] = gene_2_tmp
-      
-      gene_2_tmp = paralog_dataset$tspec_1[para_pair]
-      gene_1_tmp = paralog_dataset$tspec_2[para_pair]
-      paralog_dataset$tspec_1[para_pair] = gene_1_tmp
-      paralog_dataset$tspec_2[para_pair] = gene_2_tmp
-      
-      gene_2_tmp = paralog_dataset$TspecF_1[para_pair]
-      gene_1_tmp = paralog_dataset$TspecF_2[para_pair]
-      paralog_dataset$TspecF_1[para_pair] = gene_1_tmp
-      paralog_dataset$TspecF_2[para_pair] = gene_2_tmp
-      
-      gene_2_tmp = paralog_dataset$spec_tissue_1[para_pair]
-      gene_1_tmp = paralog_dataset$spec_tissue_2[para_pair]
-      paralog_dataset$spec_tissue_1[para_pair] = gene_1_tmp
-      paralog_dataset$spec_tissue_2[para_pair] = gene_2_tmp
-      
-      if(paralog_dataset$shift[para_pair] == 'specific_to_ubiquitous'){
-        paralog_dataset$shift[para_pair] = 'ubiquitous_to_specific'
-      }else if(paralog_dataset$shift[para_pair] == 'ubiquitous_to_specific'){
-        paralog_dataset$shift[para_pair] = 'specific_to_ubiquitous'
-        
-      }
-      if(paralog_dataset$longer_domain_specie[para_pair] == 'specie1'){
-        paralog_dataset$longer_domain_specie[para_pair] == 'specie2'
-      }else if(paralog_dataset$longer_domain_specie[para_pair] == 'specie2'){
-        paralog_dataset$longer_domain_specie[para_pair] = 'specie1'
-        
-      }
-    }
-  }
-  
-  paralog_dataset$GeneID_1 = as.factor(paralog_dataset$GeneID_1)
-  paralog_dataset$GeneID_2 = as.factor(paralog_dataset$GeneID_2)
-  paralog_dataset$shift = as.factor(paralog_dataset$shift)
-  paralog_dataset$longer_domain_specie = as.factor(paralog_dataset$longer_domain_specie)
-  paralog_dataset$TspecF_1 = as.factor(paralog_dataset$TspecF_1)
-  paralog_dataset$TspecF_2 = as.factor(paralog_dataset$TspecF_2)
-  paralog_dataset$spec_tissue_1 = as.factor(paralog_dataset$spec_tissue_1)
-  paralog_dataset$spec_tissue_2 = as.factor(paralog_dataset$spec_tissue_2)
-  
-  return(paralog_dataset)
-  
-}
-
-most_occurence_vector = function(data){
-  return(names(sort(table(data), decreasing = T)[1]))
-}
-#
-
 path_folder = 'D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/'
 central_species = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN')
 regexp_list = c('_para_notfemale_dataset', '_para_onlymale_dataset',
@@ -358,18 +277,6 @@ for (regexp_out in 1:length(regexp_list)){
                                      regexp_list[regexp_out]))
     species_data$X = NULL
     
-    
-    
-    ###Determine maximal paralog expression for a group family, according to Kryuchkova et al., 2016
-    #maximal expression (reference, maximal in one state) gene is the GeneID_1
-    #and longer domain is also GeneID_1 in modified gene
-    #unique paralog consideration
-    species_data = sort_paralog(paralog_dataset = species_data, expression_dataset = paste0('D:/UNIL/Master/Master_Project/Data/Bgee/', gsub('[[:digit:]]', '', species_data$GeneID_1[1]), '_expression_parsed'))
-    paralog_reference = aggregate(species_data$GeneID_1 ~ species_data$ParalogGroup, FUN = most_occurence_vector)
-    keep_gene_1 = species_data$GeneID_1 %in% paralog_reference$`species_data$GeneID_1`
-    species_data = species_data[keep_gene_1,]
-    #
-      
     smoothScatter(species_data$tspec_1[species_data$status != 'control'], species_data$tspec_2[species_data$status != 'control'],
                   xlab = '',
                   ylab = '',
@@ -415,17 +322,6 @@ for (regexp_out in 1:length(regexp_list)){
     species_data = read.csv(paste0(path_folder, central_species[sp1],
                                    regexp_list[regexp_out]))
     species_data$X = NULL
-    
-    
-    ###Determine maximal paralog expression for a group family, according to Kryuchkova et al., 2016
-    #maximal expression (reference, maximal in one state) gene is the GeneID_1
-    #and longer domain is also GeneID_1 in modified gene
-    #unique paralog consideration
-    species_data = sort_paralog(paralog_dataset = species_data, expression_dataset = paste0('D:/UNIL/Master/Master_Project/Data/Bgee/', gsub('[[:digit:]]', '', species_data$GeneID_1[1]), '_expression_parsed'))
-    paralog_reference = aggregate(species_data$GeneID_1 ~ species_data$ParalogGroup, FUN = most_occurence_vector)
-    keep_gene_1 = species_data$GeneID_1 %in% paralog_reference$`species_data$GeneID_1`
-    species_data = species_data[keep_gene_1,]
-    #
     
     smoothScatter(species_data$tspec_1[species_data$status == 'f-1'],
                   species_data$tspec_2[species_data$status == 'f-1'],
@@ -506,19 +402,6 @@ for (regexp_out in 1:length(regexp_list)){
                                    regexp_list[regexp_out]))
     species_data$X = NULL
     
-    ###Determine maximal paralog expression for a group family, according to Kryuchkova et al., 2016
-    #maximal expression (reference, maximal in one state) gene is the GeneID_1
-    #or longer domain is also GeneID_1 in modified gene
-    #unique paralog consideration
-    species_data = sort_paralog(paralog_dataset = species_data, expression_dataset = paste0('D:/UNIL/Master/Master_Project/Data/Bgee/', gsub('[[:digit:]]', '', species_data$GeneID_1[1]), '_expression_parsed'))
-    paralog_reference = aggregate(species_data$GeneID_1 ~ species_data$ParalogGroup, FUN = most_occurence_vector)
-    species_data_modif = species_data[species_data$status != 'control',]
-    species_data_c = species_data[species_data$status == 'control',]
-    keep_gene_1 = species_data_c$GeneID_1 %in% paralog_reference$`species_data$GeneID_1`
-    species_data_c = species_data_c[keep_gene_1,]
-    species_data = rbind(species_data_c, species_data_modif)
-    #
-    
     smoothScatter(species_data$tspec_1[species_data$status != 'control'], species_data$tspec_2[species_data$status != 'control'],
                   xlab = '',
                   ylab = '',
@@ -564,19 +447,6 @@ for (regexp_out in 1:length(regexp_list)){
     species_data = read.csv(paste0(path_folder, central_species[sp1],
                                    regexp_list[regexp_out]))
     species_data$X = NULL
-    
-    ###Determine maximal paralog expression for a group family, according to Kryuchkova et al., 2016
-    #maximal expression (reference, maximal in one state) gene is the GeneID_1
-    #or longer domain is also GeneID_1 in modified gene
-    #unique paralog consideration
-    species_data = sort_paralog(paralog_dataset = species_data, expression_dataset = paste0('D:/UNIL/Master/Master_Project/Data/Bgee/', gsub('[[:digit:]]', '', species_data$GeneID_1[1]), '_expression_parsed'))
-    paralog_reference = aggregate(species_data$GeneID_1 ~ species_data$ParalogGroup, FUN = most_occurence_vector)
-    species_data_modif = species_data[species_data$status != 'control',]
-    species_data_c = species_data[species_data$status == 'control',]
-    keep_gene_1 = species_data_c$GeneID_1 %in% paralog_reference$`species_data$GeneID_1`
-    species_data_c = species_data_c[keep_gene_1,]
-    species_data = rbind(species_data_c, species_data_modif)
-    #
     
     smoothScatter(species_data$tspec_1[species_data$status == 'f-1'],
                   species_data$tspec_2[species_data$status == 'f-1'],

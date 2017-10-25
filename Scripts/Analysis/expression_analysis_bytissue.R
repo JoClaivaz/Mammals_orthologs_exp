@@ -420,11 +420,8 @@ for (tissue_tmp in 1:length(tissue_list)){
   specie_tmp = specie_tmp[complete.cases(specie_tmp),]
   
   #generate reference gene per paralog family
-  reference_gene = aggregate(TPM ~ ParalogGroup, data = specie_tmp, FUN = max)
-  reference_gene$GeneID = NA
-  for (row_tmp in 1:dim(reference_gene)[1]){
-    reference_gene$GeneID[row_tmp] = as.character(specie_tmp$GeneID[specie_tmp$TPM == as.numeric(reference_gene$TPM[row_tmp])])
-  }
+  reference_gene = read.csv(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/ReferenceGene/', gsub('[[:digit:]]', '', domain_control[1,1])))
+  names(reference_gene)[2] = 'GeneID'
   
   domain_tmp$exp_1 = NA
   domain_tmp$exp_2 = NA

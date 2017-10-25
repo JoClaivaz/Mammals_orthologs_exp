@@ -92,12 +92,12 @@ Command line: python extraction_state_expression_file.py considered_tissues cons
 
 #'Tspec_inference.R'
 Inference of tissue specificity estimators for ortholog and paralog pairs
+the paralogs are sorted according to the reference gene defined by the maximal expression in any tissue for the paralogs of a paralog family and the longest one for modified pair
 Input: 'SPECIE_expression_parsed', 'putative_paralog_SPECIE_domain_loss', 'putative_ortholog_SPECIE_domain_loss', 'paralog_SPECIE_domain_nomodif' and 'ortholog_SPECIE1_SPECIE2_1_domain_modif_domain_nomodif'
-Output: store tables for 'Tspec_analysis.R'
+Output: store tables for 'Tspec_analysis.R' and 'SPECIES_reference_gene_paralog'
 
 #'Tspec_analysis.R'
 Study the effect of paralog and ortholog domain modifications on Tspec.
-Organization of paralog: reference paralog is defined by the most represented gene for a given paralog group which is whether the longer one or the most expressed one in any tissues (TPM values)
 HYP assessed:
 	*effect of domain modification on Tspec values for a given species
 	*effect of domain modification on correlation between pairwise species comparisons
@@ -108,7 +108,6 @@ Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 
 #'plot_results_tspec.R'
 Create pdf files containing correaltion results in function of status or kind of modifications in different ortholog or paralog datasets. 
-Consideration of unique paralog pair, having an unique Paralog Group identifier: longest and/or most expresssed gene of pair in any considered tissues.
 Plot:
 	*tspec Specie1 function of tspec Specie2
 	*tspec Specie1 function of tspec Specie2 and function of the modification group
@@ -122,8 +121,7 @@ Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 #'expression_analysis_bytissue.R'
 see the influence of each tissue consideration
 allow the analysis of the conservation of expression level by tissue amongst homolog pair
-for the paralog datasets: only maximal expression gene (for a given tissue and a given paralog family) are set as reference and are used as predictive variable, moreover for domain modification group the longest domain are set as predictive and/'or not' as maximal expressed paralog family
-Input: 'SPECIE_expression_parsed' and 'putative_homologSPECIES_domain_loss' and 'hoomolog_SPECIES_nomodif'
+Input: 'SPECIE_expression_parsed' and 'putative_homologSPECIES_domain_loss' and 'hoomolog_SPECIES_nomodif' and 'SPECIES_reference_gene_paralog'
 
 ******NOT FINISH********
 #'extract_DNA_sequence.py'
