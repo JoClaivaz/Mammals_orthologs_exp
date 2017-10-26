@@ -123,6 +123,13 @@ see the influence of each tissue consideration
 allow the analysis of the conservation of expression level by tissue amongst homolog pair
 Input: 'SPECIE_expression_parsed' and 'putative_homologSPECIES_domain_loss' and 'hoomolog_SPECIES_nomodif' and 'SPECIES_reference_gene_paralog'
 
+#'paralog_ortholog_ref_gene_extraction.py'
+extraction of paralog interspecies present in 'SPECIES_reference_gene_paralog' for each species and inferred by OMA as multi ortholog (at least for one pair)
+Input: 'SPECIES_reference_gene_paralog' and 'oma-pairs.txt'
+Output: 'pairwise_paraortho_Species1_ Species2_withtestis' and 'pairwise_paraortho_Species1_ Species2_withouttestis' (depends of the reference gene data considered)
+then run 'extract_paraortho_modification_group.py' (similar to 'extract_ortholog_modification_group.py', but consideration of different reference gene data in function if testis tissue was considered for its inference) 
+and 'Tspec_inference.R' to organized the dataset as it was done for ortholog and paralog intraspecies
+
 ******NOT FINISH********
 #'extract_DNA_sequence.py'
 create one file containing all the cDNA sequence specific to one specie extracted from 'eukaryotes.cdna.fa'
@@ -157,8 +164,9 @@ Input: 'ortholog_family_#' and 'SPECIE_family_#'
 	5. run 'Tspec_inference.R'
 	6. use 'Tspec_analysis.R', 'plot_results_tspec.R' and 'cor_dif_test.R'
 	7. use 'expression_analysis_bytissue.R'
+	8. run 'paralog_ortholog_ref_gene_extraction.py' and the following needed script to perform paralog interspecies analysis in function of the considered reference gene (ananylsis allowing the conservation of reference gene for each paralog family)
 	*****NOT FINISH****
-	8. recover cDNA fasta sequences ('eukaryotes.cdna.fa') from http://omabrowser.org/oma/current/
-	9. run 'extract_DNA_sequence.py'
-	10. run 'ortholog_family_to_file.py' and 'paralog_family_to_file.py'
-	11. use 'kaks_analysis.R'
+	9. recover cDNA fasta sequences ('eukaryotes.cdna.fa') from http://omabrowser.org/oma/current/
+	10. run 'extract_DNA_sequence.py'
+	11. run 'ortholog_family_to_file.py' and 'paralog_family_to_file.py'
+	12. use 'kaks_analysis.R'
