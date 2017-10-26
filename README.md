@@ -128,7 +128,7 @@ extraction of paralog interspecies present in 'SPECIES_reference_gene_paralog' f
 Input: 'SPECIES_reference_gene_paralog' and 'oma-pairs.txt'
 Output: 'pairwise_paraortho_Species1_ Species2_withtestis' and 'pairwise_paraortho_Species1_ Species2_withouttestis' (depends of the reference gene data considered)
 then run 'extract_paraortho_modification_group.py' (similar to 'extract_ortholog_modification_group.py', but consideration of different reference gene data in function if testis tissue was considered for its inference) 
-and 'Tspec_inference.R' to organized the dataset as it was done for ortholog and paralog intraspecies
+and 'Tspec_inference.R' and 'plot_results_tspec.R' to organized the dataset and plot the results as it was done for ortholog and paralog intraspecies
 
 ******NOT FINISH********
 #'extract_DNA_sequence.py'

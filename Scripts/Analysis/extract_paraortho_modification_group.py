@@ -236,7 +236,7 @@ def run_function_in_mammals_dataset(list_mammals = ['BOVIN', 'GORGO', 'MACMU', '
             if second_mammals not in mammals_done:
                 extract_paraortho_modification_group(PairOrtho_in_path = 'D:/UNIL/Master/Master_Project/Data/OMA/pairwise_paraortho',
                                                      Domain_file_in_path = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/',
-                                                     Domain_file_out = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paraortho_with_testis_%s_%s' % (second_mammals, considered_mammals),
+                                                     Domain_file_out = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paraortho_%s_%s' % (second_mammals, considered_mammals),
                                                      with_testis = True,
                                                      second_species = second_mammals,
                                                      considered_species = considered_mammals)
@@ -253,7 +253,7 @@ def run_function_in_mammals_dataset(list_mammals = ['BOVIN', 'GORGO', 'MACMU', '
             if second_mammals not in mammals_done:
                 extract_paraortho_modification_group(PairOrtho_in_path = 'D:/UNIL/Master/Master_Project/Data/OMA/pairwise_paraortho',
                                                      Domain_file_in_path = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/',
-                                                     Domain_file_out = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paraortho_with_testis_%s_%s' % (second_mammals, considered_mammals),
+                                                     Domain_file_out = 'D:/UNIL/Master/Master_Project/Data/domain_architecture_inference/paraortho_%s_%s' % (second_mammals, considered_mammals),
                                                      with_testis = False,
                                                      second_species = second_mammals,
                                                      considered_species = considered_mammals)
