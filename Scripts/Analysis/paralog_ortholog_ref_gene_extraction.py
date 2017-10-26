@@ -22,6 +22,7 @@ def extract_paraortho_refgene_pair_OMA(list_considered_species = ['BOVIN', 'GORG
         species_done.append(sp1)
         
         for sp2 in list_considered_species:
+            
             if sp2 not in species_done:
                 
                 if with_testis:
@@ -53,7 +54,24 @@ def extract_paraortho_refgene_pair_OMA(list_considered_species = ['BOVIN', 'GORG
                 else:
                     paraortho_out = open('%spairwise_paraortho_%s_%s_withouttestis' % (output_path, sp1, sp2 ), 'w')
                 
-                ortho_file = open(oma_pair_file, 'r')
+                
+                
+                try:
+                    ortho_file = open(oma_pair_file.split('.')[0] + '_parsed', 'r')
+                
+                except:
+                    ortho_file = open(oma_pair_file, 'r')
+                    ortho_file_out = open(oma_pair_file.split('.')[0] + '_parsed', 'w')
+                    
+                    for ortho_line in ortho_file:
+                        
+                        if ortho_line.split('\t')[0].rstrip('0123456789') in list_considered_species and ortho_line.split('\t')[1].rstrip('0123456789') in list_considered_species:
+                            ortho_file_out.write(ortho_line)
+                
+                    ortho_file.close()
+                    ortho_file_out.close()
+                    ortho_file = open(oma_pair_file.split('.')[0] + '_parsed', 'r')
+                
                 
                 for ortho_line in ortho_file:
                     
