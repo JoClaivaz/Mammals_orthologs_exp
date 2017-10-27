@@ -418,16 +418,26 @@ for (regexp_out in 1:length(regexp_list)){
         species_data$X = NULL
         
         if(gsub('[[:digit:]]' ,'' , species_data$GeneID_2[1]) == central_species[sp1]){
+          
           smoothScatter(species_data$tspec_1[species_data$status != 'control'], species_data$tspec_2[species_data$status != 'control'],
                         xlab = '',
                         ylab = '',
                         main = 'Domain modification group', cex.main = 0.8, cex.lab = 0.6)
           title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
           title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          abline(lm(species_data$tspec_2[species_data$status != 'control'] ~ species_data$tspec_1[species_data$status != 'control']), col = 'red')
-          linear_param = lm(species_data$tspec_2[species_data$status != 'control'] ~ species_data$tspec_1[species_data$status != 'control'])$coefficients
-          cor_value = cor.test(species_data$tspec_2[species_data$status != 'control'], species_data$tspec_1[species_data$status != 'control'])$estimate[[1]]
-          text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+          options(show.error.messages = FALSE)
+          if(class(try(abline(lm(species_data$tspec_2[species_data$status != 'control'] ~ 
+                                  species_data$tspec_1[species_data$status != 'control']), col = 'red'))) != 'try-error'){
+            abline(lm(species_data$tspec_2[species_data$status != 'control'] ~ 
+                        species_data$tspec_1[species_data$status != 'control']), col = 'red')
+            if(class(try(cor.test(species_data$tspec_2[species_data$status != 'control'], 
+                                  species_data$tspec_1[species_data$status != 'control'])$estimate[[1]])) != 'try-error'){
+              linear_param = lm(species_data$tspec_2[species_data$status != 'control'] ~ species_data$tspec_1[species_data$status != 'control'])$coefficients
+              cor_value = cor.test(species_data$tspec_2[species_data$status != 'control'], species_data$tspec_1[species_data$status != 'control'])$estimate[[1]]
+              text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+            }
+          }
+          options(show.error.messages = TRUE)
           
           smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                         xlab = '',
@@ -435,10 +445,20 @@ for (regexp_out in 1:length(regexp_list)){
                         main = 'Domain control group', cex.main = 0.8, cex.lab = 0.6)
           title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
           title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          abline(lm(species_data$tspec_2[species_data$status == 'control'] ~ species_data$tspec_1[species_data$status == 'control']), col = 'red')
-          linear_param = lm(species_data$tspec_2[species_data$status == 'control'] ~ species_data$tspec_1[species_data$status == 'control'])$coefficients
-          cor_value = cor.test(species_data$tspec_2[species_data$status == 'control'], species_data$tspec_1[species_data$status == 'control'])$estimate[[1]]
-          text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+          options(show.error.messages = FALSE)
+          if(class(try(abline(lm(species_data$tspec_2[species_data$status == 'control'] ~ 
+                                 species_data$tspec_1[species_data$status == 'control']), col = 'red'))) != 'try-error'){
+            abline(lm(species_data$tspec_2[species_data$status == 'control'] ~ 
+                        species_data$tspec_1[species_data$status == 'control']), col = 'red')
+            if(class(try(cor.test(species_data$tspec_2[species_data$status == 'control'], 
+                                  species_data$tspec_1[species_data$status == 'control'])$estimate[[1]])) != 'try-error'){
+              linear_param = lm(species_data$tspec_2[species_data$status == 'control'] ~ species_data$tspec_1[species_data$status == 'control'])$coefficients
+              cor_value = cor.test(species_data$tspec_2[species_data$status == 'control'], species_data$tspec_1[species_data$status == 'control'])$estimate[[1]]
+              text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+            }
+          }
+          options(show.error.messages = TRUE)
+          
           
         }else{
           smoothScatter(species_data$tspec_2[species_data$status != 'control'], species_data$tspec_1[species_data$status != 'control'],
@@ -447,10 +467,20 @@ for (regexp_out in 1:length(regexp_list)){
                         main = 'Domain modification group', cex.main = 0.8, cex.lab = 0.6)
           title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
           title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          abline(lm(species_data$tspec_1[species_data$status != 'control'] ~ species_data$tspec_2[species_data$status != 'control']), col = 'red')
-          linear_param = lm(species_data$tspec_1[species_data$status != 'control'] ~ species_data$tspec_2[species_data$status != 'control'])$coefficients
-          cor_value = cor.test(species_data$tspec_1[species_data$status != 'control'], species_data$tspec_2[species_data$status != 'control'])$estimate[[1]]
-          text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+          options(show.error.messages = FALSE)
+          if(class(try(abline(lm(species_data$tspec_1[species_data$status != 'control'] ~ 
+                                 species_data$tspec_2[species_data$status != 'control']), col = 'red'))) != 'try-error'){
+            abline(lm(species_data$tspec_1[species_data$status != 'control'] ~ 
+                        species_data$tspec_2[species_data$status != 'control']), col = 'red')
+            if(class(try(cor.test(species_data$tspec_1[species_data$status != 'control'], 
+                                  species_data$tspec_2[species_data$status != 'control'])$estimate[[1]])) != 'try-error'){
+              linear_param = lm(species_data$tspec_1[species_data$status != 'control'] ~ species_data$tspec_2[species_data$status != 'control'])$coefficients
+              cor_value = cor.test(species_data$tspec_1[species_data$status != 'control'], species_data$tspec_2[species_data$status != 'control'])$estimate[[1]]
+              text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+            }
+          }
+          options(show.error.messages = TRUE)
+          
           
           smoothScatter(species_data$tspec_2[species_data$status == 'control'], species_data$tspec_1[species_data$status == 'control'],
                         xlab = '',
@@ -458,10 +488,19 @@ for (regexp_out in 1:length(regexp_list)){
                         main = 'Domain control group', cex.main = 0.8, cex.lab = 0.6)
           title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
           title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          abline(lm(species_data$tspec_1[species_data$status == 'control'] ~ species_data$tspec_2[species_data$status == 'control']), col = 'red')
-          linear_param = lm(species_data$tspec_1[species_data$status == 'control'] ~ species_data$tspec_2[species_data$status == 'control'])$coefficients
-          cor_value = cor.test(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'])$estimate[[1]]
-          text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+          options(show.error.messages = FALSE)
+          if(class(try(abline(lm(species_data$tspec_1[species_data$status == 'control'] ~ 
+                                 species_data$tspec_2[species_data$status == 'control']), col = 'red'))) != 'try-error'){
+            abline(lm(species_data$tspec_1[species_data$status == 'control'] ~ 
+                        species_data$tspec_2[species_data$status == 'control']), col = 'red')
+            if(class(try(cor.test(species_data$tspec_1[species_data$status == 'control'], 
+                                  species_data$tspec_2[species_data$status == 'control'])$estimate[[1]])) != 'try-error'){
+              linear_param = lm(species_data$tspec_1[species_data$status == 'control'] ~ species_data$tspec_2[species_data$status == 'control'])$coefficients
+              cor_value = cor.test(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'])$estimate[[1]]
+              text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+            }
+          }
+          options(show.error.messages = TRUE)
         }
       }
     }
@@ -470,159 +509,260 @@ for (regexp_out in 1:length(regexp_list)){
 }
 #
 
-####Paralog interspecies / correlation function of modification position####
-path_folder = 'D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/'
-different_species = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN')
-central_species = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN')
-regexp_list = c('_paraortho_notfemale_withouttestis_dataset', '_paraortho_notfemale_withtestis_dataset') 
-
-for (regexp_out in 1:length(regexp_list)){
-  pdf(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/result_modif', regexp_list[regexp_out] ,'.pdf'))
-  par(mfrow = c(4,4), mai=c(0.4,0.35,0.3,0.01))
-  specie_done = c()
-  
-  for (sp1 in 1:length(central_species)){
-    specie_done = c(specie_done, central_species[sp1])
-    
-    for (sp2 in 1:length(different_species)){
-      
-      if (central_species[sp1] != different_species[sp2] & !(different_species[sp2] %in% specie_done)){
-        options(show.error.messages = FALSE)
-        try_test = try(read.csv(paste0(path_folder, central_species[sp1], '_', different_species[sp2],
-                                       regexp_list[regexp_out])))
-        options(show.error.messages = TRUE)
-        
-        if(class(try_test) != 'try-error'){
-          species_data = read.csv(paste0(path_folder, central_species[sp1], '_', different_species[sp2],
-                                         regexp_list[regexp_out]))
-          
-          
-        }else{
-          species_data = read.csv(paste0(path_folder, different_species[sp2], '_', central_species[sp1],
-                                         regexp_list[regexp_out]))
-        }
-        
-        species_data$X = NULL
-        
-        if(gsub('[[:digit:]]' ,'' , species_data$GeneID_2[1]) == central_species[sp1]){
-          
-          smoothScatter(species_data$tspec_1[species_data$status == 'f-1'],
-                        species_data$tspec_2[species_data$status == 'f-1'],
-                        xlab = '',
-                        ylab = '',
-                        main = paste0('Domain modification group: f-1'), cex.main = 0.8)
-          title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          abline(lm(species_data$tspec_2[species_data$status == 'f-1'] ~
-                      species_data$tspec_1[species_data$status == 'f-1']), col = 'red')
-          linear_param = lm(species_data$tspec_2[species_data$status == 'f-1'] ~
-                              species_data$tspec_1[species_data$status == 'f-1'])$coefficients
-          cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
-                               species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-          text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-          
-          smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
-                        species_data$tspec_2[species_data$status == 'int-1'],
-                        xlab = '',
-                        ylab = '',
-                        main = paste0('Domain modification group: int-1'), cex.main = 0.8)
-          title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          abline(lm(species_data$tspec_2[species_data$status == 'int-1'] ~
-                      species_data$tspec_1[species_data$status == 'int-1']), col = 'red')
-          linear_param = lm(species_data$tspec_2[species_data$status == 'int-1'] ~
-                              species_data$tspec_1[species_data$status == 'int-1'])$coefficients
-          cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
-                               species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-          text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-          
-          smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
-                        species_data$tspec_2[species_data$status == 'b-1'],
-                        xlab = '',
-                        ylab = '',
-                        main = paste0('Domain modification group: b-1'), cex.main = 0.8)
-          title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          abline(lm(species_data$tspec_2[species_data$status == 'b-1'] ~
-                      species_data$tspec_1[species_data$status == 'b-1']), col = 'red')
-          linear_param = lm(species_data$tspec_2[species_data$status == 'b-1'] ~
-                              species_data$tspec_1[species_data$status == 'b-1'])$coefficients
-          cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
-                               species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-          text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-          
-          smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
-                        xlab = '',
-                        ylab = '',
-                        main = 'Domain control group', cex.main = 0.8, cex.lab = 0.6)
-          title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          abline(lm(species_data$tspec_2[species_data$status == 'control'] ~ species_data$tspec_1[species_data$status == 'control']), col = 'red')
-          linear_param = lm(species_data$tspec_2[species_data$status == 'control'] ~ species_data$tspec_1[species_data$status == 'control'])$coefficients
-          cor_value = cor.test(species_data$tspec_2[species_data$status == 'control'], species_data$tspec_1[species_data$status == 'control'])$estimate[[1]]
-          text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-          
-          
-        }else{
-          smoothScatter(species_data$tspec_2[species_data$status == 'f-1'],
-                        species_data$tspec_1[species_data$status == 'f-1'],
-                        xlab = '',
-                        ylab = '',
-                        main = paste0('Domain modification group: f-1'), cex.main = 0.8)
-          title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          abline(lm(species_data$tspec_1[species_data$status == 'f-1'] ~
-                      species_data$tspec_2[species_data$status == 'f-1']), col = 'red')
-          linear_param = lm(species_data$tspec_1[species_data$status == 'f-1'] ~
-                              species_data$tspec_2[species_data$status == 'f-1'])$coefficients
-          cor_value = cor.test(species_data$tspec_1[species_data$status == 'f-1'],
-                               species_data$tspec_2[species_data$status == 'f-1'])$estimate[[1]]
-          text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-          
-          smoothScatter(species_data$tspec_2[species_data$status == 'int-1'],
-                        species_data$tspec_1[species_data$status == 'int-1'],
-                        xlab = '',
-                        ylab = '',
-                        main = paste0('Domain modification group: int-1'), cex.main = 0.8)
-          title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          abline(lm(species_data$tspec_1[species_data$status == 'int-1'] ~
-                      species_data$tspec_2[species_data$status == 'int-1']), col = 'red')
-          linear_param = lm(species_data$tspec_1[species_data$status == 'int-1'] ~
-                              species_data$tspec_2[species_data$status == 'int-1'])$coefficients
-          cor_value = cor.test(species_data$tspec_1[species_data$status == 'int-1'],
-                               species_data$tspec_2[species_data$status == 'int-1'])$estimate[[1]]
-          text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-          
-          smoothScatter(species_data$tspec_2[species_data$status == 'b-1'],
-                        species_data$tspec_1[species_data$status == 'b-1'],
-                        xlab = '',
-                        ylab = '',
-                        main = paste0('Domain modification group: b-1'), cex.main = 0.8)
-          title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          abline(lm(species_data$tspec_1[species_data$status == 'b-1'] ~
-                      species_data$tspec_2[species_data$status == 'b-1']), col = 'red')
-          linear_param = lm(species_data$tspec_1[species_data$status == 'b-1'] ~
-                              species_data$tspec_2[species_data$status == 'b-1'])$coefficients
-          cor_value = cor.test(species_data$tspec_1[species_data$status == 'b-1'],
-                               species_data$tspec_2[species_data$status == 'b-1'])$estimate[[1]]
-          text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-          
-          smoothScatter(species_data$tspec_2[species_data$status == 'control'], species_data$tspec_1[species_data$status == 'control'],
-                        xlab = '',
-                        ylab = '',
-                        main = 'Domain control group', cex.main = 0.8, cex.lab = 0.6)
-          title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-          abline(lm(species_data$tspec_1[species_data$status == 'control'] ~ species_data$tspec_2[species_data$status == 'control']), col = 'red')
-          linear_param = lm(species_data$tspec_1[species_data$status == 'control'] ~ species_data$tspec_2[species_data$status == 'control'])$coefficients
-          cor_value = cor.test(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'])$estimate[[1]]
-          text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-          
-        }
-      }
-    }
-  }
-  dev.off()
-}
+# ####Paralog interspecies / correlation function of modification position####
+# path_folder = 'D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/'
+# different_species = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN')
+# central_species = c('BOVIN', 'GORGO', 'MACMU', 'MONDO', 'MOUSE', 'PANTR', 'PIGXX', 'RATNO', 'HUMAN')
+# regexp_list = c('_paraortho_notfemale_withouttestis_dataset', '_paraortho_notfemale_withtestis_dataset') 
+# 
+# for (regexp_out in 1:length(regexp_list)){
+#   pdf(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/result_modif', regexp_list[regexp_out] ,'.pdf'))
+#   par(mfrow = c(4,4), mai=c(0.4,0.35,0.3,0.01))
+#   specie_done = c()
+#   
+#   for (sp1 in 1:length(central_species)){
+#     specie_done = c(specie_done, central_species[sp1])
+#     
+#     for (sp2 in 1:length(different_species)){
+#       
+#       if (central_species[sp1] != different_species[sp2] & !(different_species[sp2] %in% specie_done)){
+#         options(show.error.messages = FALSE)
+#         try_test = try(read.csv(paste0(path_folder, central_species[sp1], '_', different_species[sp2],
+#                                        regexp_list[regexp_out])))
+#         options(show.error.messages = TRUE)
+#         
+#         if(class(try_test) != 'try-error'){
+#           species_data = read.csv(paste0(path_folder, central_species[sp1], '_', different_species[sp2],
+#                                          regexp_list[regexp_out]))
+#           
+#           
+#         }else{
+#           species_data = read.csv(paste0(path_folder, different_species[sp2], '_', central_species[sp1],
+#                                          regexp_list[regexp_out]))
+#         }
+#         
+#         species_data$X = NULL
+#         
+#         if(gsub('[[:digit:]]' ,'' , species_data$GeneID_2[1]) == central_species[sp1]){
+#           
+#           if(class(try(smoothScatter(species_data$tspec_1[species_data$status == 'f-1'],
+#                                   species_data$tspec_2[species_data$status == 'f-1']))) != 'try-error'){
+#             smoothScatter(species_data$tspec_1[species_data$status == 'f-1'],
+#                           species_data$tspec_2[species_data$status == 'f-1'],
+#                           xlab = '',
+#                           ylab = '',
+#                           main = paste0('Domain modification group: f-1'), cex.main = 0.8)
+#           }else{
+#             plot(1, main = paste0('Domain modification group: f-1'), cex.main = 0.8, xlim = c(0, 1), ylim = c(0, 1), pch = '.', xlab = '', ylab = '')
+#           }
+#           title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           options(show.error.messages = FALSE)
+#           if(class(try(abline(lm(species_data$tspec_2[species_data$status == 'f-1'] ~
+#                              species_data$tspec_1[species_data$status == 'f-1']), col = 'red'))) != 'try-error'){
+#             abline(lm(species_data$tspec_2[species_data$status == 'f-1'] ~
+#                         species_data$tspec_1[species_data$status == 'f-1']), col = 'red')
+#             if(class(try(cor.test(species_data$tspec_2[species_data$status == 'f-1'], 
+#                                   species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]])) != 'try-error'){
+#               linear_param = lm(species_data$tspec_2[species_data$status == 'f-1'] ~ 
+#                                   species_data$tspec_1[species_data$status == 'f-1'])$coefficients
+#               cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'], 
+#                                    species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
+#               text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+#             }
+#           }
+#           options(show.error.messages = TRUE)
+#           
+#           
+#           if(class(try(smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
+#                                      species_data$tspec_2[species_data$status == 'int-1']))) != 'try-error'){
+#             smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
+#                           species_data$tspec_2[species_data$status == 'int-1'],
+#                           xlab = '',
+#                           ylab = '',
+#                           main = paste0('Domain modification group: int-1'), cex.main = 0.8)
+#           }else{
+#             plot(1, main = paste0('Domain modification group: int-1'), cex.main = 0.8, xlim = c(0, 1), ylim = c(0, 1), pch = '.', xlab = '', ylab = '')
+#           }
+#           title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           options(show.error.messages = FALSE)
+#           if(class(try(abline(lm(species_data$tspec_2[species_data$status == 'int-1'] ~
+#                                  species_data$tspec_1[species_data$status == 'int-1']), col = 'red'))) != 'try-error'){
+#             abline(lm(species_data$tspec_2[species_data$status == 'int-1'] ~
+#                         species_data$tspec_1[species_data$status == 'int-1']), col = 'red')
+#             if(class(try(cor.test(species_data$tspec_2[species_data$status == 'int-1'], 
+#                                   species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]])) != 'try-error'){
+#               linear_param = lm(species_data$tspec_2[species_data$status == 'int-1'] ~ 
+#                                   species_data$tspec_1[species_data$status == 'int-1'])$coefficients
+#               cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'], 
+#                                    species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
+#               text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+#             }
+#           }
+#           options(show.error.messages = TRUE)
+#           
+#           if(class(try(smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
+#                                      species_data$tspec_2[species_data$status == 'b-1']))) != 'try-error'){
+#             smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
+#                           species_data$tspec_2[species_data$status == 'b-1'],
+#                           xlab = '',
+#                           ylab = '',
+#                           main = paste0('Domain modification group: b-1'), cex.main = 0.8)
+#           }else{
+#             plot(1, main = paste0('Domain modification group: b-1'), cex.main = 0.8, xlim = c(0, 1), ylim = c(0, 1), pch = '.', xlab = '', ylab = '')
+#           }
+#           title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           options(show.error.messages = FALSE)
+#           if(class(try(abline(lm(species_data$tspec_2[species_data$status == 'b-1'] ~
+#                                  species_data$tspec_1[species_data$status == 'b-1']), col = 'red'))) != 'try-error'){
+#             abline(lm(species_data$tspec_2[species_data$status == 'b-1'] ~
+#                         species_data$tspec_1[species_data$status == 'b-1']), col = 'red')
+#             if(class(try(cor.test(species_data$tspec_2[species_data$status == 'b-1'], 
+#                                   species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]])) != 'try-error'){
+#               linear_param = lm(species_data$tspec_2[species_data$status == 'b-1'] ~ 
+#                                   species_data$tspec_1[species_data$status == 'b-1'])$coefficients
+#               cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'], 
+#                                    species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
+#               text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+#             }
+#           }
+#           options(show.error.messages = TRUE)
+#           
+#           smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
+#                         xlab = '',
+#                         ylab = '',
+#                         main = 'Domain control group', cex.main = 0.8, cex.lab = 0.6)
+#           title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           options(show.error.messages = FALSE)
+#           if(class(try(abline(lm(species_data$tspec_2[species_data$status == 'control'] ~
+#                                  species_data$tspec_1[species_data$status == 'control']), col = 'red'))) != 'try-error'){
+#             abline(lm(species_data$tspec_2[species_data$status == 'control'] ~
+#                         species_data$tspec_1[species_data$status == 'control']), col = 'red')
+#             if(class(try(cor.test(species_data$tspec_2[species_data$status == 'control'], 
+#                                   species_data$tspec_1[species_data$status == 'control'])$estimate[[1]])) != 'try-error'){
+#               linear_param = lm(species_data$tspec_2[species_data$status == 'control'] ~ 
+#                                   species_data$tspec_1[species_data$status == 'control'])$coefficients
+#               cor_value = cor.test(species_data$tspec_2[species_data$status == 'control'], 
+#                                    species_data$tspec_1[species_data$status == 'control'])$estimate[[1]]
+#               text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+#             }
+#           }
+#           options(show.error.messages = TRUE)
+#           
+#           
+#         }else{
+#           if(class(try(smoothScatter(species_data$tspec_1[species_data$status == 'f-1'],
+#                                      species_data$tspec_2[species_data$status == 'f-1']))) != 'try-error'){
+#             smoothScatter(species_data$tspec_2[species_data$status == 'f-1'],
+#                           species_data$tspec_1[species_data$status == 'f-1'],
+#                           xlab = '',
+#                           ylab = '',
+#                           main = paste0('Domain modification group: f-1'), cex.main = 0.8)
+#           }else{
+#             plot(1, main = paste0('Domain modification group: f-1'), cex.main = 0.8, xlim = c(0, 1), ylim = c(0, 1), pch = '.', xlab = '', ylab = '')
+#           }
+#           title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           options(show.error.messages = FALSE)
+#           if(class(try(abline(lm(species_data$tspec_1[species_data$status == 'f-1'] ~
+#                                  species_data$tspec_2[species_data$status == 'f-1']), col = 'red'))) != 'try-error'){
+#             abline(lm(species_data$tspec_1[species_data$status == 'f-1'] ~
+#                         species_data$tspec_2[species_data$status == 'f-1']), col = 'red')
+#             if(class(try(cor.test(species_data$tspec_1[species_data$status == 'f-1'], 
+#                                   species_data$tspec_2[species_data$status == 'f-1'])$estimate[[1]])) != 'try-error'){
+#               linear_param = lm(species_data$tspec_1[species_data$status == 'f-1'] ~ 
+#                                   species_data$tspec_2[species_data$status == 'f-1'])$coefficients
+#               cor_value = cor.test(species_data$tspec_1[species_data$status == 'f-1'], 
+#                                    species_data$tspec_2[species_data$status == 'f-1'])$estimate[[1]]
+#               text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+#             }
+#           }
+#           options(show.error.messages = TRUE)
+#           
+#           if(class(try(smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
+#                                      species_data$tspec_2[species_data$status == 'int-1']))) != 'try-error'){
+#             smoothScatter(species_data$tspec_2[species_data$status == 'int-1'],
+#                           species_data$tspec_1[species_data$status == 'int-1'],
+#                           xlab = '',
+#                           ylab = '',
+#                           main = paste0('Domain modification group: int-1'), cex.main = 0.8)
+#           }else{
+#             plot(1, main = paste0('Domain modification group: int-1'), cex.main = 0.8, xlim = c(0, 1), ylim = c(0, 1), pch = '.', xlab = '', ylab = '')
+#           }
+#           title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           options(show.error.messages = FALSE)
+#           if(class(try(abline(lm(species_data$tspec_1[species_data$status == 'int-1'] ~
+#                                  species_data$tspec_2[species_data$status == 'int-1']), col = 'red'))) != 'try-error'){
+#             abline(lm(species_data$tspec_1[species_data$status == 'int-1'] ~
+#                         species_data$tspec_2[species_data$status == 'int-1']), col = 'red')
+#             if(class(try(cor.test(species_data$tspec_1[species_data$status == 'int-1'], 
+#                                   species_data$tspec_2[species_data$status == 'int-1'])$estimate[[1]])) != 'try-error'){
+#               linear_param = lm(species_data$tspec_1[species_data$status == 'int-1'] ~ 
+#                                   species_data$tspec_2[species_data$status == 'int-1'])$coefficients
+#               cor_value = cor.test(species_data$tspec_1[species_data$status == 'int-1'], 
+#                                    species_data$tspec_2[species_data$status == 'int-1'])$estimate[[1]]
+#               text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+#             }
+#           }
+#           options(show.error.messages = TRUE)
+#           
+#           if(class(try(smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
+#                                      species_data$tspec_2[species_data$status == 'b-1']))) != 'try-error'){
+#             smoothScatter(species_data$tspec_2[species_data$status == 'b-1'],
+#                           species_data$tspec_1[species_data$status == 'b-1'],
+#                           xlab = '',
+#                           ylab = '',
+#                           main = paste0('Domain modification group: b-1'), cex.main = 0.8)
+#           }else{
+#             plot(1, main = paste0('Domain modification group: b-1'), cex.main = 0.8, xlim = c(0, 1), ylim = c(0, 1), pch = '.', xlab = '', ylab = '')
+#           }
+#           title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           options(show.error.messages = FALSE)
+#           if(class(try(abline(lm(species_data$tspec_1[species_data$status == 'b-1'] ~
+#                                  species_data$tspec_2[species_data$status == 'b-1']), col = 'red'))) != 'try-error'){
+#             abline(lm(species_data$tspec_1[species_data$status == 'b-1'] ~
+#                         species_data$tspec_2[species_data$status == 'b-1']), col = 'red')
+#             if(class(try(cor.test(species_data$tspec_1[species_data$status == 'b-1'], 
+#                                   species_data$tspec_2[species_data$status == 'b-1'])$estimate[[1]])) != 'try-error'){
+#               linear_param = lm(species_data$tspec_1[species_data$status == 'b-1'] ~ 
+#                                   species_data$tspec_2[species_data$status == 'b-1'])$coefficients
+#               cor_value = cor.test(species_data$tspec_1[species_data$status == 'b-1'], 
+#                                    species_data$tspec_2[species_data$status == 'b-1'])$estimate[[1]]
+#               text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+#             }
+#           }
+#           options(show.error.messages = TRUE)
+#           
+#           smoothScatter(species_data$tspec_2[species_data$status == 'control'], species_data$tspec_1[species_data$status == 'control'],
+#                         xlab = '',
+#                         ylab = '',
+#                         main = 'Domain control group', cex.main = 0.8, cex.lab = 0.6)
+#           title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
+#           options(show.error.messages = FALSE)
+#           if(class(try(abline(lm(species_data$tspec_1[species_data$status == 'control'] ~
+#                                  species_data$tspec_2[species_data$status == 'control']), col = 'red'))) != 'try-error'){
+#             abline(lm(species_data$tspec_1[species_data$status == 'control'] ~
+#                         species_data$tspec_2[species_data$status == 'control']), col = 'red')
+#             if(class(try(cor.test(species_data$tspec_1[species_data$status == 'control'], 
+#                                   species_data$tspec_2[species_data$status == 'control'])$estimate[[1]])) != 'try-error'){
+#               linear_param = lm(species_data$tspec_1[species_data$status == 'control'] ~ 
+#                                   species_data$tspec_2[species_data$status == 'control'])$coefficients
+#               cor_value = cor.test(species_data$tspec_1[species_data$status == 'control'], 
+#                                    species_data$tspec_2[species_data$status == 'control'])$estimate[[1]]
+#               text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+#             }
+#           }
+#           options(show.error.messages = TRUE)
+#           
+#         }
+#       }
+#     }
+#   }
+#   dev.off()
+# }
