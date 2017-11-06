@@ -121,7 +121,7 @@ Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 #'expression_analysis_bytissue.R'
 see the influence of each tissue consideration
 allow the analysis of the conservation of expression level by tissue amongst homolog pair
-Input: 'SPECIE_expression_parsed' and 'putative_homologSPECIES_domain_loss' and 'hoomolog_SPECIES_nomodif' and 'SPECIES_reference_gene_paralog'
+Input: 'SPECIE_expression_parsed' and 'putative_homologSPECIES_domain_loss' and 'hoomolog_SPECIES_nomodif' and 'SPECIES_paralog_notfemale_dataset'
 
 #'paralog_ortholog_ref_gene_extraction.py'
 extraction of paralog interspecies present in 'SPECIES_reference_gene_paralog' for each species and inferred by OMA as multi ortholog (at least for one pair)
