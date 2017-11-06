@@ -289,29 +289,29 @@ par(mfrow = c(5,4), mai=c(0.4,0.35,0.3,0.01))
   
 for (tissue_tmp in 1:length(tissue_list)){
   
-  smoothScatter(specie1_data[,(tissue_tmp + 2)][specie1_data$status == 'control'], 
-                specie2_data[,(tissue_tmp + 2)][specie2_data$status == 'control'],
-                xlab = '',
-                ylab = '',
-                main = paste0(tissue_list[tissue_tmp], ' - control'), cex.main = 0.8, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
-  title(xlab = paste0(specie1_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
-  title(ylab = paste0(specie2_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
-  value_tmp1 = as.numeric(specie1_data[,(tissue_tmp + 2)][specie1_data$status == 'control'])
-  value_tmp2 = as.numeric(specie2_data[,(tissue_tmp + 2)][specie2_data$status == 'control'])
-  abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
-  linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
-  cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
-  text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-  
   smoothScatter(specie1_data[,(tissue_tmp + 2)][specie1_data$status != 'control'], 
                 specie2_data[,(tissue_tmp + 2)][specie2_data$status != 'control'],
                 xlab = '',
                 ylab = '',
                 main = paste0(tissue_list[tissue_tmp], ' - domain modification'), cex.main = 0.8, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
-  title(xlab = paste0(specie1_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
-  title(ylab = paste0(specie2_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
+  title(xlab = paste0(specie1_name, ' expression level'), cex.lab =0.6, line = 2)
+  title(ylab = paste0(specie2_name, ' expression level'), cex.lab =0.6, line = 2)
   value_tmp1 = as.numeric(specie1_data[,(tissue_tmp + 2)][specie1_data$status != 'control'])
   value_tmp2 = as.numeric(specie2_data[,(tissue_tmp + 2)][specie2_data$status != 'control'])
+  abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
+  linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
+  cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
+  text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  
+  smoothScatter(specie1_data[,(tissue_tmp + 2)][specie1_data$status == 'control'], 
+                specie2_data[,(tissue_tmp + 2)][specie2_data$status == 'control'],
+                xlab = '',
+                ylab = '',
+                main = paste0(tissue_list[tissue_tmp], ' - control'), cex.main = 0.8, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+  title(xlab = paste0(specie1_name, ' expression level'), cex.lab =0.6, line = 2)
+  title(ylab = paste0(specie2_name, ' expression level'), cex.lab =0.6, line = 2)
+  value_tmp1 = as.numeric(specie1_data[,(tissue_tmp + 2)][specie1_data$status == 'control'])
+  value_tmp2 = as.numeric(specie2_data[,(tissue_tmp + 2)][specie2_data$status == 'control'])
   abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
   linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
   cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
@@ -346,29 +346,29 @@ tissue_list = colnames(specie1_data)[3:length(colnames(specie1_data))]
   
   for (tissue_tmp in 1:length(tissue_list)){
     
-    smoothScatter(specie1_data[,(tissue_tmp + 2)][specie1_data$status == 'control'], 
-                  specie2_data[,(tissue_tmp + 2)][specie2_data$status == 'control'],
-                  xlab = '',
-                  ylab = '',
-                  main = paste0(tissue_list[tissue_tmp], ' - control'), cex.main = 0.8, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
-    title(xlab = paste0(specie1_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
-    title(ylab = paste0(specie2_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
-    value_tmp1 = as.numeric(specie1_data[,(tissue_tmp + 2)][specie1_data$status == 'control'])
-    value_tmp2 = as.numeric(specie2_data[,(tissue_tmp + 2)][specie2_data$status == 'control'])
-    abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
-    linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
-    cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
-    text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-    
     smoothScatter(specie1_data[,(tissue_tmp + 2)][specie1_data$status != 'control'], 
                   specie2_data[,(tissue_tmp + 2)][specie2_data$status != 'control'],
                   xlab = '',
                   ylab = '',
                   main = paste0(tissue_list[tissue_tmp], ' - domain modification'), cex.main = 0.8, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
-    title(xlab = paste0(specie1_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
-    title(ylab = paste0(specie2_name, ' expression level (log transformed)'), cex.lab =0.6, line = 2)
+    title(xlab = paste0(specie1_name, ' expression level'), cex.lab =0.6, line = 2)
+    title(ylab = paste0(specie2_name, ' expression level'), cex.lab =0.6, line = 2)
     value_tmp1 = as.numeric(specie1_data[,(tissue_tmp + 2)][specie1_data$status != 'control'])
     value_tmp2 = as.numeric(specie2_data[,(tissue_tmp + 2)][specie2_data$status != 'control'])
+    abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
+    linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
+    cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
+    text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+    
+    smoothScatter(specie1_data[,(tissue_tmp + 2)][specie1_data$status == 'control'], 
+                  specie2_data[,(tissue_tmp + 2)][specie2_data$status == 'control'],
+                  xlab = '',
+                  ylab = '',
+                  main = paste0(tissue_list[tissue_tmp], ' - control'), cex.main = 0.8, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+    title(xlab = paste0(specie1_name, ' expression level'), cex.lab =0.6, line = 2)
+    title(ylab = paste0(specie2_name, ' expression level'), cex.lab =0.6, line = 2)
+    value_tmp1 = as.numeric(specie1_data[,(tissue_tmp + 2)][specie1_data$status == 'control'])
+    value_tmp2 = as.numeric(specie2_data[,(tissue_tmp + 2)][specie2_data$status == 'control'])
     abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
     linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
     cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
@@ -381,6 +381,63 @@ tissue_list = colnames(specie1_data)[3:length(colnames(specie1_data))]
 }
 #
 
+####BOVIN MOUSE orthologs####
+{
+  list_output = data_organization_ExpAnal_ortholog(considered_species_name_1 = 'BOVIN', 
+                                                   considered_species_name_2 = 'MOUSE')
+  specie1_data = list_output[[1]]
+  specie1_name = list_output[[2]]
+  specie2_data = list_output[[3]]
+  specie2_name = list_output[[4]]
+  
+  #test if the order of pair number are the same
+  all(specie1_data$pair_nbr == specie2_data$pair_nbr)
+  #
+  
+  #plot
+  tissue_list = colnames(specie1_data)[3:length(colnames(specie1_data))]
+  
+  {
+    pdf(paste0('C:/Users/Claivaz/Desktop/', 'expression_analysis_BOVIN_MOUSE' ,'.pdf'))
+    par(mfrow = c(5,4), mai=c(0.4,0.35,0.3,0.01))
+    
+    for (tissue_tmp in 1:length(tissue_list)){
+      
+      smoothScatter(specie1_data[,(tissue_tmp + 2)][specie1_data$status != 'control'], 
+                    specie2_data[,(tissue_tmp + 2)][specie2_data$status != 'control'],
+                    xlab = '',
+                    ylab = '',
+                    main = paste0(tissue_list[tissue_tmp], ' - domain modification'), cex.main = 0.8, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+      title(xlab = paste0(specie1_name, ' expression level'), cex.lab =0.6, line = 2)
+      title(ylab = paste0(specie2_name, ' expression level'), cex.lab =0.6, line = 2)
+      value_tmp1 = as.numeric(specie1_data[,(tissue_tmp + 2)][specie1_data$status != 'control'])
+      value_tmp2 = as.numeric(specie2_data[,(tissue_tmp + 2)][specie2_data$status != 'control'])
+      abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
+      linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
+      cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
+      text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+      
+      smoothScatter(specie1_data[,(tissue_tmp + 2)][specie1_data$status == 'control'], 
+                    specie2_data[,(tissue_tmp + 2)][specie2_data$status == 'control'],
+                    xlab = '',
+                    ylab = '',
+                    main = paste0(tissue_list[tissue_tmp], ' - control'), cex.main = 0.8, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+      title(xlab = paste0(specie1_name, ' expression level'), cex.lab =0.6, line = 2)
+      title(ylab = paste0(specie2_name, ' expression level'), cex.lab =0.6, line = 2)
+      value_tmp1 = as.numeric(specie1_data[,(tissue_tmp + 2)][specie1_data$status == 'control'])
+      value_tmp2 = as.numeric(specie2_data[,(tissue_tmp + 2)][specie2_data$status == 'control'])
+      abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
+      linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
+      cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
+      text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+      
+    }
+    
+    dev.off()
+  }
+}
+#
+
 ####HUMAN paralogs####
 {
 list_output = data_organization_ExpAnal_paralog(considered_species_name = 'HUMAN')
@@ -388,7 +445,7 @@ specie_data = list_output[[1]]
 domain_status = list_output[[2]]
 {
 pdf(paste0('C:/Users/Claivaz/Desktop/', 'expression_analysis_HUMAN' ,'.pdf'))
-par(mfrow = c(6,3), mai=c(0.4,0.35,0.3,0.01))
+par(mfrow = c(6,4), mai=c(0.4,0.35,0.3,0.01))
   
 tissue_list = as.character(unique(specie_data$Tissue))
 paralog_family = unique(domain_status$ParalogGroup)
@@ -419,14 +476,14 @@ for (tissue_tmp in 1:length(tissue_list)){
   
   specie_tmp = specie_tmp[complete.cases(specie_tmp),]
   
-  #generate reference gene per paralog family
-  reference_gene = read.csv(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/ReferenceGene/', gsub('[[:digit:]]', '', domain_control[1,1])))
-  names(reference_gene)[2] = 'GeneID'
-  
   domain_tmp$exp_1 = NA
   domain_tmp$exp_2 = NA
   domain_modif = domain_tmp[domain_tmp$status == 'modif',]
   domain_control = domain_tmp[domain_tmp$status == 'control',]
+  
+  #load reference gene per paralog family
+  reference_gene = read.csv(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', gsub('[[:digit:]]', '', domain_control[1,1]), '_para_notfemale_dataset'))
+  names(reference_gene)[2] = 'GeneID'
   
   #only maximal expression gene considered as reference gene and are kept in geneID1
   for(row_tmp in 1:dim(domain_control)[1]){
@@ -451,25 +508,12 @@ for (tissue_tmp in 1:length(tissue_list)){
   domain_modif_all = domain_modif
   domain_modif_ref = domain_modif[as.character(domain_modif$GeneID_1) %in% reference_gene$GeneID,]
   
-  smoothScatter(domain_control$exp_1, domain_control$exp_2,
-                xlab = '',
-                ylab = '',
-                main = paste0(gsub('[[:digit:]]', '', domain_control$GeneID_1[1]) ,' paralogs - ',tissue_list[tissue_tmp], ' - control'), cex.main = 0.6, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
-  title(xlab = paste0('reference paralog', ' expression level (log transformed)'), cex.lab = 0.4, line = 2)
-  title(ylab = paste0('other paralog', ' expression level (log transformed)'), cex.lab = 0.4, line = 2)
-  value_tmp1 = as.numeric(domain_control$exp_1)
-  value_tmp2 = as.numeric(domain_control$exp_2)
-  abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
-  linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
-  cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
-  text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-  
   smoothScatter(domain_modif_ref$exp_1, domain_modif_ref$exp_2,
                 xlab = '',
                 ylab = '',
-                main = paste0(gsub('[[:digit:]]', '', domain_control$GeneID_1[1]) ,' paralogs - ',tissue_list[tissue_tmp], ' - domain modification (only reference gene)'), cex.main = 0.6, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
-  title(xlab = paste0('reference longest paralog', ' expression level (log transformed)'), cex.lab =0.4, line = 2)
-  title(ylab = paste0('other paralog', ' expression level (log transformed)'), cex.lab =0.4, line = 2)
+                main = paste0(tissue_list[tissue_tmp], ' - domain modification'), cex.main = 0.6, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+  title(xlab = paste0('reference paralog', ' expression level'), cex.lab =0.4, line = 2)
+  title(ylab = paste0('other paralog', ' expression level'), cex.lab =0.4, line = 2)
   value_tmp1 = as.numeric(domain_modif_ref$exp_1)
   value_tmp2 = as.numeric(domain_modif_ref$exp_2)
   abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
@@ -477,14 +521,14 @@ for (tissue_tmp in 1:length(tissue_list)){
   cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
   text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   
-  smoothScatter(domain_modif_all$exp_1, domain_modif_all$exp_2,
+  smoothScatter(domain_control$exp_1, domain_control$exp_2,
                 xlab = '',
                 ylab = '',
-                main = paste0(gsub('[[:digit:]]', '', domain_control$GeneID_1[1]) ,' paralogs - ',tissue_list[tissue_tmp], ' - domain modification (all modified gene)'), cex.main = 0.6, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
-  title(xlab = paste0('longest paralog', ' expression level (log transformed)'), cex.lab =0.4, line = 2)
-  title(ylab = paste0('other paralog', ' expression level (log transformed)'), cex.lab =0.4, line = 2)
-  value_tmp1 = as.numeric(domain_modif_all$exp_1)
-  value_tmp2 = as.numeric(domain_modif_all$exp_2)
+                main = paste0(tissue_list[tissue_tmp], ' - control'), cex.main = 0.6, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+  title(xlab = paste0('reference paralog', ' expression level'), cex.lab = 0.4, line = 2)
+  title(ylab = paste0('other paralog', ' expression level'), cex.lab = 0.4, line = 2)
+  value_tmp1 = as.numeric(domain_control$exp_1)
+  value_tmp2 = as.numeric(domain_control$exp_2)
   abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
   linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
   cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
@@ -493,5 +537,209 @@ for (tissue_tmp in 1:length(tissue_list)){
 }
 dev.off()
 }
+}
+####
+
+####BOVIN paralogs####
+{
+  list_output = data_organization_ExpAnal_paralog(considered_species_name = 'BOVIN')
+  specie_data = list_output[[1]]
+  domain_status = list_output[[2]]
+  {
+    pdf(paste0('C:/Users/Claivaz/Desktop/', 'expression_analysis_BOVIN' ,'.pdf'))
+    par(mfrow = c(6,4), mai=c(0.4,0.35,0.3,0.01))
+    
+    tissue_list = as.character(unique(specie_data$Tissue))
+    paralog_family = unique(domain_status$ParalogGroup)
+    
+    #Infer the group status and defined as gene1 the longer pair in modification group
+    domain_status$GeneID_1 = as.character(domain_status$GeneID_1)
+    domain_status$GeneID_2 = as.character(domain_status$GeneID_2)
+    domain_status$status = 'control'
+    domain_status$status[domain_status$len_1 != domain_status$len_2] = 'modif'
+    
+    for(row_tmp in 1:dim(domain_status)[1]){
+      if(domain_status$len_1[row_tmp] < domain_status$len_2[row_tmp]){
+        tmp_GeneID = domain_status$GeneID_1[row_tmp]
+        domain_status$GeneID_1[row_tmp] = domain_status$GeneID_2[row_tmp]
+        domain_status$GeneID_2[row_tmp] = tmp_GeneID
+      }
+    }
+    #
+    
+    for (tissue_tmp in 1:length(tissue_list)){
+      specie_tmp = specie_data[specie_data$Tissue == tissue_list[tissue_tmp],]
+      domain_tmp = domain_status
+      
+      specie_tmp$ParalogGroup = NA
+      for (row_tmp in 1:dim(specie_tmp)[1]){
+        specie_tmp$ParalogGroup[row_tmp] = as.numeric(domain_status$ParalogGroup[domain_status$GeneID_1 == as.character(specie_tmp$GeneID[row_tmp]) | domain_status$GeneID_2 == as.character(specie_tmp$GeneID[row_tmp])][1])
+      }
+      
+      specie_tmp = specie_tmp[complete.cases(specie_tmp),]
+      
+      domain_tmp$exp_1 = NA
+      domain_tmp$exp_2 = NA
+      domain_modif = domain_tmp[domain_tmp$status == 'modif',]
+      domain_control = domain_tmp[domain_tmp$status == 'control',]
+      
+      #load reference gene per paralog family
+      reference_gene = read.csv(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', gsub('[[:digit:]]', '', domain_control[1,1]), '_para_notfemale_dataset'))
+      names(reference_gene)[2] = 'GeneID'
+      
+      #only maximal expression gene considered as reference gene and are kept in geneID1
+      for(row_tmp in 1:dim(domain_control)[1]){
+        if(domain_control$GeneID_1[row_tmp] %in% reference_gene$GeneID & as.character(domain_control$GeneID_2[row_tmp]) %in% specie_tmp$GeneID){
+          domain_control$exp_1[row_tmp] = specie_tmp$TPM[specie_tmp$GeneID == as.character(domain_control$GeneID_1[row_tmp])]
+          domain_control$exp_2[row_tmp] = specie_tmp$TPM[specie_tmp$GeneID == as.character(domain_control$GeneID_2[row_tmp])]
+        }else if(domain_control$GeneID_2[row_tmp] %in% reference_gene$GeneID & as.character(domain_control$GeneID_1[row_tmp]) %in% specie_tmp$GeneID){
+          domain_control$exp_2[row_tmp] = specie_tmp$TPM[specie_tmp$GeneID == as.character(domain_control$GeneID_1[row_tmp])]
+          domain_control$exp_1[row_tmp] = specie_tmp$TPM[specie_tmp$GeneID == as.character(domain_control$GeneID_2[row_tmp])]
+        }
+      }
+      domain_control = domain_control[complete.cases(domain_control),]
+      #
+      
+      for(row_tmp in 1:dim(domain_modif)[1]){
+        if(as.character(domain_modif$GeneID_1[row_tmp]) %in% specie_tmp$GeneID & as.character(domain_modif$GeneID_2[row_tmp]) %in% specie_tmp$GeneID){
+          domain_modif$exp_1[row_tmp] = specie_tmp$TPM[specie_tmp$GeneID == as.character(domain_modif$GeneID_1[row_tmp])]
+          domain_modif$exp_2[row_tmp] = specie_tmp$TPM[specie_tmp$GeneID == as.character(domain_modif$GeneID_2[row_tmp])]
+        }
+      }
+      domain_modif = domain_modif[complete.cases(domain_modif),]
+      domain_modif_all = domain_modif
+      domain_modif_ref = domain_modif[as.character(domain_modif$GeneID_1) %in% reference_gene$GeneID,]
+      
+      smoothScatter(domain_modif_ref$exp_1, domain_modif_ref$exp_2,
+                    xlab = '',
+                    ylab = '',
+                    main = paste0(tissue_list[tissue_tmp], ' - domain modification'), cex.main = 0.6, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+      title(xlab = paste0('reference paralog', ' expression level'), cex.lab =0.4, line = 2)
+      title(ylab = paste0('other paralog', ' expression level'), cex.lab =0.4, line = 2)
+      value_tmp1 = as.numeric(domain_modif_ref$exp_1)
+      value_tmp2 = as.numeric(domain_modif_ref$exp_2)
+      abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
+      linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
+      cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
+      text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+      
+      smoothScatter(domain_control$exp_1, domain_control$exp_2,
+                    xlab = '',
+                    ylab = '',
+                    main = paste0(tissue_list[tissue_tmp], ' - control'), cex.main = 0.6, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+      title(xlab = paste0('reference paralog', ' expression level'), cex.lab = 0.4, line = 2)
+      title(ylab = paste0('other paralog', ' expression level'), cex.lab = 0.4, line = 2)
+      value_tmp1 = as.numeric(domain_control$exp_1)
+      value_tmp2 = as.numeric(domain_control$exp_2)
+      abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
+      linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
+      cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
+      text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+      
+    }
+    dev.off()
+  }
+}
+####
+
+####MOUSE paralogs####
+{
+  list_output = data_organization_ExpAnal_paralog(considered_species_name = 'MOUSE')
+  specie_data = list_output[[1]]
+  domain_status = list_output[[2]]
+  {
+    pdf(paste0('C:/Users/Claivaz/Desktop/', 'expression_analysis_MOUSE' ,'.pdf'))
+    par(mfrow = c(6,4), mai=c(0.4,0.35,0.3,0.01))
+    
+    tissue_list = as.character(unique(specie_data$Tissue))
+    paralog_family = unique(domain_status$ParalogGroup)
+    
+    #Infer the group status and defined as gene1 the longer pair in modification group
+    domain_status$GeneID_1 = as.character(domain_status$GeneID_1)
+    domain_status$GeneID_2 = as.character(domain_status$GeneID_2)
+    domain_status$status = 'control'
+    domain_status$status[domain_status$len_1 != domain_status$len_2] = 'modif'
+    
+    for(row_tmp in 1:dim(domain_status)[1]){
+      if(domain_status$len_1[row_tmp] < domain_status$len_2[row_tmp]){
+        tmp_GeneID = domain_status$GeneID_1[row_tmp]
+        domain_status$GeneID_1[row_tmp] = domain_status$GeneID_2[row_tmp]
+        domain_status$GeneID_2[row_tmp] = tmp_GeneID
+      }
+    }
+    #
+    
+    for (tissue_tmp in 1:length(tissue_list)){
+      specie_tmp = specie_data[specie_data$Tissue == tissue_list[tissue_tmp],]
+      domain_tmp = domain_status
+      
+      specie_tmp$ParalogGroup = NA
+      for (row_tmp in 1:dim(specie_tmp)[1]){
+        specie_tmp$ParalogGroup[row_tmp] = as.numeric(domain_status$ParalogGroup[domain_status$GeneID_1 == as.character(specie_tmp$GeneID[row_tmp]) | domain_status$GeneID_2 == as.character(specie_tmp$GeneID[row_tmp])][1])
+      }
+      
+      specie_tmp = specie_tmp[complete.cases(specie_tmp),]
+      
+      domain_tmp$exp_1 = NA
+      domain_tmp$exp_2 = NA
+      domain_modif = domain_tmp[domain_tmp$status == 'modif',]
+      domain_control = domain_tmp[domain_tmp$status == 'control',]
+      
+      #load reference gene per paralog family
+      reference_gene = read.csv(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', gsub('[[:digit:]]', '', domain_control[1,1]), '_para_notfemale_dataset'))
+      names(reference_gene)[2] = 'GeneID'
+      
+      #only maximal expression gene considered as reference gene and are kept in geneID1
+      for(row_tmp in 1:dim(domain_control)[1]){
+        if(domain_control$GeneID_1[row_tmp] %in% reference_gene$GeneID & as.character(domain_control$GeneID_2[row_tmp]) %in% specie_tmp$GeneID){
+          domain_control$exp_1[row_tmp] = specie_tmp$TPM[specie_tmp$GeneID == as.character(domain_control$GeneID_1[row_tmp])]
+          domain_control$exp_2[row_tmp] = specie_tmp$TPM[specie_tmp$GeneID == as.character(domain_control$GeneID_2[row_tmp])]
+        }else if(domain_control$GeneID_2[row_tmp] %in% reference_gene$GeneID & as.character(domain_control$GeneID_1[row_tmp]) %in% specie_tmp$GeneID){
+          domain_control$exp_2[row_tmp] = specie_tmp$TPM[specie_tmp$GeneID == as.character(domain_control$GeneID_1[row_tmp])]
+          domain_control$exp_1[row_tmp] = specie_tmp$TPM[specie_tmp$GeneID == as.character(domain_control$GeneID_2[row_tmp])]
+        }
+      }
+      domain_control = domain_control[complete.cases(domain_control),]
+      #
+      
+      for(row_tmp in 1:dim(domain_modif)[1]){
+        if(as.character(domain_modif$GeneID_1[row_tmp]) %in% specie_tmp$GeneID & as.character(domain_modif$GeneID_2[row_tmp]) %in% specie_tmp$GeneID){
+          domain_modif$exp_1[row_tmp] = specie_tmp$TPM[specie_tmp$GeneID == as.character(domain_modif$GeneID_1[row_tmp])]
+          domain_modif$exp_2[row_tmp] = specie_tmp$TPM[specie_tmp$GeneID == as.character(domain_modif$GeneID_2[row_tmp])]
+        }
+      }
+      domain_modif = domain_modif[complete.cases(domain_modif),]
+      domain_modif_all = domain_modif
+      domain_modif_ref = domain_modif[as.character(domain_modif$GeneID_1) %in% reference_gene$GeneID,]
+      
+      smoothScatter(domain_modif_ref$exp_1, domain_modif_ref$exp_2,
+                    xlab = '',
+                    ylab = '',
+                    main = paste0(tissue_list[tissue_tmp], ' - domain modification'), cex.main = 0.6, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+      title(xlab = paste0('reference paralog', ' expression level'), cex.lab =0.4, line = 2)
+      title(ylab = paste0('other paralog', ' expression level'), cex.lab =0.4, line = 2)
+      value_tmp1 = as.numeric(domain_modif_ref$exp_1)
+      value_tmp2 = as.numeric(domain_modif_ref$exp_2)
+      abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
+      linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
+      cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
+      text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+      
+      smoothScatter(domain_control$exp_1, domain_control$exp_2,
+                    xlab = '',
+                    ylab = '',
+                    main = paste0(tissue_list[tissue_tmp], ' - control'), cex.main = 0.6, cex.lab = 0.6, xlim = c(0, 20), ylim = c(0, 20))
+      title(xlab = paste0('reference paralog', ' expression level'), cex.lab = 0.4, line = 2)
+      title(ylab = paste0('other paralog', ' expression level'), cex.lab = 0.4, line = 2)
+      value_tmp1 = as.numeric(domain_control$exp_1)
+      value_tmp2 = as.numeric(domain_control$exp_2)
+      abline(lm(value_tmp2 ~ value_tmp1), col = 'red')
+      linear_param = lm(value_tmp2 ~ value_tmp1)$coefficients
+      cor_value = cor.test(value_tmp2, value_tmp1)$estimate[[1]]
+      text(10, 5, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+      
+    }
+    dev.off()
+  }
 }
 ####
