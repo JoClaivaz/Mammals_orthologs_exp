@@ -106,7 +106,7 @@ HYP assessed:
 	*effect of the position where the modification occured
 Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 
-#'plot_results_tspec.R'
+#'plot_results_tspec.R' (and 'plot_report.R', less structured)
 Create pdf files containing correaltion results in function of status or kind of modifications in different ortholog or paralog datasets. 
 Plot:
 	*tspec Specie1 function of tspec Specie2
