@@ -123,6 +123,11 @@ see the influence of each tissue consideration
 allow the analysis of the conservation of expression level by tissue amongst homolog pair
 Input: 'SPECIE_expression_parsed' and 'putative_homologSPECIES_domain_loss' and 'hoomolog_SPECIES_nomodif' and 'SPECIES_paralog_notfemale_dataset'
 
+#'modification_inference_clade_specific.R'
+allows to infer specific orthologs only modified in the considered clade (human, hominidae, primate, mouse, muridae)
+and plot the conservation of those orthologs
+considered orthologs are: unique orthologs, only present in 1 domain modification or control group for each species
+
 #'paralog_ortholog_ref_gene_extraction.py'
 extraction of paralog interspecies present in 'SPECIES_reference_gene_paralog' for each species and inferred by OMA as multi ortholog (at least for one pair)
 Input: 'SPECIES_reference_gene_paralog' and 'oma-pairs.txt'
