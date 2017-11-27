@@ -126,6 +126,7 @@ Input: 'SPECIE_expression_parsed' and 'putative_homologSPECIES_domain_loss' and 
 #'modification_inference_clade_specific.R'
 allows to infer specific orthologs only modified in the considered clade (human, hominidae, primate, mouse, muridae)
 and plot the conservation of those orthologs
+molecular function and biological process of the genes are also inferred
 considered orthologs are: unique orthologs, only present in 1 domain modification or control group for each species
 
 #'paralog_ortholog_ref_gene_extraction.py'
