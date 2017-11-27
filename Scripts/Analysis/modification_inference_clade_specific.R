@@ -5,10 +5,12 @@ Joaquim Claivaz
 infer domain modification gene specific to a clade
 only orthologs unduplicated in whole species
 only gene which are present in one domain modification or control group are taken into account
+Get gene annotation for each group
 '''
 
 
 ####Library needed####
+require(Rcpp)
 require(tidyr)
 
 #####Data organization#####
@@ -504,3 +506,82 @@ expression_wt_mouse_ratno = expression_data[expression_data$GeneID_1 %in% mouse_
   
   dev.off()
 }
+
+####Gene annotation####
+#Needed packages
+#source("https://bioconductor.org/biocLite.R")
+#biocLite("mygene")
+require(mygene)
+require(biomaRt)
+#
+
+#reduced oma-ensembl file, in order to be load in R
+#bash command:  cat oma-ensembl.txt | grep HUMAN | grep ENSG > oma-ensembl_reduced; cat oma-ensembl.txt | grep MOUSE | grep ENSMUSG >> oma-ensembl_reduced
+oma_converter = read.table(file = 'D:/UNIL/Master/Master_Project/Data/OMA/fasta_seq/oma-ensembl_reduced')
+
+##human
+mart = useDataset("hsapiens_gene_ensembl", useMart("ensembl"))
+#Primate genes
+genes = unlist(lapply(strsplit(as.character(oma_converter$V2[oma_converter$V1 %in% primate_gene]),
+                               '[.]'), function(x) x[1]))
+gene_entrez = getBM(filters = "ensembl_gene_id", attributes = c("ensembl_gene_id", "hgnc_symbol"), values = genes, mart = mart)
+primate_res = queryMany(gene_entrez$hgnc_symbol, scopes = 'symbol', fields = c('entrezgene', 'go'), 
+                        species = 'human')
+#Hominidae genes
+genes = unlist(lapply(strsplit(as.character(oma_converter$V2[oma_converter$V1 %in% hominidae_gene]),
+                               '[.]'), function(x) x[1]))
+gene_entrez = getBM(filters = "ensembl_gene_id", attributes = c("ensembl_gene_id", "hgnc_symbol"), values = genes, mart = mart)
+hominidae_res = queryMany(gene_entrez$hgnc_symbol, scopes = 'symbol', fields = c('entrezgene', 'go'), 
+                          species = 'human')
+#Human genes
+genes = unlist(lapply(strsplit(as.character(oma_converter$V2[oma_converter$V1 %in% human_gene]),
+                               '[.]'), function(x) x[1]))
+gene_entrez = getBM(filters = "ensembl_gene_id", attributes = c("ensembl_gene_id", "hgnc_symbol"), values = genes, mart = mart)
+human_res = queryMany(gene_entrez$hgnc_symbol, scopes = 'symbol', fields = c('entrezgene', 'go'), 
+                      species = 'human')
+
+##mouse
+mart = useDataset("mmusculus_gene_ensembl", useMart("ensembl"))
+#Muridae genes
+genes = unlist(lapply(strsplit(as.character(oma_converter$V2[oma_converter$V1 %in% muridae_gene]),
+                                '[.]'), function(x) x[1]))
+gene_entrez = getBM(filters = "ensembl_gene_id", attributes = c("ensembl_gene_id", "mgi_symbol"), values = genes, mart = mart)
+muridae_res = queryMany(gene_entrez$mgi_symbol, scopes = 'symbol', fields = c('entrezgene', 'go'), 
+                        species = 'mouse')
+#Mouse genes
+genes = unlist(lapply(strsplit(as.character(oma_converter$V2[oma_converter$V1 %in% mouse_gene]),
+                               '[.]'), function(x) x[1]))
+gene_entrez = getBM(filters = "ensembl_gene_id", attributes = c("ensembl_gene_id", "mgi_symbol"), values = genes, mart = mart)
+mouse_res = queryMany(gene_entrez$mgi_symbol, scopes = 'symbol', fields = c('entrezgene', 'go'), 
+                      species = 'mouse')
+
+##result visualization
+#Primate
+considered_gene = 4
+primate_gene[considered_gene]
+primate_res[considered_gene, 'go.BP'][[1]]
+primate_res[considered_gene, 'go.MF'][[1]]
+
+#Hominidae
+considered_gene = 4
+hominidae_gene[considered_gene]
+hominidae_res[considered_gene, 'go.BP'][[1]]
+hominidae_res[considered_gene, 'go.MF'][[1]]
+
+#Human
+considered_gene = 1
+human_gene[considered_gene]
+human_res[considered_gene, 'go.BP'][[1]]
+human_res[considered_gene, 'go.MF'][[1]]
+
+#Muridae
+considered_gene = 4
+muridae_gene[considered_gene]
+muridae_res[considered_gene, 'go.BP'][[1]]
+muridae_res[considered_gene, 'go.MF'][[1]]
+
+#Mouse
+considered_gene = 4
+mouse_gene[considered_gene]
+mouse_res[considered_gene, 'go.BP'][[1]]
+mouse_res[considered_gene, 'go.MF'][[1]]
