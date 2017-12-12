@@ -114,6 +114,13 @@ Plot:
 Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
 Output: pdf contiainig plots
 
+#'clan_inference.py'
+inference of clan domain (pfam denomination) in function of gain/loss domain between homologs pair and the tissue where it occured
+only modified homologs which present a shift from specific to ubiquitous are considered (according to the tissue specific index, value of 0.8 means specific)
+print the occurence of each domain clan
+the relation between domains and classified clans can be recovered from ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release => 'Pfam-A.clans.tsv'
+Input: Pfam-A.clans.tsv, 'SPECIE_domain' (pfamscan output, called by 'Domain_file_in_path' argument) and output tables from 'Tspec_inference.R'
+
 #'cor_dif_test.R'
 Function allowing the process of exact fisher test on the correlation amongst specie 1 and specie2, and other one allows to get the number of tissues considered for a given analysis
 Input: output tables from 'Tspec_inference.R' and 'SPECIE_expression_parsed'
