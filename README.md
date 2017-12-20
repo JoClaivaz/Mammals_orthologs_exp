@@ -143,6 +143,9 @@ Output: 'pairwise_paraortho_Species1_ Species2_withtestis' and 'pairwise_paraort
 then run 'extract_paraortho_modification_group.py' (similar to 'extract_ortholog_modification_group.py', but consideration of different reference gene data in function if testis tissue was considered for its inference) 
 and 'Tspec_inference.R' and 'plot_results_tspec.R' to organized the dataset and plot the results as it was done for ortholog and paralog intraspecies
 
+#'statistical_analysis.R'
+The script allow to perform the ANCOVA analysis, the wilcoxon rank sum test, the different plot for gene length bias control and the tissue pie chart where domain modification occured.
+
 ******NOT FINISH********
 #'extract_DNA_sequence.py'
 create one file containing all the cDNA sequence specific to one specie extracted from 'eukaryotes.cdna.fa'
