@@ -113,7 +113,13 @@ def clan_inference(PairOrtho_in_path,
         if key_tmp != 'ubiquitous':
             freqs_tmp = Counter(tissue_dict[key_tmp])
             print('%s:\n%s' % (key_tmp, freqs_tmp))
-            
+    
+    freqs_tmp = []                
+    for key_tmp in tissue_dict.keys():
+        if key_tmp != 'ubiquitous':
+            freqs_tmp.append(tissue_dict[key_tmp])    
+    from itertools import chain
+    print(Counter(list(chain.from_iterable(freqs_tmp))))
     
     
 #Run in Windows for the whole datasets   
