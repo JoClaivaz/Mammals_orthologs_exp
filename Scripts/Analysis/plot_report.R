@@ -2399,68 +2399,8 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'f-1'] ~
                     species_data$tspec_1[species_data$status == 'f-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                      species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-
-smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
-              species_data$tspec_2[species_data$status == 'int-1'],
-              xlab = '',
-              ylab = '',
-              main = paste0('Domain modification group: int-1'), cex.main = 0.8)
-title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-abline(lm(species_data$tspec_2[species_data$status == 'int-1'] ~
-            species_data$tspec_1[species_data$status == 'int-1']), col = 'red')
-linear_param = lm(species_data$tspec_2[species_data$status == 'int-1'] ~
-                    species_data$tspec_1[species_data$status == 'int-1'])$coefficients
-cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
-                     species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-
-smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
-              species_data$tspec_2[species_data$status == 'b-1'],
-              xlab = '',
-              ylab = '',
-              main = paste0('Domain modification group: b-1'), cex.main = 0.8)
-title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-abline(lm(species_data$tspec_2[species_data$status == 'b-1'] ~
-            species_data$tspec_1[species_data$status == 'b-1']), col = 'red')
-linear_param = lm(species_data$tspec_2[species_data$status == 'b-1'] ~
-                    species_data$tspec_1[species_data$status == 'b-1'])$coefficients
-cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
-                     species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-
-smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
-              xlab = '',
-              ylab = '',
-              main = 'Domain control group', cex.main = 0.8, cex.lab = 0.6)
-title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-abline(lm(species_data$tspec_2[species_data$status == 'control'] ~ species_data$tspec_1[species_data$status == 'control']), col = 'red')
-linear_param = lm(species_data$tspec_2[species_data$status == 'control'] ~ species_data$tspec_1[species_data$status == 'control'])$coefficients
-cor_value = cor.test(species_data$tspec_2[species_data$status == 'control'], species_data$tspec_1[species_data$status == 'control'])$estimate[[1]]
 text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
-species_data = read.csv(paste0(path_folder, 'GORGO', '_', 'HUMAN',
-                               '_ortho_', tissue_selected))
-
-
-smoothScatter(species_data$tspec_1[species_data$status == 'f-1'],
-              species_data$tspec_2[species_data$status == 'f-1'],
-              xlab = '',
-              ylab = '',
-              main = paste0('Domain modification group: f-1'), cex.main = 0.8)
-title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-abline(lm(species_data$tspec_2[species_data$status == 'f-1'] ~
-            species_data$tspec_1[species_data$status == 'f-1']), col = 'red')
-linear_param = lm(species_data$tspec_2[species_data$status == 'f-1'] ~
-                    species_data$tspec_1[species_data$status == 'f-1'])$coefficients
-cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
-                     species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-
 smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
               species_data$tspec_2[species_data$status == 'int-1'],
               xlab = '',
@@ -2474,7 +2414,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'int-1'] ~
                     species_data$tspec_1[species_data$status == 'int-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                      species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
               species_data$tspec_2[species_data$status == 'b-1'],
@@ -2489,7 +2429,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'b-1'] ~
                     species_data$tspec_1[species_data$status == 'b-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                      species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
               xlab = '',
@@ -2519,7 +2459,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'f-1'] ~
                     species_data$tspec_1[species_data$status == 'f-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                      species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
               species_data$tspec_2[species_data$status == 'int-1'],
@@ -2534,7 +2474,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'int-1'] ~
                     species_data$tspec_1[species_data$status == 'int-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                      species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
               species_data$tspec_2[species_data$status == 'b-1'],
@@ -2549,7 +2489,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'b-1'] ~
                     species_data$tspec_1[species_data$status == 'b-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                      species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
               xlab = '',
@@ -2578,7 +2518,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'f-1'] ~
                     species_data$tspec_1[species_data$status == 'f-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                      species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
               species_data$tspec_2[species_data$status == 'int-1'],
@@ -2593,7 +2533,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'int-1'] ~
                     species_data$tspec_1[species_data$status == 'int-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                      species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
               species_data$tspec_2[species_data$status == 'b-1'],
@@ -2608,7 +2548,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'b-1'] ~
                     species_data$tspec_1[species_data$status == 'b-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                      species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
               xlab = '',
@@ -2637,7 +2577,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'f-1'] ~
                     species_data$tspec_1[species_data$status == 'f-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                      species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
               species_data$tspec_2[species_data$status == 'int-1'],
@@ -2652,7 +2592,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'int-1'] ~
                     species_data$tspec_1[species_data$status == 'int-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                      species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
               species_data$tspec_2[species_data$status == 'b-1'],
@@ -2667,7 +2607,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'b-1'] ~
                     species_data$tspec_1[species_data$status == 'b-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                      species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
               xlab = '',
@@ -2696,66 +2636,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'f-1'] ~
                     species_data$tspec_1[species_data$status == 'f-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                      species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-
-smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
-              species_data$tspec_2[species_data$status == 'int-1'],
-              xlab = '',
-              ylab = '',
-              main = paste0('Domain modification group: int-1'), cex.main = 0.8)
-title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-abline(lm(species_data$tspec_2[species_data$status == 'int-1'] ~
-            species_data$tspec_1[species_data$status == 'int-1']), col = 'red')
-linear_param = lm(species_data$tspec_2[species_data$status == 'int-1'] ~
-                    species_data$tspec_1[species_data$status == 'int-1'])$coefficients
-cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
-                     species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-
-smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
-              species_data$tspec_2[species_data$status == 'b-1'],
-              xlab = '',
-              ylab = '',
-              main = paste0('Domain modification group: b-1'), cex.main = 0.8)
-title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-abline(lm(species_data$tspec_2[species_data$status == 'b-1'] ~
-            species_data$tspec_1[species_data$status == 'b-1']), col = 'red')
-linear_param = lm(species_data$tspec_2[species_data$status == 'b-1'] ~
-                    species_data$tspec_1[species_data$status == 'b-1'])$coefficients
-cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
-                     species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-
-smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
-              xlab = '',
-              ylab = '',
-              main = 'Domain control group', cex.main = 0.8, cex.lab = 0.6)
-title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-abline(lm(species_data$tspec_2[species_data$status == 'control'] ~ species_data$tspec_1[species_data$status == 'control']), col = 'red')
-linear_param = lm(species_data$tspec_2[species_data$status == 'control'] ~ species_data$tspec_1[species_data$status == 'control'])$coefficients
-cor_value = cor.test(species_data$tspec_2[species_data$status == 'control'], species_data$tspec_1[species_data$status == 'control'])$estimate[[1]]
 text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
-species_data = read.csv(paste0(path_folder, 'BOVIN', '_', 'RATNO',
-                               '_ortho_', tissue_selected))
-
-
-smoothScatter(species_data$tspec_1[species_data$status == 'f-1'],
-              species_data$tspec_2[species_data$status == 'f-1'],
-              xlab = '',
-              ylab = '',
-              main = paste0('Domain modification group: f-1'), cex.main = 0.8)
-title(xlab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_1[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-title(ylab = paste0(gsub('[[:digit:]]','' ,species_data$GeneID_2[1]), ' Tspec values'), cex.lab =0.6, line = 2)
-abline(lm(species_data$tspec_2[species_data$status == 'f-1'] ~
-            species_data$tspec_1[species_data$status == 'f-1']), col = 'red')
-linear_param = lm(species_data$tspec_2[species_data$status == 'f-1'] ~
-                    species_data$tspec_1[species_data$status == 'f-1'])$coefficients
-cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
-                     species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
               species_data$tspec_2[species_data$status == 'int-1'],
@@ -2770,7 +2651,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'int-1'] ~
                     species_data$tspec_1[species_data$status == 'int-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                      species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
               species_data$tspec_2[species_data$status == 'b-1'],
@@ -2785,7 +2666,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'b-1'] ~
                     species_data$tspec_1[species_data$status == 'b-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                      species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
               xlab = '',
@@ -2814,7 +2695,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'f-1'] ~
                     species_data$tspec_1[species_data$status == 'f-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                      species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
               species_data$tspec_2[species_data$status == 'int-1'],
@@ -2829,7 +2710,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'int-1'] ~
                     species_data$tspec_1[species_data$status == 'int-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                      species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
               species_data$tspec_2[species_data$status == 'b-1'],
@@ -2844,7 +2725,7 @@ linear_param = lm(species_data$tspec_2[species_data$status == 'b-1'] ~
                     species_data$tspec_1[species_data$status == 'b-1'])$coefficients
 cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                      species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
 smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
               xlab = '',
@@ -2882,7 +2763,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -2896,7 +2777,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -2910,7 +2791,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -2938,7 +2819,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -2952,7 +2833,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -2966,7 +2847,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -2994,7 +2875,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3008,7 +2889,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3022,7 +2903,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3050,7 +2931,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3064,7 +2945,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3078,7 +2959,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3106,7 +2987,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3120,7 +3001,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3134,7 +3015,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3162,7 +3043,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3176,7 +3057,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3190,7 +3071,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3218,7 +3099,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3232,7 +3113,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3246,7 +3127,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3274,7 +3155,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3288,7 +3169,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3302,7 +3183,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3330,7 +3211,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3344,7 +3225,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3358,7 +3239,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3383,7 +3264,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3397,7 +3278,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3411,7 +3292,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3436,7 +3317,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3450,7 +3331,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3464,7 +3345,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3489,7 +3370,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3503,7 +3384,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3517,7 +3398,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3542,7 +3423,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3556,7 +3437,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3570,7 +3451,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3609,7 +3490,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3623,7 +3504,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3637,7 +3518,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3665,7 +3546,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3679,7 +3560,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3693,7 +3574,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3721,7 +3602,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3735,7 +3616,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3749,7 +3630,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3777,7 +3658,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3791,7 +3672,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3805,7 +3686,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3833,7 +3714,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3847,7 +3728,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3861,7 +3742,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3889,7 +3770,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3903,7 +3784,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3917,7 +3798,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -3945,7 +3826,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -3959,7 +3840,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -3973,7 +3854,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -4001,7 +3882,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -4015,7 +3896,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -4029,7 +3910,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',
@@ -4057,7 +3938,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'f-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'f-1'],
                        species_data$tspec_1[species_data$status == 'f-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'int-1'],
                 species_data$tspec_2[species_data$status == 'int-1'],
                 xlab = '',
@@ -4071,7 +3952,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'int-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'int-1'],
                        species_data$tspec_1[species_data$status == 'int-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'b-1'],
                 species_data$tspec_2[species_data$status == 'b-1'],
                 xlab = '',
@@ -4085,7 +3966,7 @@ dev.off()
                       species_data$tspec_1[species_data$status == 'b-1'])$coefficients
   cor_value = cor.test(species_data$tspec_2[species_data$status == 'b-1'],
                        species_data$tspec_1[species_data$status == 'b-1'])$estimate[[1]]
-  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r2 = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
+  text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
   smoothScatter(species_data$tspec_1[species_data$status == 'control'], species_data$tspec_2[species_data$status == 'control'],
                 xlab = '',
                 ylab = '',

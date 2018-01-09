@@ -212,7 +212,8 @@ abline( v = 0.8, col = 'red')
 wilcox.test(data_anco$tspec_2 ~ data_anco$status)
 wilcox.test(data_anco$tspec_1 ~ data_anco$status)
 
-#paired t test (parametric and non parametric)
+##paired t test (parametric and non parametric)
+#parametric correlation
 list_file = list.files('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/')
 correlation_control = c()
 correlation_modif = c()
@@ -227,14 +228,48 @@ for (i in 1:length(list_file)){
 }
 
 correlation_data = data.frame(control = correlation_control, modif = correlation_modif)
+par(pty = 's')
+plot(correlation_modif ~ correlation_control, xlim = c(0, 1), ylim = c(0, 1), 
+     ylab = 'r domain modification group', xlab = 'r control group',
+     main = "Conservation of Pearson's correlation factor", cex.main = 0.8)
+abline(lm(correlation_modif ~ 0 + correlation_control), col = 'red')
+linear_param = lm(correlation_modif ~ 0 + correlation_control)$coefficients
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' x = y'), cex = 0.8, col = 'red')
 
-hist(correlation_modif, breaks = 8, freq = F, col = rgb(1, 0 , 0, 0.5), 
-     main = paste0('Distribution of Pearson correlation factor'), xlab = 'R values', cex.main = 0.9, xlim = c(0,1), ylim = c(0,5))
-hist(correlation_control, breaks = 8, freq = F, col = rgb(0, 0 , 1, 0.5), add = T)
-legend('topleft', c("Domain modification", "No modification"), fill = c(rgb(1, 0, 0, 0.5), rgb(0, 0, 1, 0.5)), cex = 0.8, horiz = F)
+# hist(correlation_modif, breaks = 8, freq = F, col = rgb(1, 0 , 0, 0.5), 
+#      main = paste0('Distribution of Pearson correlation factor'), xlab = 'R values', cex.main = 0.9, xlim = c(0,1), ylim = c(0,5))
+# hist(correlation_control, breaks = 8, freq = F, col = rgb(0, 0 , 1, 0.5), add = T)
+# legend('topleft', c("Domain modification", "No modification"), fill = c(rgb(1, 0, 0, 0.5), rgb(0, 0, 1, 0.5)), cex = 0.8, horiz = F)
 
 t.test(correlation_data$control, correlation_data$modif)
 wilcox.test(correlation_data$control, correlation_data$modif, paired = T)
+
+#no parametric correlation
+list_file = list.files('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/')
+correlation_control = c()
+correlation_modif = c()
+j = 0
+for (i in 1:length(list_file)){
+  if (grepl('_ortho_notfemale_dataset', list_file[i])){
+    j = j + 1
+    data_tmp = read.csv(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', list_file[i]))
+    correlation_modif[j] = cor.test(data_tmp$tspec_2[data_tmp$status != 'control'], data_tmp$tspec_1[data_tmp$status != 'control'], method = 'spearman')$estimate[[1]]
+    correlation_control[j] = cor.test(data_tmp$tspec_2[data_tmp$status == 'control'], data_tmp$tspec_1[data_tmp$status == 'control'], method = 'spearman')$estimate[[1]]
+  }
+}
+
+correlation_data = data.frame(control = correlation_control, modif = correlation_modif)
+par(pty = 's')
+plot(correlation_modif ~ correlation_control, xlim = c(0, 1), ylim = c(0, 1), 
+     ylab = 'r domain modification group', xlab = 'r control group',
+     main = "Conservation of Spearman's correlation factor", cex.main = 0.8)
+abline(lm(correlation_modif ~ 0 + correlation_control), col = 'red')
+linear_param = lm(correlation_modif ~ 0 + correlation_control)$coefficients
+text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' x = y'), cex = 0.8, col = 'red')
+
+t.test(correlation_data$control, correlation_data$modif)
+wilcox.test(correlation_data$control, correlation_data$modif, paired = T)
+
 
 ####Gene length  bias control####
 #previously the gene length (amino acid length) were inferred using EMBOSS (UNIX command)
@@ -288,7 +323,7 @@ linear_param = lm(data_bigdiff$tspec_2 ~ data_bigdiff$tspec_1)$coefficients
 cor_value = cor.test(data_bigdiff$tspec_2, data_bigdiff$tspec_1)$estimate[[1]]
 text(0.7, 0.2, paste0(round(linear_param[1], digits = 3), ' + ', round(linear_param[2], digits = 3), ' x = y\n r = ', round(cor_value, digits = 3)), cex = 0.8, col = 'red')
 
-####pie chart####
+####bar plot - tissue contribution in the evolution (only shift between ubiquitous and tissue-specificity####
 species1 = 'HUMAN'
 species2 = 'MOUSE'
 data_pie = read.csv(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', species2, '_', species1, '_ortho_notfemale_dataset'))
@@ -314,7 +349,10 @@ for (i in 1:length(labels_tmp)){
   percent_tmp[i] = sum(data_pie$tissueOI == labels_tmp[i]) / length(data_pie$tissueOI)
 }
 
-pie(percent_tmp, labels = paste0(labels_tmp, ' ', round(percent_tmp, 3) * 100, '%'), main = paste0("Percentage of tissue where domain modification induces shifts between ubiquitous and specific\nDomain modification orthologs between ", gsub('[[:digit:]]','' ,data_pie$GeneID_1[1]), ' and ', gsub('[[:digit:]]','' ,data_pie$GeneID_2[1])), cex.main = 0.8, cex = 0.6)
+pie(percent_tmp, labels = paste0(labels_tmp, ' ', round(percent_tmp, 3) * 100, '%'), main = paste0("Domain modification orthologs between ", gsub('[[:digit:]]','' ,data_pie$GeneID_1[1]), ' and ', gsub('[[:digit:]]','' ,data_pie$GeneID_2[1])), cex.main = 0.8, cex = 0.6)
+par(mar=c(15,4,4,2))
+barplot_tmp = barplot(percent_tmp, names.arg = labels_tmp, las = 2, ylab = 'frequency', main = paste0("Domain modification orthologs between ", gsub('[[:digit:]]','' ,data_pie$GeneID_1[1]), ' and ', gsub('[[:digit:]]','' ,data_pie$GeneID_2[1])), cex.main = 0.8)
+text(barplot_tmp, percent_tmp - 0.01, labels = round(percent_tmp, digits = 3), cex = 0.8)
 
 #HUMAN-MACMU
 species1 = 'HUMAN'
@@ -342,7 +380,42 @@ for (i in 1:length(labels_tmp)){
   percent_tmp[i] = sum(data_pie$tissueOI == labels_tmp[i]) / length(data_pie$tissueOI)
 }
 
-pie(percent_tmp, labels = paste0(labels_tmp, ' ', round(percent_tmp, 3) * 100, '%'), main = paste0("Percentage of tissue where domain modification induces shifts between ubiquitous and specific\nDomain modification orthologs between ", gsub('[[:digit:]]','' ,data_pie$GeneID_1[1]), ' and ', gsub('[[:digit:]]','' ,data_pie$GeneID_2[1])), cex.main = 0.8, cex = 0.6)
+pie(percent_tmp, labels = paste0(labels_tmp, ' ', round(percent_tmp, 3) * 100, '%'), main = paste0("Domain modification orthologs between ", gsub('[[:digit:]]','' ,data_pie$GeneID_1[1]), ' and ', gsub('[[:digit:]]','' ,data_pie$GeneID_2[1])), cex.main = 0.8, cex = 0.6)
+par(mar=c(15,4,4,2))
+barplot_tmp = barplot(percent_tmp, names.arg = labels_tmp, las = 2, ylab = 'frequency', main = paste0("Domain modification orthologs between ", gsub('[[:digit:]]','' ,data_pie$GeneID_1[1]), ' and ', gsub('[[:digit:]]','' ,data_pie$GeneID_2[1])), cex.main = 0.8)
+text(barplot_tmp, percent_tmp - 0.01, labels = round(percent_tmp, digits = 3), cex = 0.8)
+
+#BOVIN-RATNO
+species1 = 'RATNO'
+species2 = 'BOVIN'
+data_pie = read.csv(paste0('D:/UNIL/Master/Master_Project/Data/expression_analysis/R_dataset/', species2, '_', species1, '_ortho_notfemale_dataset'))
+
+#keep only modified genes
+data_pie = data_pie[data_pie$status != 'control',]
+#keep only gene with shift from ubiquitous to specific
+data_pie = data_pie[data_pie$shift %in% c('specific_to_ubiquitous', 'ubiquitous_to_specific'),]
+#keep the tissue where the shift comes from/goes to
+data_pie$tissueOI = NA
+for (i in 1:dim(data_pie)[1]){
+  if(data_pie$TspecF_1[i] == 'ubiquitous'){
+    data_pie$tissueOI[i] = as.character(data_pie$spec_tissue_2[i])
+  }else{
+    data_pie$tissueOI[i] = as.character(data_pie$spec_tissue_1[i])
+  }
+}
+
+#Visualization
+labels_tmp = unique(data_pie$tissueOI)
+percent_tmp = c()
+for (i in 1:length(labels_tmp)){
+  percent_tmp[i] = sum(data_pie$tissueOI == labels_tmp[i]) / length(data_pie$tissueOI)
+}
+
+pie(percent_tmp, labels = paste0(labels_tmp, ' ', round(percent_tmp, 3) * 100, '%'), main = paste0("Domain modification orthologs between ", gsub('[[:digit:]]','' ,data_pie$GeneID_1[1]), ' and ', gsub('[[:digit:]]','' ,data_pie$GeneID_2[1])), cex.main = 0.8, cex = 0.6)
+par(mar=c(15,4,4,2))
+barplot_tmp = barplot(percent_tmp, names.arg = labels_tmp, las = 2, ylab = 'frequency', main = paste0("Domain modification orthologs between ", gsub('[[:digit:]]','' ,data_pie$GeneID_1[1]), ' and ', gsub('[[:digit:]]','' ,data_pie$GeneID_2[1])), cex.main = 0.8)
+text(barplot_tmp, percent_tmp - 0.01, labels = round(percent_tmp, digits = 3), cex = 0.8)
+
 
 #MOUSE-RATNO
 species1 = 'RATNO'
@@ -370,5 +443,8 @@ for (i in 1:length(labels_tmp)){
   percent_tmp[i] = sum(data_pie$tissueOI == labels_tmp[i]) / length(data_pie$tissueOI)
 }
 
-pie(percent_tmp, labels = paste0(labels_tmp, ' ', round(percent_tmp, 3) * 100, '%'), main = paste0("Percentage of tissue where domain modification induces shifts between ubiquitous and specific\nDomain modification orthologs between ", gsub('[[:digit:]]','' ,data_pie$GeneID_1[1]), ' and ', gsub('[[:digit:]]','' ,data_pie$GeneID_2[1])), cex.main = 0.8, cex = 0.6)
+pie(percent_tmp, labels = paste0(labels_tmp, ' ', round(percent_tmp, 3) * 100, '%'), main = paste0("Domain modification orthologs between ", gsub('[[:digit:]]','' ,data_pie$GeneID_1[1]), ' and ', gsub('[[:digit:]]','' ,data_pie$GeneID_2[1])), cex.main = 0.8, cex = 0.6)
+par(mar=c(15,4,4,2))
+barplot_tmp = barplot(percent_tmp, names.arg = labels_tmp, las = 2, ylab = 'frequency', main = paste0("Domain modification orthologs between ", gsub('[[:digit:]]','' ,data_pie$GeneID_1[1]), ' and ', gsub('[[:digit:]]','' ,data_pie$GeneID_2[1])), cex.main = 0.8)
+text(barplot_tmp, percent_tmp - 0.01, labels = round(percent_tmp, digits = 3), cex = 0.8)
 
